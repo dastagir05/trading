@@ -1,0 +1,71 @@
+[
+  {
+    "id": "fresh_1755163809462_1",
+    "title": "TRADE 1: Nifty Call Buying",
+    "sentiment": "bullish",
+    "setup": {
+      "currentPrice": 24647.45,
+      "strategy": "Buy Call Option",
+      "strike": "24600 CE",
+      "expiry": "2025-08-14"
+    },
+    "tradePlan": {
+      "entry": "56.6",
+      "target": "85",
+      "stopLoss": "40",
+      "timeFrame": "Intraday"
+    },
+    "logic": "Nifty is trading around 24647. The 24600 CE has the highest OI, suggesting it will act as support; therefore, buy CE.",
+    "confidence": 70,
+    "riskLevel": "medium",
+    "timestamp": "2025-08-14T09:30:09.462Z",
+    "marketTime": "15:00 IST",
+    "isFresh": true
+  },
+  {
+    "id": "fresh_1755163809462_2",
+    "title": "TRADE 2: BankNifty Call Buying",
+    "sentiment": "bullish",
+    "setup": {
+      "currentPrice": 55392,
+      "strategy": "Buy Call Option",
+      "strike": "57500 CE",
+      "expiry": "2025-08-28"
+    },
+    "tradePlan": {
+      "entry": "40.1",
+      "target": "60",
+      "stopLoss": "30",
+      "timeFrame": "Intraday"
+    },
+    "logic": "BankNifty is currently trading at 55392. The CE premiums are low at higher strike prices, so a small up move can get a good ROI with buying 57500 CE.",
+    "confidence": 65,
+    "riskLevel": "medium",
+    "timestamp": "2025-08-14T09:30:09.462Z",
+    "marketTime": "15:00 IST",
+    "isFresh": true
+  },
+  {
+    "id": "fresh_1755163809462_3",
+    "title": "TRADE 3: BankNifty Put Buying",
+    "sentiment": "bearish",
+    "setup": {
+      "currentPrice": 55392,
+      "strategy": "Buy Put Option",
+      "strike": "53900 PE",
+      "expiry": "2025-08-28"
+    },
+    "tradePlan": {
+      "entry": "80.35",
+      "target": "120",
+      "stopLoss": "60",
+      "timeFrame": "Intraday"
+    },
+    "logic": "BankNifty is currently at 55392, and 53900 PE has a reasonable premium. If BankNifty shows weakness, this could be a profitable trade.",
+    "confidence": 60,
+    "riskLevel": "medium",
+    "timestamp": "2025-08-14T09:30:09.462Z",
+    "marketTime": "15:00 IST",
+    "isFresh": true
+  }
+]

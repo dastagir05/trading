@@ -4,14 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "generate-fresh-trades": "node scripts/generateFreshTrades.js",
+    "generate-trades": "node aiTradeSugg/generateTrades.js",
+    "fetch-market-data": "node aiTradeSugg/setOptionData/setOptData.js",
+    "test-db": "node scripts/testDbConnection.js"
   },
   "author": "dastagir",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^1.13.0",
+    "axios": "^1.10.0",
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
-    "mongoose": "^8.16.1"
+    "mongoose": "^8.16.1",
+    "node-cron": "^4.2.1",
+    "protobufjs": "^7.5.3",
+    "socket.io": "^4.8.1",
+    "ws": "^8.18.3"
   }
 }

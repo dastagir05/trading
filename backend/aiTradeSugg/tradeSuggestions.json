@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "title": "TRADE 1: Nifty Call Buying (Slightly Bullish)",
+    "sentiment": "bullish",
+    "setup": {
+      "currentPrice": 24619.35,
+      "strategy": "Buy Call Option",
+      "strike": "24650 CE",
+      "expiry": "2025-08-14"
+    },
+    "tradePlan": {
+      "entry": "₹54",
+      "target": "₹80",
+      "stopLoss": "₹40",
+      "timeFrame": "Intraday"
+    },
+    "logic": "Nifty is trading near 24620. Buying 24650 CE with low premium. Targetting a 1:2 risk-reward ratio.",
+    "confidence": 70,
+    "riskLevel": "medium",
+    "timestamp": "2025-08-13T14:24:31.820Z"
+  },
+  {
+    "id": "2",
+    "title": "TRADE 2: BankNifty Call Buying (Slightly Bullish)",
+    "sentiment": "bullish",
+    "setup": {
+      "currentPrice": 55181.45,
+      "strategy": "Buy Call Option",
+      "strike": "57500 CE",
+      "expiry": "2025-08-28"
+    },
+    "tradePlan": {
+      "entry": "₹34",
+      "target": "₹50",
+      "stopLoss": "₹25",
+      "timeFrame": "Intraday"
+    },
+    "logic": "BankNifty call option strikes are too high, selecting 57500 CE with very low premium and high risk. The Index might retest previous high in the day",
+    "confidence": 65,
+    "riskLevel": "high",
+    "timestamp": "2025-08-13T14:24:31.820Z"
+  },
+  {
+    "id": "3",
+    "title": "TRADE 3: RELIANCE Swing Trade (Bullish)",
+    "sentiment": "bullish",
+    "setup": {
+      "currentPrice": 2847,
+      "strategy": "Equity Long Position",
+      "strike": "Cash Market",
+      "expiry": "Swing Trade (5-10 days)"
+    },
+    "tradePlan": {
+      "entry": "₹2,820-2,840 on dips",
+      "target": "₹2,950-3,000 (5-6% upside)'",
+      "stopLoss": "₹2,750 (2.5% risk)",
+      "timeFrame": "5-10 trading days"
+    },
+    "logic": "Dummy data by Dastagir",
+    "confidence": 65,
+    "riskLevel": "high",
+    "timestamp": "2025-08-13T14:24:31.820Z"
+  }
+]
