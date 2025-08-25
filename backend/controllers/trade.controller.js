@@ -14,7 +14,7 @@ exports.getTrades = async (req, res) => {
   res.status(200).json(trades);
 };
 
-exports.tradeDetail = async (req, res) => {
+exports.createTrade = async (req, res) => {
   const {
     userId,
     symbol,
@@ -24,6 +24,7 @@ exports.tradeDetail = async (req, res) => {
     side,
     capCategory,
     entryTime,
+    description,
     validityTime,
     status,
     lotSize,
@@ -42,24 +43,41 @@ exports.tradeDetail = async (req, res) => {
       capCategory,
       entryTime,
       side,
+      description,
       marginUsed,
       validityTime,
       status,
       lotSize,
       stoploss,
       target,
+      notes: [
+        {
+          timestamp: Date.now(),
+          message: `Trade Created- Entry at ₹${entryPrice}, Quantity: ${quantity}, Side: ${side}`,
+          type: "success",
+        },
+      ],
     });
 
     const user = await User.findById(userId);
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     user.openPositions += 1;
     // ✅ If the trade is already marked as inprocess, do similar updates
     if (status === "inprocess") {
       user.totalMoney -= marginUsed;
       user.currSymbols = symbol;
       user.totalTrades += 1;
+
+      trade.notes.push({
+        timestamp: Date.now(),
+        message: "Trade activated and is now in process",
+        type: "success",
+      });
+      await trade.save();
 
       const prevQuantity = user.frequencySymbols.get(symbol) || 0;
       user.frequencySymbols.set(symbol, prevQuantity + quantity);
@@ -85,7 +103,7 @@ exports.tradeDetail = async (req, res) => {
 
 exports.closeTradeManual = async (req, res) => {
   const { userId, tradeId } = req.body;
-  console.log("user in close manuaal", userId, tradeId)
+  console.log("user in close manuaal", userId, tradeId);
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -106,22 +124,28 @@ exports.closeTradeManual = async (req, res) => {
       trade.status = "user exited manually";
       trade.exitTime = now;
       await trade.save();
-      return res.status(200).json({ success: true, message: "Pending trade closed" });
+      return res
+        .status(200)
+        .json({ success: true, message: "Pending trade closed" });
     }
 
-    await updateTradeAfterTrade({trade, status: "user exited manually"})
-    updateUserAfterTrade({ user, trade});
-    
+    await updateTradeAfterTrade({ trade, status: "user exited manually" });
+    updateUserAfterTrade({ user, trade });
+
     // Update AI trade if this is an AI-generated trade
     if (trade.isAiTrade) {
-      await aiTradeIntegration.updateAiTradeFromTrade(trade._id, "user exited manually");
+      await aiTradeIntegration.updateAiTradeFromTrade(
+        trade._id,
+        "user exited manually"
+      );
     }
-    
+
     await trade.save();
     await user.save();
 
-    res.status(200).json({ success: true, message: "Trade closed successfully" });
-
+    res
+      .status(200)
+      .json({ success: true, message: "Trade closed successfully" });
   } catch (error) {
     console.error("❌ closeTradeManual error:", error);
     res.status(500).json({ error: "Something went wrong" });
@@ -129,8 +153,8 @@ exports.closeTradeManual = async (req, res) => {
 };
 
 exports.modifyTargetStoploss = async (req, res) => {
-  const {userId, tradeId, target, stoploss} = req.body;
-  console.log("mtarget sl", userId, tradeId, target, stoploss)
+  const { userId, tradeId, target, stoploss } = req.body;
+  console.log("mtarget sl", userId, tradeId, target, stoploss);
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -153,9 +177,8 @@ exports.modifyTargetStoploss = async (req, res) => {
       trade.stoploss = stoploss;
     }
 
-    await trade.save()
+    await trade.save();
     return res.json({ message: "Target and/or Stoploss updated", trade });
-
   } catch (error) {
     console.error("❌ modifyTargetStoploss error:", error);
     res.status(500).json({ error: "Something went wrong" });
@@ -170,28 +193,27 @@ exports.executeAiTrade = async (req, res) => {
     const { userId, aiTradeId, quantity, marginUsed, lotSize } = req.body;
 
     if (!userId || !aiTradeId) {
-      return res.status(400).json({ 
-        error: "User ID and AI Trade ID are required" 
+      return res.status(400).json({
+        error: "User ID and AI Trade ID are required",
       });
     }
 
     const result = await aiTradeIntegration.convertAiTradeToTrade(
-      aiTradeId, 
-      userId, 
+      aiTradeId,
+      userId,
       { quantity, marginUsed, lotSize }
     );
 
     res.status(200).json({
       success: true,
       message: "AI trade executed successfully",
-      data: result
+      data: result,
     });
-
   } catch (error) {
     console.error("❌ executeAiTrade error:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to execute AI trade",
-      details: error.message 
+      details: error.message,
     });
   }
 };
@@ -202,23 +224,24 @@ exports.getUserAiTradePerformance = async (req, res) => {
     const { userId } = req.params;
 
     if (!userId) {
-      return res.status(400).json({ 
-        error: "User ID is required" 
+      return res.status(400).json({
+        error: "User ID is required",
       });
     }
 
-    const performance = await aiTradeIntegration.getUserAiTradePerformance(userId);
+    const performance = await aiTradeIntegration.getUserAiTradePerformance(
+      userId
+    );
 
     res.status(200).json({
       success: true,
-      data: performance
+      data: performance,
     });
-
   } catch (error) {
     console.error("❌ getUserAiTradePerformance error:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to get AI trade performance",
-      details: error.message 
+      details: error.message,
     });
   }
 };
@@ -230,8 +253,8 @@ exports.getPersonalizedAiTradeSuggestions = async (req, res) => {
     const { sentiment, riskLevel } = req.query;
 
     if (!userId) {
-      return res.status(400).json({ 
-        error: "User ID is required" 
+      return res.status(400).json({
+        error: "User ID is required",
       });
     }
 
@@ -240,20 +263,19 @@ exports.getPersonalizedAiTradeSuggestions = async (req, res) => {
     if (riskLevel) preferences.riskLevel = riskLevel;
 
     const result = await aiTradeIntegration.getPersonalizedAiTradeSuggestions(
-      userId, 
+      userId,
       preferences
     );
 
     res.status(200).json({
       success: true,
-      data: result
+      data: result,
     });
-
   } catch (error) {
     console.error("❌ getPersonalizedAiTradeSuggestions error:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to get personalized AI trade suggestions",
-      details: error.message 
+      details: error.message,
     });
   }
 };

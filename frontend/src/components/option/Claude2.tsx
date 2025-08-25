@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ChevronDown, LineChart, TrendingUp, TrendingDown, Activity, Filter, Calendar, Info, Sparkles, RefreshCw } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type OptionGreeks = {
   vega: number;
@@ -65,23 +65,22 @@ const popularIndices = [
 ];
 
 
-const OptionsPage: React.FC<{ symbol?: string }> = ({
-  symbol = "NSE_INDEX|Nifty Bank",
-}) => {
+const OptionsPage = () => {
   const [data, setData] = useState<OptionItem[]>([]);
   const [availableExpiries, setAvailableExpiries] = useState<string[]>([]);
   const [selectedExpiry, setSelectedExpiry] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("medium");
   const [atmStrike, setAtmStrike] = useState<number>(0);
-  const [selectedSymbol, setSelectedSymbol] = useState<string>(symbol);
+  const [selectedSymbol, setSelectedSymbol] = useState<string>("NSE_INDEX|Nifty 50");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const symbol = searchParams.get("instrumentKey");
 
   useEffect(() => {
-    setSelectedSymbol(symbol);
+    setSelectedSymbol(symbol || selectedSymbol);
   }, [symbol]);
 
   const fetchExpiryDates = async () => {

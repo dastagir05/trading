@@ -2,16 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { TradeSuggestion } from './AIsuggestion';
 import axios from 'axios';
 
+export interface TradeSugg {
+  aiTradeId: string;
+  title: string;
+  sentiment: 'bullish' | 'bearish' | 'neutral';
+  setup: {
+    currentPrice: number;
+    strategy: string;
+    strike: string;
+    expiry: string;
+  };
+  tradePlan: {
+    entry: string;
+    target: string;
+    stopLoss: string;
+    timeFrame: string;
+  };
+  logic: string;
+  confidence: number;
+  riskLevel: 'low' | 'medium' | 'high';
+  timestamp: string;
+}
+
 const AITradeCard = () => { // send whole moncksuggdata in para so we can map
   const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
   const [showCreateStrategy, setShowCreateStrategy] = useState(false);
-  const [mockSuggestions, setMockSuggestions] = useState<TradeSuggestion[]>()
+  const [mockSuggestions, setMockSuggestions] = useState<TradeSugg[]>()
 
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/aiSuggested`);
-        setMockSuggestions(res.data);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades`);
+        setMockSuggestions(res.data.data);
+        console.log("aiss", res.data.data.length)
+        if (res.data.data.length === 0){
+          const active = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades?status=active`);
+          setMockSuggestions(active.data.data)
+        }
       } catch (error) {
         console.error('Failed to fetch AI suggestions:', error);
       }
@@ -55,13 +82,13 @@ const AITradeCard = () => { // send whole moncksuggdata in para so we can map
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {mockSuggestions && mockSuggestions.map((strategy) => (
               <div 
-                key={strategy.id}
+                key={strategy.aiTradeId}
                 className={`border rounded-lg p-6 cursor-pointer transition-all hover:shadow-md ${
-                  selectedStrategy === strategy.id 
+                  selectedStrategy === strategy.aiTradeId
                     ? 'border-green-500 bg-green-50' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
-                onClick={() => setSelectedStrategy(strategy.id)}
+                onClick={() => setSelectedStrategy(strategy.aiTradeId)}
               >
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-semibold text-gray-900">{strategy.title}</h4>
@@ -144,7 +171,7 @@ const AITradeCard = () => { // send whole moncksuggdata in para so we can map
           
           <div className="p-6">
             {(() => {
-              const strategy = mockSuggestions?.find(s => s.id === selectedStrategy);
+              const strategy = mockSuggestions?.find(s => s.aiTradeId === selectedStrategy);
               if (!strategy) return null;
               
               return (

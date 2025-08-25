@@ -6,7 +6,7 @@ import {
   ArrowUpRight,
   ArrowDownRight
 } from 'lucide-react';
-import OMChart from '../chart/OMChart';
+import Chart from '../chart/ClaudeBad';
 import SummarySection from './Summary';
 import StrategySection from './Strategy';
 import StrategyBuilderPage from './StrategyBuilder';
@@ -92,7 +92,7 @@ const StockDetailPage: React.FC<StockDetailPageProps> = ({ onBack }) => {
       case 'summary':
         return <SummarySection stockData={stockData} />;
       case 'charts':
-        return <OMChart />;
+        return <Chart />;
       case 'strategy builder':
         return <StrategyBuilderPage />;
       case 'options':

@@ -35,6 +35,11 @@ const pendingEntries = async () => {
       // trade.enteredPrice = ltp;
       trade.entryTime = new Date();
       trade.status = "inprocess";
+      trade.notes.push({
+        timestamp: Date.now(),
+        message: "Trade activated ",
+        type: "success",
+      });
       user.totalMoney -= trade.marginUsed;
       user.currSymbols = trade.symbol;
       user.totalTrades += 1;

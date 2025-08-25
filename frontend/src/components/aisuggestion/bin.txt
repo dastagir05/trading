@@ -1,0 +1,225 @@
+ 
+  const getSentimentConfig = (sentiment: string) => {
+    switch (sentiment) {
+      case 'bullish':
+        return {
+          color: 'text-green-600',
+          bg: 'bg-green-100',
+          label: 'Bullish'
+        };
+      case 'bearish':
+        return {
+          color: 'text-red-600',
+          bg: 'bg-red-100', 
+          label: 'Bearish'
+        };
+      default:
+        return {
+          color: 'text-blue-600',
+          bg: 'bg-blue-100',
+          label: 'Neutral'
+        };
+    }
+  };
+
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case 'low':
+        return 'text-green-600';
+      case 'medium':
+        return 'text-orange-600';
+      case 'high':
+        return 'text-red-600';
+      default:
+        return 'text-gray-600';
+    }
+  };
+
+  // Extract max profit and max loss from target and stopLoss
+  const extractProfitLoss = (target: string, stopLoss: string) => {
+    const profitMatch = target.match(/₹(\d+(?:,\d+)*)-?(\d+(?:,\d+)*)?/);
+    const lossMatch = stopLoss.match(/₹(\d+(?:,\d+)*)-?(\d+(?:,\d+)*)?/);
+    
+    const maxProfit = profitMatch ? `₹${profitMatch[2] || profitMatch[1]}` : 'N/A';
+    const maxLoss = lossMatch ? `₹${lossMatch[2] || lossMatch[1]}` : 'N/A';
+    
+    return { maxProfit, maxLoss };
+  };
+
+  // Calculate success probability based on confidence and risk
+  const getSuccessProbability = (confidence: number, riskLevel: string) => {
+    let adjustment = 0;
+    if (riskLevel === 'low') adjustment = 5;
+    if (riskLevel === 'high') adjustment = -10;
+    return Math.max(30, Math.min(85, confidence + adjustment));
+  };
+ 
+ 
+ 
+ 
+  {/* Trading Cards */}
+      <div className="p-6">
+        <div className="grid gap-6">
+          {suggestions.map((suggestion) => {
+            const sentimentConfig = getSentimentConfig(suggestion.sentiment);
+            const isExpanded = selectedSuggestion === suggestion.id;
+            const { maxProfit, maxLoss } = extractProfitLoss(suggestion.tradePlan.target, suggestion.tradePlan.stopLoss);
+            const successProbability = getSuccessProbability(suggestion.confidence, suggestion.riskLevel);
+
+            return (
+              <div key={suggestion.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                {/* Card Header */}
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-3">
+                      <h4 className="text-lg font-semibold text-gray-900">{suggestion.title}</h4>
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${sentimentConfig.color} ${sentimentConfig.bg}`}>
+                        {sentimentConfig.label}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right">
+                        <div className="text-sm text-gray-600">Confidence</div>
+                        <div className="font-semibold text-purple-600">{suggestion.confidence}%</div>
+                      </div>
+                      <button 
+                        onClick={() => setSelectedSuggestion(isExpanded ? null : suggestion.id)}
+                        className="p-1"
+                      >
+                        <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${
+                          isExpanded ? 'rotate-90' : ''
+                        }`} />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-6 gap-3 text-sm">
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Strategy</div>
+                      <div className="font-medium">{suggestion.setup.strategy}</div>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Max Profit</div>
+                      <div className="font-medium text-green-600">{maxProfit}</div>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Max Loss</div>
+                      <div className="font-medium text-red-600">{maxLoss}</div>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Breakeven</div>
+                      <div className="font-medium">~₹{suggestion.setup.currentPrice.toLocaleString()}</div>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Success Probability</div>
+                      <div className="font-medium text-blue-600">{successProbability}%</div>
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded">
+                      <div className="text-gray-600 text-xs mb-1">Risk Level</div>
+                      <div className={`font-medium ${getRiskColor(suggestion.riskLevel)}`}>
+                        {suggestion.riskLevel.charAt(0).toUpperCase() + suggestion.riskLevel.slice(1)}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional Info Row */}
+                  <div className="grid grid-cols-4 gap-4 mt-3 text-sm">
+                    <div>
+                      <div className="text-gray-600">Current Price</div>
+                      <div className="font-medium">₹{suggestion.setup.currentPrice.toLocaleString()}</div>
+                    </div>
+                    <div>
+                      <div className="text-gray-600">Strike</div>
+                      <div className="font-medium">{suggestion.setup.strike}</div>
+                    </div>
+                    <div>
+                      <div className="text-gray-600">Expiry</div>
+                      <div className="font-medium">{suggestion.setup.expiry}</div>
+                    </div>
+                    <div>
+                      <div className="text-gray-600">Updated</div>
+                      <div className="font-medium">{suggestion.timestamp}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expanded Details */}
+                {isExpanded && (
+                  <div className="border-t border-gray-200 bg-gray-50">
+                    <div className="p-4 space-y-4">
+                      {/* Setup */}
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-2">Setup:</h5>
+                        <ul className="space-y-1 text-gray-700 text-sm">
+                          <li>• <strong>Current Price:</strong> ~₹{suggestion.setup.currentPrice.toLocaleString()}</li>
+                          <li>• <strong>Strategy:</strong> {suggestion.setup.strategy}</li>
+                          <li>• <strong>Strike:</strong> {suggestion.setup.strike}</li>
+                          <li>• <strong>Expiry:</strong> {suggestion.setup.expiry}</li>
+                        </ul>
+                      </div>
+
+                      {/* Trade Plan */}
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-2">Trade Plan:</h5>
+                        <ul className="space-y-1 text-gray-700 text-sm">
+                          <li>• <strong>Entry:</strong> {suggestion.tradePlan.entry}</li>
+                          <li>• <strong>Target:</strong> <span className="text-green-600">{suggestion.tradePlan.target}</span></li>
+                          <li>• <strong>Stop Loss:</strong> <span className="text-red-600">{suggestion.tradePlan.stopLoss}</span></li>
+                          <li>• <strong>Time Frame:</strong> {suggestion.tradePlan.timeFrame}</li>
+                        </ul>
+                      </div>
+
+                      {/* Logic */}
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-2">Logic:</h5>
+                        <p className="text-gray-700 text-sm">{suggestion.logic}</p>
+                      </div>
+
+                      {/* Market Factors */}
+                      <div>
+                        <h5 className="font-semibold text-gray-900 mb-2">Market Factors:</h5>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-600">Time Decay:</span>
+                            <span className="font-medium text-orange-600">Neutral</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-600">Volatility:</span>
+                            <span className="font-medium text-green-600">Benefits from low volatility</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex space-x-3 pt-4">
+                        <button className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">
+                          Execute Trade
+                        </button>
+                        <button className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                          Add to Watchlist
+                        </button>
+                        <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                          <Star className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="flex items-start space-x-3">
+            <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5" />
+            <div className="text-sm text-yellow-800">
+              <strong>Disclaimer:</strong> These are AI-generated suggestions based on technical analysis and market data. 
+              Please conduct your own research and consider your risk tolerance before making any trading decisions. 
+              Past performance does not guarantee future results.
+            </div>
+          </div>
+        </div>
+      </div>

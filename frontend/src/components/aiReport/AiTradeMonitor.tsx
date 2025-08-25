@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import axios from "axios"
 import { 
   Activity, 
   Clock, 
@@ -17,17 +18,26 @@ import {
   Zap
 } from 'lucide-react';
 
+interface Setup {
+  currentPrice: number;
+  expiry:string;
+  strike:string;
+}
+
+interface TradePlan {
+  entry:string;
+  stopLoss:string;
+  target:string;
+  timeFrame: string;
+}
+
 interface ActiveTrade {
   _id: string;
   aiTradeId: string;
   title: string;
-  symbol: string;
   sentiment: 'bullish' | 'bearish' | 'neutral';
-  entryPrice: number;
-  currentPrice: number;
-  target: number;
-  stopLoss: number;
-  quantity: number;
+  setup: Setup;
+  tradePlan: TradePlan;
   pnl: number;
   percentPnL: number;
   confidence: number;
@@ -35,6 +45,9 @@ interface ActiveTrade {
   activatedAt: Date;
   timeFrame: string;
   status: 'active';
+  quantity: number;
+  symbol: string;
+  entryPrice: number;
 }
 
 const AiTradeMonitor: React.FC = () => {
@@ -58,13 +71,9 @@ const AiTradeMonitor: React.FC = () => {
   }, [isMonitoring, refreshInterval]);
   const fetchActiveTrades = async () => {
     try {
-      const response = await fetch('/api/ai-trades?status=active');
-      const result = await response.json();
-      if (Array.isArray(result.data)) {
-        setActiveTrades(result.data);
-      } else {
-        setActiveTrades([]);
-      }
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades?status=active`);
+        console.log("actv", res.data.data)
+        setActiveTrades(res.data.data);
     } catch (error) {
       console.error('Failed to fetch active trades:', error);
       setActiveTrades([]);
@@ -234,14 +243,14 @@ const AiTradeMonitor: React.FC = () => {
               <div className="grid grid-cols-2 gap-4 mb-3">
                 <div>
                   <p className="text-xs text-gray-500">Entry Price</p>
-                  <p className="font-medium text-gray-900">₹{trade.entryPrice}</p>
+                  <p className="font-medium text-gray-900">{trade.tradePlan.entry}</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Current Price</p>
                   <div className="flex items-center space-x-1">
-                    {getPriceChangeIcon(trade.currentPrice, trade.entryPrice)}
-                    <p className={`font-medium ${getPriceChangeColor(trade.currentPrice, trade.entryPrice)}`}>
-                      ₹{trade.currentPrice}
+                    {getPriceChangeIcon(trade.setup.currentPrice, trade.entryPrice)}
+                    <p className={`font-medium ${getPriceChangeColor(trade.setup.currentPrice, trade.entryPrice)}`}>
+                      ₹{trade.setup.currentPrice}
                     </p>
                   </div>
                 </div>
@@ -251,26 +260,26 @@ const AiTradeMonitor: React.FC = () => {
               <div className="space-y-2 mb-3">
                 <div>
                   <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span>Target: ₹{trade.target}</span>
-                    <span>{calculateProgress(trade.currentPrice, trade.entryPrice, trade.target).toFixed(1)}%</span>
+                    <span>Target: ₹{trade.tradePlan.target}</span>
+                    <span>{calculateProgress(trade.setup.currentPrice, trade.entryPrice, parseInt(trade.tradePlan.target)).toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-green-600 h-2 rounded-full transition-all duration-300" 
-                      style={{ width: `${calculateProgress(trade.currentPrice, trade.entryPrice, trade.target)}%` }}
+                      style={{ width: `${calculateProgress(trade.setup.currentPrice, trade.entryPrice, parseInt(trade.tradePlan.target))}%` }}
                     ></div>
                   </div>
                 </div>
                 
                 <div>
                   <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span>Stop Loss: ₹{trade.stopLoss}</span>
-                    <span>{calculateProgress(trade.currentPrice, trade.entryPrice, trade.stopLoss).toFixed(1)}%</span>
+                    <span>Stop Loss: ₹{trade.tradePlan.stopLoss}</span>
+                    <span>{calculateProgress(trade.setup.currentPrice, trade.entryPrice, parseInt(trade.tradePlan.stopLoss)).toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-red-600 h-2 rounded-full transition-all duration-300" 
-                      style={{ width: `${calculateProgress(trade.currentPrice, trade.entryPrice, trade.stopLoss)}%` }}
+                      style={{ width: `${calculateProgress(trade.setup.currentPrice, trade.entryPrice, parseInt(trade.tradePlan.stopLoss))}%` }}
                     ></div>
                   </div>
                 </div>
@@ -281,13 +290,13 @@ const AiTradeMonitor: React.FC = () => {
                 <div className="text-center">
                   <p className="text-xs text-gray-500">P&L</p>
                   <p className={`font-medium ${trade.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    ₹{trade.pnl.toLocaleString()}
+                    ₹{trade.pnl}
                   </p>
                 </div>
                 <div className="text-center">
                   <p className="text-xs text-gray-500">% P&L</p>
                   <p className={`font-medium ${trade.percentPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {trade.percentPnL.toFixed(2)}%
+                    {trade.percentPnL?.toFixed(2) ?? "-"}%
                   </p>
                 </div>
                 <div className="text-center">
@@ -298,9 +307,9 @@ const AiTradeMonitor: React.FC = () => {
 
               {/* Trade Details */}
               <div className="flex items-center justify-between text-xs text-gray-500">
-                <span>Qty: {trade.quantity}</span>
-                <span>Time Frame: {trade.timeFrame}</span>
-                <span>Started: {new Date(trade.activatedAt).toLocaleDateString()}</span>
+                <span>Qty: {trade.quantity ?? "1"}</span>
+                <span>Time Frame: {trade.tradePlan.timeFrame}</span>
+                <span>Started: {new Date(trade.activatedAt).toLocaleDateString() ?? "-"}</span>
               </div>
             </div>
           ))}

@@ -55,7 +55,7 @@ const TradesSchema = new Schema(
       type: String,
       enum: ["large", "mid", "small", "index"],
     },
-
+    description: String,
     entryTime: Date,
     stoploss: Number,
     target: Number,
@@ -86,7 +86,21 @@ const TradesSchema = new Schema(
       ],
       default: "pending",
     },
-    
+
+    tags: [String],
+
+    // Notes and updates
+    notes: [
+      {
+        timestamp: Date,
+        message: String,
+        type: {
+          type: String,
+          enum: ["info", "warning", "error", "success", "expired_on_time"],
+        },
+      },
+    ],
+
     // AI Trade tracking
     isAiTrade: {
       type: Boolean,

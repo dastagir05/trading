@@ -37,7 +37,7 @@ const AiTradeSchema = new Schema(
     },
     riskLevel: {
       type: String,
-      enum: ["low", "medium", "high"],
+      enum: ["LOW", "MEDIUM", "HIGH"],
     },
     
     // Trade execution details
@@ -49,7 +49,8 @@ const AiTradeSchema = new Schema(
         "target_hit",
         "stoploss_hit",
         "expired",
-        "cancelled"
+        "cancelled",
+        "active_expired"
       ],
       default: "suggested",
     },
@@ -102,7 +103,7 @@ const AiTradeSchema = new Schema(
       message: String,
       type: {
         type: String,
-        enum: ["info", "warning", "error", "success"],
+        enum: ["info", "warning", "error", "success", "expired_on_time"],
       },
     }],
   },

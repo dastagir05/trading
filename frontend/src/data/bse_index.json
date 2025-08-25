@@ -1,0 +1,352 @@
+[
+  {
+    "name": "BSE FINANCIAL SERVCS",
+    "instrument_key": "BSE_INDEX|FINSER",
+    "trading_symbol": "FINSER"
+  },
+  {
+    "name": "BSE INDIA 150",
+    "instrument_key": "BSE_INDEX|IND150",
+    "trading_symbol": "IND150"
+  },
+  {
+    "name": "BSE BANKEX",
+    "instrument_key": "BSE_INDEX|BANKEX",
+    "trading_symbol": "BANKEX"
+  },
+  {
+    "name": "BSE REALTY",
+    "instrument_key": "BSE_INDEX|REALTY",
+    "trading_symbol": "REALTY"
+  },
+  {
+    "name": "BSE SENSEX SIXTY",
+    "instrument_key": "BSE_INDEX|SNSX60",
+    "trading_symbol": "SNSX60"
+  },
+  {
+    "name": "BSE 1000",
+    "instrument_key": "BSE_INDEX|BS1000",
+    "trading_symbol": "BS1000"
+  },
+  {
+    "name": "BSE INTERNET ECONOMY",
+    "instrument_key": "BSE_INDEX|INTECO",
+    "trading_symbol": "INTECO"
+  },
+  {
+    "name": "BSE INDIA MFG INDEX",
+    "instrument_key": "BSE_INDEX|MFG",
+    "trading_symbol": "MFG"
+  },
+  {
+    "name": "BSE FOCUSED MIDCAP",
+    "instrument_key": "BSE_INDEX|FOCMID",
+    "trading_symbol": "FOCMID"
+  },
+  {
+    "name": "BSE MIDCAP",
+    "instrument_key": "BSE_INDEX|MIDCAP",
+    "trading_symbol": "MIDCAP"
+  },
+  {
+    "name": "BSE DVND STABILITY",
+    "instrument_key": "BSE_INDEX|BSEDSI",
+    "trading_symbol": "BSEDSI"
+  },
+  {
+    "name": "BSE 500",
+    "instrument_key": "BSE_INDEX|BSE500",
+    "trading_symbol": "BSE500"
+  },
+  {
+    "name": "BSE 150 MIDCAP INDEX",
+    "instrument_key": "BSE_INDEX|MID150",
+    "trading_symbol": "MID150"
+  },
+  {
+    "name": "BSE POWER & ENERGY",
+    "instrument_key": "BSE_INDEX|POWENE",
+    "trading_symbol": "POWENE"
+  },
+  {
+    "name": "BSE 100",
+    "instrument_key": "BSE_INDEX|BSE100",
+    "trading_symbol": "BSE100"
+  },
+  {
+    "name": "BSE 200",
+    "instrument_key": "BSE_INDEX|BSE200",
+    "trading_symbol": "BSE200"
+  },
+  {
+    "name": "BSE FOCUSED IT",
+    "instrument_key": "BSE_INDEX|FOCIT",
+    "trading_symbol": "FOCIT"
+  },
+  {
+    "name": "BSE 200 EQUAL WEIGHT",
+    "instrument_key": "BSE_INDEX|200EQW",
+    "trading_symbol": "200EQW"
+  },
+  {
+    "name": "BSE SENSEXSIXTY 65:35",
+    "instrument_key": "BSE_INDEX|SS6535",
+    "trading_symbol": "SS6535"
+  },
+  {
+    "name": "BSE 100 ESG INDEX",
+    "instrument_key": "BSE_INDEX|ESG100",
+    "trading_symbol": "ESG100"
+  },
+  {
+    "name": "BSE LARGECAP",
+    "instrument_key": "BSE_INDEX|LRGCAP",
+    "trading_symbol": "LRGCAP"
+  },
+  {
+    "name": "BSE INDUSTRIALS",
+    "instrument_key": "BSE_INDEX|INDSTR",
+    "trading_symbol": "INDSTR"
+  },
+  {
+    "name": "BSE 500 QUALITY 50",
+    "instrument_key": "BSE_INDEX|QUAL50",
+    "trading_symbol": "QUAL50"
+  },
+  {
+    "name": "BSE PSU BANK",
+    "instrument_key": "BSE_INDEX|PSUBNK",
+    "trading_symbol": "PSUBNK"
+  },
+  {
+    "name": "BSE BHARAT 22 INDEX",
+    "instrument_key": "BSE_INDEX|BHRT22",
+    "trading_symbol": "BHRT22"
+  },
+  {
+    "name": "BSE SMALLCAP",
+    "instrument_key": "BSE_INDEX|SMLCAP",
+    "trading_symbol": "SMLCAP"
+  },
+  {
+    "name": "BSE POWER",
+    "instrument_key": "BSE_INDEX|POWER",
+    "trading_symbol": "POWER"
+  },
+  {
+    "name": "BSE SENSEX NEXT 50",
+    "instrument_key": "BSE_INDEX|SNXT50",
+    "trading_symbol": "SNXT50"
+  },
+  {
+    "name": "BSE 250 SMALLCAP",
+    "instrument_key": "BSE_INDEX|SML250",
+    "trading_symbol": "SML250"
+  },
+  {
+    "name": "BSE SENSEX NEXT 30",
+    "instrument_key": "BSE_INDEX|SNXN30",
+    "trading_symbol": "SNXN30"
+  },
+  {
+    "name": "BSE 500 MOMENTUM 50",
+    "instrument_key": "BSE_INDEX|MOME50",
+    "trading_symbol": "MOME50"
+  },
+  {
+    "name": "BSE CONSUMER DISCRE",
+    "instrument_key": "BSE_INDEX|CONDIS",
+    "trading_symbol": "CONDIS"
+  },
+  {
+    "name": "BSE DIVERS FIN REV GR",
+    "instrument_key": "BSE_INDEX|DFRGRI",
+    "trading_symbol": "DFRGRI"
+  },
+  {
+    "name": "BSE AUTO",
+    "instrument_key": "BSE_INDEX|AUTO",
+    "trading_symbol": "AUTO"
+  },
+  {
+    "name": "BSE CAP MKTS & INSU",
+    "instrument_key": "BSE_INDEX|CAPINS",
+    "trading_symbol": "CAPINS"
+  },
+  {
+    "name": "BSE ENERGY",
+    "instrument_key": "BSE_INDEX|ENERGY",
+    "trading_symbol": "ENERGY"
+  },
+  {
+    "name": "BSE Select IPO",
+    "instrument_key": "BSE_INDEX|SELIPO",
+    "trading_symbol": "SELIPO"
+  },
+  {
+    "name": "BSE PRIVATE BANKS",
+    "instrument_key": "BSE_INDEX|BSEPBI",
+    "trading_symbol": "BSEPBI"
+  },
+  {
+    "name": "BSE 400 MIDSMALLCAP",
+    "instrument_key": "BSE_INDEX|MSL400",
+    "trading_symbol": "MSL400"
+  },
+  {
+    "name": "BSE PSU",
+    "instrument_key": "BSE_INDEX|BSEPSU",
+    "trading_symbol": "BSEPSU"
+  },
+  {
+    "name": "BSE QUALITY INDEX",
+    "instrument_key": "BSE_INDEX|BSEQUI",
+    "trading_symbol": "BSEQUI"
+  },
+  {
+    "name": "BSE MIDCAP SELECT",
+    "instrument_key": "BSE_INDEX|MIDSEL",
+    "trading_symbol": "MIDSEL"
+  },
+  {
+    "name": "BSE Services",
+    "instrument_key": "BSE_INDEX|BSESER",
+    "trading_symbol": "BSESER"
+  },
+  {
+    "name": "BSE ENHANCED VALUE",
+    "instrument_key": "BSE_INDEX|BSEEVI",
+    "trading_symbol": "BSEEVI"
+  },
+  {
+    "name": "BSE FMCG",
+    "instrument_key": "BSE_INDEX|BSEFMC",
+    "trading_symbol": "BSEFMC"
+  },
+  {
+    "name": "BSE IPO",
+    "instrument_key": "BSE_INDEX|BSEIPO",
+    "trading_symbol": "BSEIPO"
+  },
+  {
+    "name": "BSE COMMODITIES",
+    "instrument_key": "BSE_INDEX|COMDTY",
+    "trading_symbol": "COMDTY"
+  },
+  {
+    "name": "BSE LOW VOLATILITY",
+    "instrument_key": "BSE_INDEX|BSELVI",
+    "trading_symbol": "BSELVI"
+  },
+  {
+    "name": "BSE MOMENTUM INDEX",
+    "instrument_key": "BSE_INDEX|BSEMOI",
+    "trading_symbol": "BSEMOI"
+  },
+  {
+    "name": "BSE INDIA SECT LEADER",
+    "instrument_key": "BSE_INDEX|INSLDR",
+    "trading_symbol": "INSLDR"
+  },
+  {
+    "name": "BSE SME IPO",
+    "instrument_key": "BSE_INDEX|SMEIPO",
+    "trading_symbol": "SMEIPO"
+  },
+  {
+    "name": "BSE 100 LARGECAP TMC",
+    "instrument_key": "BSE_INDEX|LCTMCI",
+    "trading_symbol": "LCTMCI"
+  },
+  {
+    "name": "BSE METAL",
+    "instrument_key": "BSE_INDEX|METAL",
+    "trading_symbol": "METAL"
+  },
+  {
+    "name": "BSE TECK",
+    "instrument_key": "BSE_INDEX|TECK",
+    "trading_symbol": "TECK"
+  },
+  {
+    "name": "BSE PREMIUM CONSUMPT",
+    "instrument_key": "BSE_INDEX|PRECON",
+    "trading_symbol": "PRECON"
+  },
+  {
+    "name": "BSE CPSE",
+    "instrument_key": "BSE_INDEX|CPSE",
+    "trading_symbol": "CPSE"
+  },
+  {
+    "name": "BSE 250 LARGEMIDCAP",
+    "instrument_key": "BSE_INDEX|LMI250",
+    "trading_symbol": "LMI250"
+  },
+  {
+    "name": "BSE SEL BUSINESS GRP",
+    "instrument_key": "BSE_INDEX|BBGEFS",
+    "trading_symbol": "BBGEFS"
+  },
+  {
+    "name": "BSE SENSEX",
+    "instrument_key": "BSE_INDEX|SENSEX",
+    "trading_symbol": "SENSEX"
+  },
+  {
+    "name": "BSE UTILITIES",
+    "instrument_key": "BSE_INDEX|UTILS",
+    "trading_symbol": "UTILS"
+  },
+  {
+    "name": "BSE INDIA INFRA INDEX",
+    "instrument_key": "BSE_INDEX|INFRA",
+    "trading_symbol": "INFRA"
+  },
+  {
+    "name": "BSE OIL&GAS",
+    "instrument_key": "BSE_INDEX|OILGAS",
+    "trading_symbol": "OILGAS"
+  },
+  {
+    "name": "BSE SMALLCAP SELECT",
+    "instrument_key": "BSE_INDEX|SMLSEL",
+    "trading_symbol": "SMLSEL"
+  },
+  {
+    "name": "BSE SENSEX EQUAL WGT",
+    "instrument_key": "BSE_INDEX|SENEQW",
+    "trading_symbol": "SENEQW"
+  },
+  {
+    "name": "BSE Healthcare",
+    "instrument_key": "BSE_INDEX|BSEHC",
+    "trading_symbol": "BSEHC"
+  },
+  {
+    "name": "BSE IT",
+    "instrument_key": "BSE_INDEX|BSEIT",
+    "trading_symbol": "BSEIT"
+  },
+  {
+    "name": "BSE CAPITAL GOODS",
+    "instrument_key": "BSE_INDEX|BSECG",
+    "trading_symbol": "BSECG"
+  },
+  {
+    "name": "BSE CONSUMER DURABLES",
+    "instrument_key": "BSE_INDEX|BSECD",
+    "trading_symbol": "BSECD"
+  },
+  {
+    "name": "BSE TELECOMMUNICATION",
+    "instrument_key": "BSE_INDEX|TELCOM",
+    "trading_symbol": "TELCOM"
+  },
+  {
+    "name": "BSE SENSEX 50",
+    "instrument_key": "BSE_INDEX|SENSEX50",
+    "trading_symbol": "SENSEX50"
+  }
+]

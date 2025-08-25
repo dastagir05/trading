@@ -13,17 +13,18 @@ import {
   Activity
 } from 'lucide-react';
 
-interface AiTradeStatsProps {
+export interface AiTradeStatsProps {
   stats: {
-    total: number;
-    suggested: number;
-    active: number;
+    totalTrades: number;
+    suggestedTrades: number;
+    activeTrades: number;
+    completedTrades: number,
     targetHit: number;
     stopLossHit: number;
     expired: number;
     cancelled: number;
     totalPnL: number;
-    successRate: number;
+    winRate: number;
     avgConfidence: number;
   } | null;
 }
@@ -34,14 +35,14 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
   const statCards = [
     {
       title: 'Total AI Trades',
-      value: stats.total,
+      value: stats.totalTrades,
       icon: Activity,
       color: 'bg-blue-500',
       textColor: 'text-blue-600'
     },
     {
       title: 'Active Trades',
-      value: stats.active,
+      value: stats.activeTrades,
       icon: Clock,
       color: 'bg-yellow-500',
       textColor: 'text-yellow-600'
@@ -61,8 +62,15 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
       textColor: 'text-red-600'
     },
     {
+      title: 'Completed Trades',
+      value: stats.completedTrades,
+      icon: Shield,
+      color: 'bg-green-500',
+      textColor: 'text-red-600'
+    },
+    {
       title: 'Success Rate',
-      value: `${stats.successRate}%`,
+      value: `${(stats.winRate)*100 }%`,
       icon: BarChart3,
       color: 'bg-purple-500',
       textColor: 'text-purple-600'
@@ -77,8 +85,8 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
   ];
 
   const statusBreakdown = [
-    { label: 'Suggested', count: stats.suggested, color: 'bg-gray-100 text-gray-700' },
-    { label: 'Active', count: stats.active, color: 'bg-blue-100 text-blue-700' },
+    { label: 'Suggested', count: stats.suggestedTrades, color: 'bg-gray-100 text-gray-700' },
+    { label: 'Active', count: stats.activeTrades, color: 'bg-blue-100 text-blue-700' },
     { label: 'Target Hit', count: stats.targetHit, color: 'bg-green-100 text-green-700' },
     { label: 'Stop Loss Hit', count: stats.stopLossHit, color: 'bg-red-100 text-red-700' },
     { label: 'Expired', count: stats.expired, color: 'bg-yellow-100 text-yellow-700' },
@@ -140,12 +148,12 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
             
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Success Rate</span>
-              <span className="font-semibold text-gray-900">{stats.successRate}%</span>
+              <span className="font-semibold text-gray-900">{stats.winRate*100}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-green-600 h-2 rounded-full" 
-                style={{ width: `${stats.successRate}%` }}
+                style={{ width: `${stats.winRate*100}%` }}
               ></div>
             </div>
           </div>

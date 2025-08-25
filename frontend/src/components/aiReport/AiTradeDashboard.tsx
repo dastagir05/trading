@@ -21,15 +21,16 @@ import AiTradeMonitor from './AiTradeMonitor';
 import AiTradeReports from './AiTradeReports';
 
 interface AiTradeStats {
-  total: number;
-  suggested: number;
-  active: number;
+  totalTrades: number;
+  suggestedTrades: number;
+  activeTrades: number;
+  completedTrades: number,
   targetHit: number;
   stopLossHit: number;
   expired: number;
   cancelled: number;
   totalPnL: number;
-  successRate: number;
+  winRate: number;
   avgConfidence: number;
 }
 
@@ -46,7 +47,8 @@ const AiTradeDashboard: React.FC = () => {
     try {
       const response = await fetch('/api/ai-trades/stats');
       const data = await response.json();
-      setStats(data);
+      console.log("stass", data.data)
+      setStats(data.data);
     } catch (error) {
       console.error('Failed to fetch AI trade stats:', error);
     } finally {

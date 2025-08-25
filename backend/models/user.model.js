@@ -22,6 +22,10 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
+    phone: {
+      type: String,
+      default: null,
+    },
     role: {
       type: String,
       enum: ["user", "admin"],
@@ -113,7 +117,8 @@ userSchema.set("toJSON", {
   },
 });
 
-const User = model("user", userSchema);
+// const User = model("user", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;
 

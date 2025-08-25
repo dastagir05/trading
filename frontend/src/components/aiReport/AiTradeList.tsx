@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import axios from "axios"
 import { 
   Search, 
   Filter, 
@@ -77,9 +78,8 @@ const AiTradeList: React.FC = () => {
 
   const fetchTrades = async () => {
     try {
-      const response = await fetch('/api/ai-trades');
-      const data = await response.json();
-      setTrades(data);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades?status=all`);
+      setTrades(res.data.data);
     } catch (error) {
       console.error('Failed to fetch AI trades:', error);
     } finally {
@@ -347,10 +347,11 @@ const AiTradeList: React.FC = () => {
                   
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
-                      <p><strong>Entry:</strong> ₹{trade.tradePlan.entry}</p>
-                      <p><strong>Target:</strong> ₹{trade.tradePlan.target}</p>
-                      <p><strong>Stop Loss:</strong> ₹{trade.tradePlan.stopLoss}</p>
-                      <p><strong>Time Frame:</strong> {trade.tradePlan.timeFrame}</p>
+                      <p><strong>Entry:</strong> {trade.tradePlan.entry}</p>
+                      <p><strong>Target:</strong> {trade.tradePlan.target}</p>
+                      <p><strong>Stop Loss:</strong> {trade.tradePlan.stopLoss}</p>
+                      {/* <p><strong>Time Frame:</strong> {trade.tradePlan.timeFrame}</p> */}
+                      <p><strong>Exit Price:</strong> {trade?.exitPrice || "-"}</p>
                     </div>
                   </td>
                   

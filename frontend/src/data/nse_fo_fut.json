@@ -1,0 +1,4650 @@
+[
+  {
+    "name": "SJVN LTD",
+    "instrument_key": "NSE_FO|65176",
+    "trading_symbol": "SJVN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 5875
+  },
+  {
+    "name": "SOLAR INDUSTRIES (I) LTD",
+    "instrument_key": "NSE_FO|65177",
+    "trading_symbol": "SOLARINDS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 75
+  },
+  {
+    "name": "SHRIRAM FINANCE LIMITED",
+    "instrument_key": "NSE_FO|65124",
+    "trading_symbol": "SHRIRAMFIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 825
+  },
+  {
+    "name": "SIEMENS LTD",
+    "instrument_key": "NSE_FO|65125",
+    "trading_symbol": "SIEMENS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "SONA BLW PRECISION FRGS L",
+    "instrument_key": "NSE_FO|65196",
+    "trading_symbol": "SONACOMS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1050
+  },
+  {
+    "name": "SRF LTD",
+    "instrument_key": "NSE_FO|65197",
+    "trading_symbol": "SRF FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 200
+  },
+  {
+    "name": "SUN PHARMACEUTICAL IND L",
+    "instrument_key": "NSE_FO|65198",
+    "trading_symbol": "SUNPHARMA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "SUPREME INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|65203",
+    "trading_symbol": "SUPREMEIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "SYNGENE INTERNATIONAL LTD",
+    "instrument_key": "NSE_FO|65206",
+    "trading_symbol": "SYNGENE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "TATA CHEMICALS LTD",
+    "instrument_key": "NSE_FO|65207",
+    "trading_symbol": "TATACHEM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 650
+  },
+  {
+    "name": "TATA CONSUMER PRODUCT LTD",
+    "instrument_key": "NSE_FO|65208",
+    "trading_symbol": "TATACONSUM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 550
+  },
+  {
+    "name": "STATE BANK OF INDIA",
+    "instrument_key": "NSE_FO|65036",
+    "trading_symbol": "SBIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 750
+  },
+  {
+    "name": "SHREE CEMENT LIMITED",
+    "instrument_key": "NSE_FO|65037",
+    "trading_symbol": "SHREECEM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 25
+  },
+  {
+    "name": "SBI CARDS & PAY SER LTD",
+    "instrument_key": "NSE_FO|65034",
+    "trading_symbol": "SBICARD FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 800
+  },
+  {
+    "name": "SBI LIFE INSURANCE CO LTD",
+    "instrument_key": "NSE_FO|65035",
+    "trading_symbol": "SBILIFE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "UNION BANK OF INDIA",
+    "instrument_key": "NSE_FO|65234",
+    "trading_symbol": "UNIONBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 4425
+  },
+  {
+    "name": "UNITED SPIRITS LIMITED",
+    "instrument_key": "NSE_FO|65235",
+    "trading_symbol": "UNITDSPR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 400
+  },
+  {
+    "name": "UNO MINDA LIMITED",
+    "instrument_key": "NSE_FO|65242",
+    "trading_symbol": "UNOMINDA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 550
+  },
+  {
+    "name": "UPL LIMITED",
+    "instrument_key": "NSE_FO|65243",
+    "trading_symbol": "UPL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1355
+  },
+  {
+    "name": "VARUN BEVERAGES LIMITED",
+    "instrument_key": "NSE_FO|65244",
+    "trading_symbol": "VBL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1025
+  },
+  {
+    "name": "VEDANTA LIMITED",
+    "instrument_key": "NSE_FO|65245",
+    "trading_symbol": "VEDL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1150
+  },
+  {
+    "name": "VOLTAS LTD",
+    "instrument_key": "NSE_FO|65248",
+    "trading_symbol": "VOLTAS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "WIPRO LTD",
+    "instrument_key": "NSE_FO|65249",
+    "trading_symbol": "WIPRO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3000
+  },
+  {
+    "name": "YES BANK LIMITED",
+    "instrument_key": "NSE_FO|65250",
+    "trading_symbol": "YESBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 31100
+  },
+  {
+    "name": "ZYDUS LIFESCIENCES LTD",
+    "instrument_key": "NSE_FO|65251",
+    "trading_symbol": "ZYDUSLIFE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 900
+  },
+  {
+    "name": "TATA ELXSI LIMITED",
+    "instrument_key": "NSE_FO|65212",
+    "trading_symbol": "TATAELXSI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "TATA MOTORS LIMITED",
+    "instrument_key": "NSE_FO|65213",
+    "trading_symbol": "TATAMOTORS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA POWER CO LTD",
+    "instrument_key": "NSE_FO|65217",
+    "trading_symbol": "TATAPOWER FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1450
+  },
+  {
+    "name": "TATA STEEL LIMITED",
+    "instrument_key": "NSE_FO|65218",
+    "trading_symbol": "TATASTEEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 5500
+  },
+  {
+    "name": "TATA TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|65221",
+    "trading_symbol": "TATATECH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA CONSULTANCY SERV LT",
+    "instrument_key": "NSE_FO|65222",
+    "trading_symbol": "TCS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "TECH MAHINDRA LIMITED",
+    "instrument_key": "NSE_FO|65223",
+    "trading_symbol": "TECHM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 600
+  },
+  {
+    "name": "TUBE INVEST OF INDIA LTD",
+    "instrument_key": "NSE_FO|65224",
+    "trading_symbol": "TIINDIA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 200
+  },
+  {
+    "name": "TITAGARH RAIL SYSTEMS LTD",
+    "instrument_key": "NSE_FO|65225",
+    "trading_symbol": "TITAGARH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 725
+  },
+  {
+    "name": "TITAN COMPANY LIMITED",
+    "instrument_key": "NSE_FO|65226",
+    "trading_symbol": "TITAN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "TORRENT PHARMACEUTICALS L",
+    "instrument_key": "NSE_FO|65227",
+    "trading_symbol": "TORNTPHARM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "TORRENT POWER LTD",
+    "instrument_key": "NSE_FO|65228",
+    "trading_symbol": "TORNTPOWER FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "TRENT LTD",
+    "instrument_key": "NSE_FO|65231",
+    "trading_symbol": "TRENT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "TVS MOTOR COMPANY  LTD",
+    "instrument_key": "NSE_FO|65232",
+    "trading_symbol": "TVSMOTOR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "ULTRATECH CEMENT LIMITED",
+    "instrument_key": "NSE_FO|65233",
+    "trading_symbol": "ULTRACEMCO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 50
+  },
+  {
+    "name": "011NSETEST",
+    "instrument_key": "NSE_FO|36687",
+    "trading_symbol": "011NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "021NSETEST",
+    "instrument_key": "NSE_FO|36690",
+    "trading_symbol": "021NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "031NSETEST",
+    "instrument_key": "NSE_FO|36691",
+    "trading_symbol": "031NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "051NSETEST",
+    "instrument_key": "NSE_FO|36697",
+    "trading_symbol": "051NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "041NSETEST",
+    "instrument_key": "NSE_FO|36694",
+    "trading_symbol": "041NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "071NSETEST",
+    "instrument_key": "NSE_FO|36702",
+    "trading_symbol": "071NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "061NSETEST",
+    "instrument_key": "NSE_FO|36700",
+    "trading_symbol": "061NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "081NSETEST",
+    "instrument_key": "NSE_FO|36709",
+    "trading_symbol": "081NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "131NSETEST",
+    "instrument_key": "NSE_FO|36720",
+    "trading_symbol": "131NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "141NSETEST",
+    "instrument_key": "NSE_FO|36721",
+    "trading_symbol": "141NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "121NSETEST",
+    "instrument_key": "NSE_FO|36718",
+    "trading_symbol": "121NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "101NSETEST",
+    "instrument_key": "NSE_FO|36715",
+    "trading_symbol": "101NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "111NSETEST",
+    "instrument_key": "NSE_FO|36716",
+    "trading_symbol": "111NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "091NSETEST",
+    "instrument_key": "NSE_FO|36713",
+    "trading_symbol": "091NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "151NSETEST",
+    "instrument_key": "NSE_FO|36724",
+    "trading_symbol": "151NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "161NSETEST",
+    "instrument_key": "NSE_FO|36725",
+    "trading_symbol": "161NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "BHARTI AIRTEL LIMITED",
+    "instrument_key": "NSE_FO|52276",
+    "trading_symbol": "BHARTIARTL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 475
+  },
+  {
+    "name": "BHEL",
+    "instrument_key": "NSE_FO|52277",
+    "trading_symbol": "BHEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2625
+  },
+  {
+    "name": "BHARAT ELECTRONICS LTD",
+    "instrument_key": "NSE_FO|52274",
+    "trading_symbol": "BEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2850
+  },
+  {
+    "name": "BHARAT FORGE LTD",
+    "instrument_key": "NSE_FO|52275",
+    "trading_symbol": "BHARATFORG FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "BANK OF INDIA",
+    "instrument_key": "NSE_FO|52266",
+    "trading_symbol": "BANKINDIA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 5200
+  },
+  {
+    "name": "BHARAT DYNAMICS LIMITED",
+    "instrument_key": "NSE_FO|52267",
+    "trading_symbol": "BDL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 325
+  },
+  {
+    "name": "BOSCH LIMITED",
+    "instrument_key": "NSE_FO|52290",
+    "trading_symbol": "BOSCHLTD FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 25
+  },
+  {
+    "name": "BHARAT PETROLEUM CORP  LT",
+    "instrument_key": "NSE_FO|52291",
+    "trading_symbol": "BPCL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1975
+  },
+  {
+    "name": "BRITANNIA INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52292",
+    "trading_symbol": "BRITANNIA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "BIOCON LIMITED.",
+    "instrument_key": "NSE_FO|52288",
+    "trading_symbol": "BIOCON FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2500
+  },
+  {
+    "name": "BLUE STAR LIMITED",
+    "instrument_key": "NSE_FO|52289",
+    "trading_symbol": "BLUESTARCO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 325
+  },
+  {
+    "name": "HCL TECHNOLOGIES LTD",
+    "instrument_key": "NSE_FO|52362",
+    "trading_symbol": "HCLTECH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "HDFC AMC LIMITED",
+    "instrument_key": "NSE_FO|52363",
+    "trading_symbol": "HDFCAMC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "HAVELLS INDIA LIMITED",
+    "instrument_key": "NSE_FO|52353",
+    "trading_symbol": "HAVELLS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "GODREJ PROPERTIES LTD",
+    "instrument_key": "NSE_FO|52350",
+    "trading_symbol": "GODREJPROP FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 275
+  },
+  {
+    "name": "GRASIM INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52351",
+    "trading_symbol": "GRASIM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "HINDUSTAN AERONAUTICS LTD",
+    "instrument_key": "NSE_FO|52352",
+    "trading_symbol": "HAL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "GAIL (INDIA) LTD",
+    "instrument_key": "NSE_FO|52342",
+    "trading_symbol": "GAIL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3150
+  },
+  {
+    "name": "GLENMARK PHARMACEUTICALS",
+    "instrument_key": "NSE_FO|52343",
+    "trading_symbol": "GLENMARK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "GMR AIRPORTS LIMITED",
+    "instrument_key": "NSE_FO|52344",
+    "trading_symbol": "GMRAIRPORT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6975
+  },
+  {
+    "name": "GODREJ CONSUMER PRODUCTS",
+    "instrument_key": "NSE_FO|52345",
+    "trading_symbol": "GODREJCP FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "IDFC FIRST BANK LIMITED",
+    "instrument_key": "NSE_FO|52380",
+    "trading_symbol": "IDFCFIRSTB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 9275
+  },
+  {
+    "name": "INDIAN ENERGY EXC LTD",
+    "instrument_key": "NSE_FO|52381",
+    "trading_symbol": "IEX FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3750
+  },
+  {
+    "name": "INDRAPRASTHA GAS LTD",
+    "instrument_key": "NSE_FO|52382",
+    "trading_symbol": "IGL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2750
+  },
+  {
+    "name": "IIFL FINANCE LIMITED",
+    "instrument_key": "NSE_FO|52383",
+    "trading_symbol": "IIFL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1650
+  },
+  {
+    "name": "THE INDIAN HOTELS CO. LTD",
+    "instrument_key": "NSE_FO|52384",
+    "trading_symbol": "INDHOTEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "ICICI LOMBARD GIC LIMITED",
+    "instrument_key": "NSE_FO|52375",
+    "trading_symbol": "ICICIGI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 325
+  },
+  {
+    "name": "ICICI PRU LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|52378",
+    "trading_symbol": "ICICIPRULI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 925
+  },
+  {
+    "name": "VODAFONE IDEA LIMITED",
+    "instrument_key": "NSE_FO|52379",
+    "trading_symbol": "IDEA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 71475
+  },
+  {
+    "name": "HINDUSTAN UNILEVER LTD.",
+    "instrument_key": "NSE_FO|52370",
+    "trading_symbol": "HINDUNILVR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 300
+  },
+  {
+    "name": "HINDUSTAN ZINC LIMITED",
+    "instrument_key": "NSE_FO|52371",
+    "trading_symbol": "HINDZINC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1225
+  },
+  {
+    "name": "HSG & URBAN DEV CORPN LTD",
+    "instrument_key": "NSE_FO|52372",
+    "trading_symbol": "HUDCO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2775
+  },
+  {
+    "name": "ICICI BANK LTD.",
+    "instrument_key": "NSE_FO|52374",
+    "trading_symbol": "ICICIBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 700
+  },
+  {
+    "name": "HDFC BANK LTD",
+    "instrument_key": "NSE_FO|52364",
+    "trading_symbol": "HDFCBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 550
+  },
+  {
+    "name": "HDFC LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|52365",
+    "trading_symbol": "HDFCLIFE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1100
+  },
+  {
+    "name": "HERO MOTOCORP LIMITED",
+    "instrument_key": "NSE_FO|52366",
+    "trading_symbol": "HEROMOTOCO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "HFCL LIMITED",
+    "instrument_key": "NSE_FO|52367",
+    "trading_symbol": "HFCL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6450
+  },
+  {
+    "name": "HINDALCO  INDUSTRIES  LTD",
+    "instrument_key": "NSE_FO|52368",
+    "trading_symbol": "HINDALCO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1400
+  },
+  {
+    "name": "HINDUSTAN PETROLEUM CORP",
+    "instrument_key": "NSE_FO|52369",
+    "trading_symbol": "HINDPETRO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2025
+  },
+  {
+    "name": "COLGATE PALMOLIVE LTD.",
+    "instrument_key": "NSE_FO|52310",
+    "trading_symbol": "COLPAL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 225
+  },
+  {
+    "name": "CONTAINER CORP OF IND LTD",
+    "instrument_key": "NSE_FO|52311",
+    "trading_symbol": "CONCOR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1250
+  },
+  {
+    "name": "CROMPT GREA CON ELEC LTD",
+    "instrument_key": "NSE_FO|52314",
+    "trading_symbol": "CROMPTON FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1800
+  },
+  {
+    "name": "CUMMINS INDIA LTD",
+    "instrument_key": "NSE_FO|52315",
+    "trading_symbol": "CUMMINSIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 200
+  },
+  {
+    "name": "CYIENT LIMITED",
+    "instrument_key": "NSE_FO|52316",
+    "trading_symbol": "CYIENT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 425
+  },
+  {
+    "name": "DABUR INDIA LTD",
+    "instrument_key": "NSE_FO|52317",
+    "trading_symbol": "DABUR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1250
+  },
+  {
+    "name": "DALMIA BHARAT LIMITED",
+    "instrument_key": "NSE_FO|52318",
+    "trading_symbol": "DALBHARAT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 325
+  },
+  {
+    "name": "DELHIVERY LIMITED",
+    "instrument_key": "NSE_FO|52319",
+    "trading_symbol": "DELHIVERY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2075
+  },
+  {
+    "name": "BSE LIMITED",
+    "instrument_key": "NSE_FO|52301",
+    "trading_symbol": "BSE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "COMPUTER AGE MNGT SER LTD",
+    "instrument_key": "NSE_FO|52302",
+    "trading_symbol": "CAMS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "CANARA BANK",
+    "instrument_key": "NSE_FO|52303",
+    "trading_symbol": "CANBK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6750
+  },
+  {
+    "name": "CENTRAL DEPO SER (I) LTD",
+    "instrument_key": "NSE_FO|52304",
+    "trading_symbol": "CDSL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 475
+  },
+  {
+    "name": "CG POWER AND IND SOL LTD",
+    "instrument_key": "NSE_FO|52305",
+    "trading_symbol": "CGPOWER FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 850
+  },
+  {
+    "name": "CHOLAMANDALAM IN & FIN CO",
+    "instrument_key": "NSE_FO|52306",
+    "trading_symbol": "CHOLAFIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 625
+  },
+  {
+    "name": "CIPLA LTD",
+    "instrument_key": "NSE_FO|52307",
+    "trading_symbol": "CIPLA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "COAL INDIA LTD",
+    "instrument_key": "NSE_FO|52308",
+    "trading_symbol": "COALINDIA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1350
+  },
+  {
+    "name": "COFORGE LIMITED",
+    "instrument_key": "NSE_FO|52309",
+    "trading_symbol": "COFORGE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "FEDERAL BANK LTD",
+    "instrument_key": "NSE_FO|52340",
+    "trading_symbol": "FEDERALBNK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 5000
+  },
+  {
+    "name": "FORTIS HEALTHCARE LTD",
+    "instrument_key": "NSE_FO|52341",
+    "trading_symbol": "FORTIS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 775
+  },
+  {
+    "name": "DR. REDDY S LABORATORIES",
+    "instrument_key": "NSE_FO|52336",
+    "trading_symbol": "DRREDDY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 625
+  },
+  {
+    "name": "EICHER MOTORS LTD",
+    "instrument_key": "NSE_FO|52337",
+    "trading_symbol": "EICHERMOT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "ETERNAL LIMITED",
+    "instrument_key": "NSE_FO|52338",
+    "trading_symbol": "ETERNAL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2425
+  },
+  {
+    "name": "EXIDE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52339",
+    "trading_symbol": "EXIDEIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1800
+  },
+  {
+    "name": "DIVI S LABORATORIES LTD",
+    "instrument_key": "NSE_FO|52326",
+    "trading_symbol": "DIVISLAB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "DIXON TECHNO (INDIA) LTD",
+    "instrument_key": "NSE_FO|52327",
+    "trading_symbol": "DIXON FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 50
+  },
+  {
+    "name": "DLF LIMITED",
+    "instrument_key": "NSE_FO|52328",
+    "trading_symbol": "DLF FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 825
+  },
+  {
+    "name": "AVENUE SUPERMARTS LIMITED",
+    "instrument_key": "NSE_FO|52329",
+    "trading_symbol": "DMART FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "BANKNIFTY",
+    "instrument_key": "NSE_FO|52145",
+    "trading_symbol": "BANKNIFTY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 35
+  },
+  {
+    "name": "FINNIFTY",
+    "instrument_key": "NSE_FO|52146",
+    "trading_symbol": "FINNIFTY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 65
+  },
+  {
+    "name": "MIDCPNIFTY",
+    "instrument_key": "NSE_FO|52147",
+    "trading_symbol": "MIDCPNIFTY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 140
+  },
+  {
+    "name": "ALKEM LABORATORIES LTD.",
+    "instrument_key": "NSE_FO|52177",
+    "trading_symbol": "ALKEM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "AMBER ENTERPRISES (I) LTD",
+    "instrument_key": "NSE_FO|52178",
+    "trading_symbol": "AMBER FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "AMBUJA CEMENTS LTD",
+    "instrument_key": "NSE_FO|52179",
+    "trading_symbol": "AMBUJACEM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1050
+  },
+  {
+    "name": "360 ONE WAM LIMITED",
+    "instrument_key": "NSE_FO|52170",
+    "trading_symbol": "360ONE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "ABB INDIA LIMITED",
+    "instrument_key": "NSE_FO|52171",
+    "trading_symbol": "ABB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "ADITYA BIRLA CAPITAL LTD.",
+    "instrument_key": "NSE_FO|52172",
+    "trading_symbol": "ABCAPITAL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3100
+  },
+  {
+    "name": "ADANI ENERGY SOLUTION LTD",
+    "instrument_key": "NSE_FO|52173",
+    "trading_symbol": "ADANIENSOL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 675
+  },
+  {
+    "name": "ADANI ENTERPRISES LIMITED",
+    "instrument_key": "NSE_FO|52174",
+    "trading_symbol": "ADANIENT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 300
+  },
+  {
+    "name": "ADANI GREEN ENERGY LTD",
+    "instrument_key": "NSE_FO|52175",
+    "trading_symbol": "ADANIGREEN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 600
+  },
+  {
+    "name": "ADANI PORT & SEZ LTD",
+    "instrument_key": "NSE_FO|52176",
+    "trading_symbol": "ADANIPORTS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 475
+  },
+  {
+    "name": "NIFTY",
+    "instrument_key": "NSE_FO|52168",
+    "trading_symbol": "NIFTY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 75
+  },
+  {
+    "name": "NIFTYNXT50",
+    "instrument_key": "NSE_FO|52169",
+    "trading_symbol": "NIFTYNXT50 FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 25
+  },
+  {
+    "name": "BAJAJ FINSERV LTD.",
+    "instrument_key": "NSE_FO|52240",
+    "trading_symbol": "BAJAJFINSV FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "BAJAJ FINANCE LIMITED",
+    "instrument_key": "NSE_FO|52241",
+    "trading_symbol": "BAJFINANCE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 750
+  },
+  {
+    "name": "AXIS BANK LIMITED",
+    "instrument_key": "NSE_FO|52223",
+    "trading_symbol": "AXISBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 625
+  },
+  {
+    "name": "BAJAJ AUTO LIMITED",
+    "instrument_key": "NSE_FO|52224",
+    "trading_symbol": "BAJAJ-AUTO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 75
+  },
+  {
+    "name": "BANDHAN BANK LIMITED",
+    "instrument_key": "NSE_FO|52255",
+    "trading_symbol": "BANDHANBNK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3600
+  },
+  {
+    "name": "BANK OF BARODA",
+    "instrument_key": "NSE_FO|52256",
+    "trading_symbol": "BANKBARODA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2925
+  },
+  {
+    "name": "APOLLO HOSPITALS ENTER. L",
+    "instrument_key": "NSE_FO|52214",
+    "trading_symbol": "APOLLOHOSP FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "ASHOK LEYLAND LTD",
+    "instrument_key": "NSE_FO|52215",
+    "trading_symbol": "ASHOKLEY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 5000
+  },
+  {
+    "name": "ASIAN PAINTS LIMITED",
+    "instrument_key": "NSE_FO|52216",
+    "trading_symbol": "ASIANPAINT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "ASTRAL LIMITED",
+    "instrument_key": "NSE_FO|52217",
+    "trading_symbol": "ASTRAL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 425
+  },
+  {
+    "name": "AU SMALL FINANCE BANK LTD",
+    "instrument_key": "NSE_FO|52218",
+    "trading_symbol": "AUBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "AUROBINDO PHARMA LTD",
+    "instrument_key": "NSE_FO|52219",
+    "trading_symbol": "AUROPHARMA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 550
+  },
+  {
+    "name": "ANGEL ONE LIMITED",
+    "instrument_key": "NSE_FO|52200",
+    "trading_symbol": "ANGELONE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "APL APOLLO TUBES LTD",
+    "instrument_key": "NSE_FO|52201",
+    "trading_symbol": "APLAPOLLO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "RAIL VIKAS NIGAM LIMITED",
+    "instrument_key": "NSE_FO|52510",
+    "trading_symbol": "RVNL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1375
+  },
+  {
+    "name": "STEEL AUTHORITY OF INDIA",
+    "instrument_key": "NSE_FO|52511",
+    "trading_symbol": "SAIL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 4700
+  },
+  {
+    "name": "SBI CARDS & PAY SER LTD",
+    "instrument_key": "NSE_FO|52512",
+    "trading_symbol": "SBICARD FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 800
+  },
+  {
+    "name": "SBI LIFE INSURANCE CO LTD",
+    "instrument_key": "NSE_FO|52513",
+    "trading_symbol": "SBILIFE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "STATE BANK OF INDIA",
+    "instrument_key": "NSE_FO|52514",
+    "trading_symbol": "SBIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 750
+  },
+  {
+    "name": "SHREE CEMENT LIMITED",
+    "instrument_key": "NSE_FO|52515",
+    "trading_symbol": "SHREECEM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 25
+  },
+  {
+    "name": "SHRIRAM FINANCE LIMITED",
+    "instrument_key": "NSE_FO|52516",
+    "trading_symbol": "SHRIRAMFIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 825
+  },
+  {
+    "name": "SIEMENS LTD",
+    "instrument_key": "NSE_FO|52517",
+    "trading_symbol": "SIEMENS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "SOLAR INDUSTRIES (I) LTD",
+    "instrument_key": "NSE_FO|52518",
+    "trading_symbol": "SOLARINDS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 75
+  },
+  {
+    "name": "SONA BLW PRECISION FRGS L",
+    "instrument_key": "NSE_FO|52519",
+    "trading_symbol": "SONACOMS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1050
+  },
+  {
+    "name": "PUNJAB NATIONAL BANK",
+    "instrument_key": "NSE_FO|52500",
+    "trading_symbol": "PNB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 8000
+  },
+  {
+    "name": "PNB HOUSING FIN LTD.",
+    "instrument_key": "NSE_FO|52501",
+    "trading_symbol": "PNBHOUSING FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 650
+  },
+  {
+    "name": "PB FINTECH LIMITED",
+    "instrument_key": "NSE_FO|52502",
+    "trading_symbol": "POLICYBZR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "POLYCAB INDIA LIMITED",
+    "instrument_key": "NSE_FO|52503",
+    "trading_symbol": "POLYCAB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "POWER GRID CORP. LTD.",
+    "instrument_key": "NSE_FO|52504",
+    "trading_symbol": "POWERGRID FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1900
+  },
+  {
+    "name": "PIRAMAL PHARMA LIMITED",
+    "instrument_key": "NSE_FO|52505",
+    "trading_symbol": "PPLPHARMA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2500
+  },
+  {
+    "name": "PRESTIGE ESTATE LTD",
+    "instrument_key": "NSE_FO|52506",
+    "trading_symbol": "PRESTIGE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 450
+  },
+  {
+    "name": "RBL BANK LIMITED",
+    "instrument_key": "NSE_FO|52507",
+    "trading_symbol": "RBLBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3175
+  },
+  {
+    "name": "REC LIMITED",
+    "instrument_key": "NSE_FO|52508",
+    "trading_symbol": "RECLTD FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1275
+  },
+  {
+    "name": "RELIANCE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52509",
+    "trading_symbol": "RELIANCE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 500
+  },
+  {
+    "name": "TATA ELXSI LIMITED",
+    "instrument_key": "NSE_FO|52531",
+    "trading_symbol": "TATAELXSI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "TATA MOTORS LIMITED",
+    "instrument_key": "NSE_FO|52532",
+    "trading_symbol": "TATAMOTORS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA POWER CO LTD",
+    "instrument_key": "NSE_FO|52533",
+    "trading_symbol": "TATAPOWER FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1450
+  },
+  {
+    "name": "TATA STEEL LIMITED",
+    "instrument_key": "NSE_FO|52534",
+    "trading_symbol": "TATASTEEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 5500
+  },
+  {
+    "name": "TATA TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|52538",
+    "trading_symbol": "TATATECH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA CONSULTANCY SERV LT",
+    "instrument_key": "NSE_FO|52539",
+    "trading_symbol": "TCS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "SRF LTD",
+    "instrument_key": "NSE_FO|52520",
+    "trading_symbol": "SRF FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 200
+  },
+  {
+    "name": "SUN PHARMACEUTICAL IND L",
+    "instrument_key": "NSE_FO|52521",
+    "trading_symbol": "SUNPHARMA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "SUPREME INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52522",
+    "trading_symbol": "SUPREMEIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "SUZLON ENERGY LIMITED",
+    "instrument_key": "NSE_FO|52523",
+    "trading_symbol": "SUZLON FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 8000
+  },
+  {
+    "name": "SUZLON ENERGY LIMITED",
+    "instrument_key": "NSE_FO|52524",
+    "trading_symbol": "SUZLON FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 8000
+  },
+  {
+    "name": "SUZLON ENERGY LIMITED",
+    "instrument_key": "NSE_FO|52525",
+    "trading_symbol": "SUZLON FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 8000
+  },
+  {
+    "name": "SYNGENE INTERNATIONAL LTD",
+    "instrument_key": "NSE_FO|52526",
+    "trading_symbol": "SYNGENE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "TATA CONSUMER PRODUCT LTD",
+    "instrument_key": "NSE_FO|52527",
+    "trading_symbol": "TATACONSUM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 550
+  },
+  {
+    "name": "UNITED SPIRITS LIMITED",
+    "instrument_key": "NSE_FO|52560",
+    "trading_symbol": "UNITDSPR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 400
+  },
+  {
+    "name": "UNO MINDA LIMITED",
+    "instrument_key": "NSE_FO|52561",
+    "trading_symbol": "UNOMINDA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 550
+  },
+  {
+    "name": "TRENT LTD",
+    "instrument_key": "NSE_FO|52555",
+    "trading_symbol": "TRENT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "TVS MOTOR COMPANY  LTD",
+    "instrument_key": "NSE_FO|52556",
+    "trading_symbol": "TVSMOTOR FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "ULTRATECH CEMENT LIMITED",
+    "instrument_key": "NSE_FO|52558",
+    "trading_symbol": "ULTRACEMCO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 50
+  },
+  {
+    "name": "UNION BANK OF INDIA",
+    "instrument_key": "NSE_FO|52559",
+    "trading_symbol": "UNIONBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 4425
+  },
+  {
+    "name": "TECH MAHINDRA LIMITED",
+    "instrument_key": "NSE_FO|52542",
+    "trading_symbol": "TECHM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 600
+  },
+  {
+    "name": "TUBE INVEST OF INDIA LTD",
+    "instrument_key": "NSE_FO|52543",
+    "trading_symbol": "TIINDIA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 200
+  },
+  {
+    "name": "TITAGARH RAIL SYSTEMS LTD",
+    "instrument_key": "NSE_FO|52544",
+    "trading_symbol": "TITAGARH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 725
+  },
+  {
+    "name": "TITAN COMPANY LIMITED",
+    "instrument_key": "NSE_FO|52545",
+    "trading_symbol": "TITAN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "TORRENT PHARMACEUTICALS L",
+    "instrument_key": "NSE_FO|52548",
+    "trading_symbol": "TORNTPHARM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "TORRENT POWER LTD",
+    "instrument_key": "NSE_FO|52549",
+    "trading_symbol": "TORNTPOWER FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "ZYDUS LIFESCIENCES LTD",
+    "instrument_key": "NSE_FO|52570",
+    "trading_symbol": "ZYDUSLIFE FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 900
+  },
+  {
+    "name": "UPL LIMITED",
+    "instrument_key": "NSE_FO|52562",
+    "trading_symbol": "UPL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1355
+  },
+  {
+    "name": "VARUN BEVERAGES LIMITED",
+    "instrument_key": "NSE_FO|52563",
+    "trading_symbol": "VBL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1025
+  },
+  {
+    "name": "VEDANTA LIMITED",
+    "instrument_key": "NSE_FO|52566",
+    "trading_symbol": "VEDL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1150
+  },
+  {
+    "name": "VOLTAS LTD",
+    "instrument_key": "NSE_FO|52567",
+    "trading_symbol": "VOLTAS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "WIPRO LTD",
+    "instrument_key": "NSE_FO|52568",
+    "trading_symbol": "WIPRO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3000
+  },
+  {
+    "name": "YES BANK LIMITED",
+    "instrument_key": "NSE_FO|52569",
+    "trading_symbol": "YESBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 31100
+  },
+  {
+    "name": "INFOSYS LIMITED",
+    "instrument_key": "NSE_FO|52398",
+    "trading_symbol": "INFY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 400
+  },
+  {
+    "name": "INOX WIND LIMITED",
+    "instrument_key": "NSE_FO|52399",
+    "trading_symbol": "INOXWIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3272
+  },
+  {
+    "name": "INDIAN BANK",
+    "instrument_key": "NSE_FO|52390",
+    "trading_symbol": "INDIANB FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "INTERGLOBE AVIATION LTD",
+    "instrument_key": "NSE_FO|52391",
+    "trading_symbol": "INDIGO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "INDUSIND BANK LIMITED",
+    "instrument_key": "NSE_FO|52394",
+    "trading_symbol": "INDUSINDBK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 700
+  },
+  {
+    "name": "INDUS TOWERS LIMITED",
+    "instrument_key": "NSE_FO|52395",
+    "trading_symbol": "INDUSTOWER FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1700
+  },
+  {
+    "name": "INDIAN RENEWABLE ENERGY",
+    "instrument_key": "NSE_FO|52410",
+    "trading_symbol": "IREDA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3450
+  },
+  {
+    "name": "INDIAN RAILWAY FIN CORP L",
+    "instrument_key": "NSE_FO|52411",
+    "trading_symbol": "IRFC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 4250
+  },
+  {
+    "name": "ITC LTD",
+    "instrument_key": "NSE_FO|52414",
+    "trading_symbol": "ITC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1600
+  },
+  {
+    "name": "JINDAL STEEL & POWER LTD",
+    "instrument_key": "NSE_FO|52415",
+    "trading_symbol": "JINDALSTEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 625
+  },
+  {
+    "name": "JIO FIN SERVICES LTD",
+    "instrument_key": "NSE_FO|52418",
+    "trading_symbol": "JIOFIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2350
+  },
+  {
+    "name": "JSW ENERGY LIMITED",
+    "instrument_key": "NSE_FO|52419",
+    "trading_symbol": "JSWENERGY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "INDIAN OIL CORP LTD",
+    "instrument_key": "NSE_FO|52406",
+    "trading_symbol": "IOC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 4875
+  },
+  {
+    "name": "INDIAN RAIL TOUR CORP LTD",
+    "instrument_key": "NSE_FO|52407",
+    "trading_symbol": "IRCTC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 875
+  },
+  {
+    "name": "NUVAMA WEALTH MANAGE LTD",
+    "instrument_key": "NSE_FO|52484",
+    "trading_symbol": "NUVAMA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 75
+  },
+  {
+    "name": "NTPC LTD",
+    "instrument_key": "NSE_FO|52474",
+    "trading_symbol": "NTPC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1500
+  },
+  {
+    "name": "NUVAMA WEALTH MANAGE LTD",
+    "instrument_key": "NSE_FO|52475",
+    "trading_symbol": "NUVAMA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 75
+  },
+  {
+    "name": "NUVAMA WEALTH MANAGE LTD",
+    "instrument_key": "NSE_FO|52476",
+    "trading_symbol": "NUVAMA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 75
+  },
+  {
+    "name": "NHPC LTD",
+    "instrument_key": "NSE_FO|52470",
+    "trading_symbol": "NHPC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6400
+  },
+  {
+    "name": "NMDC LTD.",
+    "instrument_key": "NSE_FO|52471",
+    "trading_symbol": "NMDC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 13500
+  },
+  {
+    "name": "INFO EDGE (I) LTD",
+    "instrument_key": "NSE_FO|52463",
+    "trading_symbol": "NAUKRI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 375
+  },
+  {
+    "name": "NBCC (INDIA) LIMITED",
+    "instrument_key": "NSE_FO|52464",
+    "trading_symbol": "NBCC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6500
+  },
+  {
+    "name": "NCC LIMITED",
+    "instrument_key": "NSE_FO|52465",
+    "trading_symbol": "NCC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2700
+  },
+  {
+    "name": "NESTLE INDIA LIMITED",
+    "instrument_key": "NSE_FO|52466",
+    "trading_symbol": "NESTLEIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "PG ELECTROPLAST LTD",
+    "instrument_key": "NSE_FO|52496",
+    "trading_symbol": "PGEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 700
+  },
+  {
+    "name": "THE PHOENIX MILLS LTD",
+    "instrument_key": "NSE_FO|52497",
+    "trading_symbol": "PHOENIXLTD FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "PIDILITE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52498",
+    "trading_symbol": "PIDILITIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 250
+  },
+  {
+    "name": "PI INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52499",
+    "trading_symbol": "PIIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "PAGE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|52490",
+    "trading_symbol": "PAGEIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 15
+  },
+  {
+    "name": "PATANJALI FOODS LIMITED",
+    "instrument_key": "NSE_FO|52491",
+    "trading_symbol": "PATANJALI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 300
+  },
+  {
+    "name": "ONE 97 COMMUNICATIONS LTD",
+    "instrument_key": "NSE_FO|52492",
+    "trading_symbol": "PAYTM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 725
+  },
+  {
+    "name": "PERSISTENT SYSTEMS LTD",
+    "instrument_key": "NSE_FO|52493",
+    "trading_symbol": "PERSISTENT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "PETRONET LNG LIMITED",
+    "instrument_key": "NSE_FO|52494",
+    "trading_symbol": "PETRONET FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1800
+  },
+  {
+    "name": "POWER FIN CORP LTD.",
+    "instrument_key": "NSE_FO|52495",
+    "trading_symbol": "PFC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1300
+  },
+  {
+    "name": "FSN E COMMERCE VENTURES",
+    "instrument_key": "NSE_FO|52485",
+    "trading_symbol": "NYKAA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3125
+  },
+  {
+    "name": "OBEROI REALTY LIMITED",
+    "instrument_key": "NSE_FO|52486",
+    "trading_symbol": "OBEROIRLTY FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 350
+  },
+  {
+    "name": "ORACLE FIN SERV SOFT LTD.",
+    "instrument_key": "NSE_FO|52487",
+    "trading_symbol": "OFSS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 75
+  },
+  {
+    "name": "OIL INDIA LTD",
+    "instrument_key": "NSE_FO|52488",
+    "trading_symbol": "OIL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1400
+  },
+  {
+    "name": "OIL AND NATURAL GAS CORP.",
+    "instrument_key": "NSE_FO|52489",
+    "trading_symbol": "ONGC FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 2250
+  },
+  {
+    "name": "KOTAK MAHINDRA BANK LTD",
+    "instrument_key": "NSE_FO|52430",
+    "trading_symbol": "KOTAKBANK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 400
+  },
+  {
+    "name": "KPIT TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|52431",
+    "trading_symbol": "KPITTECH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 400
+  },
+  {
+    "name": "LAURUS LABS LIMITED",
+    "instrument_key": "NSE_FO|52432",
+    "trading_symbol": "LAURUSLABS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1700
+  },
+  {
+    "name": "LIC HOUSING FINANCE LTD",
+    "instrument_key": "NSE_FO|52433",
+    "trading_symbol": "LICHSGFIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1000
+  },
+  {
+    "name": "LIFE INSURA CORP OF INDIA",
+    "instrument_key": "NSE_FO|52434",
+    "trading_symbol": "LICI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 700
+  },
+  {
+    "name": "JSW STEEL LIMITED",
+    "instrument_key": "NSE_FO|52422",
+    "trading_symbol": "JSWSTEEL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 675
+  },
+  {
+    "name": "JUBILANT FOODWORKS LTD",
+    "instrument_key": "NSE_FO|52423",
+    "trading_symbol": "JUBLFOOD FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1250
+  },
+  {
+    "name": "KALYAN JEWELLERS IND LTD",
+    "instrument_key": "NSE_FO|52424",
+    "trading_symbol": "KALYANKJIL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1175
+  },
+  {
+    "name": "KAYNES TECHNOLOGY IND LTD",
+    "instrument_key": "NSE_FO|52425",
+    "trading_symbol": "KAYNES FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 100
+  },
+  {
+    "name": "KEI INDUSTRIES LTD.",
+    "instrument_key": "NSE_FO|52428",
+    "trading_symbol": "KEI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "KFIN TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|52429",
+    "trading_symbol": "KFINTECH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 450
+  },
+  {
+    "name": "MPHASIS LIMITED",
+    "instrument_key": "NSE_FO|52460",
+    "trading_symbol": "MPHASIS FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 275
+  },
+  {
+    "name": "MUTHOOT FINANCE LIMITED",
+    "instrument_key": "NSE_FO|52461",
+    "trading_symbol": "MUTHOOTFIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 275
+  },
+  {
+    "name": "NATIONAL ALUMINIUM CO LTD",
+    "instrument_key": "NSE_FO|52462",
+    "trading_symbol": "NATIONALUM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3750
+  },
+  {
+    "name": "MARICO LIMITED",
+    "instrument_key": "NSE_FO|52453",
+    "trading_symbol": "MARICO FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 1200
+  },
+  {
+    "name": "MARUTI SUZUKI INDIA LTD.",
+    "instrument_key": "NSE_FO|52454",
+    "trading_symbol": "MARUTI FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 50
+  },
+  {
+    "name": "MAX HEALTHCARE INS LTD",
+    "instrument_key": "NSE_FO|52455",
+    "trading_symbol": "MAXHEALTH FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 525
+  },
+  {
+    "name": "MAZAGON DOCK SHIPBUIL LTD",
+    "instrument_key": "NSE_FO|52456",
+    "trading_symbol": "MAZDOCK FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "MULTI COMMODITY EXCHANGE",
+    "instrument_key": "NSE_FO|52457",
+    "trading_symbol": "MCX FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 125
+  },
+  {
+    "name": "MAX FINANCIAL SERV LTD",
+    "instrument_key": "NSE_FO|52458",
+    "trading_symbol": "MFSL FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 800
+  },
+  {
+    "name": "SAMVRDHNA MTHRSN INTL LTD",
+    "instrument_key": "NSE_FO|52459",
+    "trading_symbol": "MOTHERSON FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 6150
+  },
+  {
+    "name": "LODHA DEVELOPERS LIMITED",
+    "instrument_key": "NSE_FO|52441",
+    "trading_symbol": "LODHA FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 450
+  },
+  {
+    "name": "LARSEN & TOUBRO LTD.",
+    "instrument_key": "NSE_FO|52442",
+    "trading_symbol": "LT FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 175
+  },
+  {
+    "name": "L&T FINANCE LIMITED",
+    "instrument_key": "NSE_FO|52443",
+    "trading_symbol": "LTF FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 4462
+  },
+  {
+    "name": "LTIMINDTREE LIMITED",
+    "instrument_key": "NSE_FO|52444",
+    "trading_symbol": "LTIM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 150
+  },
+  {
+    "name": "LUPIN LIMITED",
+    "instrument_key": "NSE_FO|52445",
+    "trading_symbol": "LUPIN FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 425
+  },
+  {
+    "name": "MAHINDRA & MAHINDRA LTD",
+    "instrument_key": "NSE_FO|52446",
+    "trading_symbol": "M&M FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 200
+  },
+  {
+    "name": "MANAPPURAM FINANCE LTD",
+    "instrument_key": "NSE_FO|52448",
+    "trading_symbol": "MANAPPURAM FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 3000
+  },
+  {
+    "name": "MANKIND PHARMA LIMITED",
+    "instrument_key": "NSE_FO|52449",
+    "trading_symbol": "MANKIND FUT 28 OCT 25",
+    "expiry": 1761676199000,
+    "lot_size": 225
+  },
+  {
+    "name": "BANKNIFTY",
+    "instrument_key": "NSE_FO|52995",
+    "trading_symbol": "BANKNIFTY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 35
+  },
+  {
+    "name": "FINNIFTY",
+    "instrument_key": "NSE_FO|52997",
+    "trading_symbol": "FINNIFTY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 65
+  },
+  {
+    "name": "MIDCPNIFTY",
+    "instrument_key": "NSE_FO|52998",
+    "trading_symbol": "MIDCPNIFTY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 140
+  },
+  {
+    "name": "HDFC BANK LTD",
+    "instrument_key": "NSE_FO|53171",
+    "trading_symbol": "HDFCBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 550
+  },
+  {
+    "name": "HDFC AMC LIMITED",
+    "instrument_key": "NSE_FO|53170",
+    "trading_symbol": "HDFCAMC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "HERO MOTOCORP LIMITED",
+    "instrument_key": "NSE_FO|53173",
+    "trading_symbol": "HEROMOTOCO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "HDFC LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|53172",
+    "trading_symbol": "HDFCLIFE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1100
+  },
+  {
+    "name": "HINDALCO  INDUSTRIES  LTD",
+    "instrument_key": "NSE_FO|53175",
+    "trading_symbol": "HINDALCO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1400
+  },
+  {
+    "name": "HFCL LIMITED",
+    "instrument_key": "NSE_FO|53174",
+    "trading_symbol": "HFCL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6450
+  },
+  {
+    "name": "HINDUSTAN PETROLEUM CORP",
+    "instrument_key": "NSE_FO|53176",
+    "trading_symbol": "HINDPETRO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2025
+  },
+  {
+    "name": "HCL TECHNOLOGIES LTD",
+    "instrument_key": "NSE_FO|53169",
+    "trading_symbol": "HCLTECH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "GLENMARK PHARMACEUTICALS",
+    "instrument_key": "NSE_FO|53160",
+    "trading_symbol": "GLENMARK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "GODREJ CONSUMER PRODUCTS",
+    "instrument_key": "NSE_FO|53162",
+    "trading_symbol": "GODREJCP FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "GMR AIRPORTS LIMITED",
+    "instrument_key": "NSE_FO|53161",
+    "trading_symbol": "GMRAIRPORT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6975
+  },
+  {
+    "name": "GRASIM INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53164",
+    "trading_symbol": "GRASIM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "GODREJ PROPERTIES LTD",
+    "instrument_key": "NSE_FO|53163",
+    "trading_symbol": "GODREJPROP FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 275
+  },
+  {
+    "name": "HAVELLS INDIA LIMITED",
+    "instrument_key": "NSE_FO|53166",
+    "trading_symbol": "HAVELLS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "HINDUSTAN AERONAUTICS LTD",
+    "instrument_key": "NSE_FO|53165",
+    "trading_symbol": "HAL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "GAIL (INDIA) LTD",
+    "instrument_key": "NSE_FO|53159",
+    "trading_symbol": "GAIL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3150
+  },
+  {
+    "name": "ICICI PRU LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|53190",
+    "trading_symbol": "ICICIPRULI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 925
+  },
+  {
+    "name": "IDFC FIRST BANK LIMITED",
+    "instrument_key": "NSE_FO|53193",
+    "trading_symbol": "IDFCFIRSTB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 9275
+  },
+  {
+    "name": "VODAFONE IDEA LIMITED",
+    "instrument_key": "NSE_FO|53192",
+    "trading_symbol": "IDEA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 71475
+  },
+  {
+    "name": "INDIAN ENERGY EXC LTD",
+    "instrument_key": "NSE_FO|53199",
+    "trading_symbol": "IEX FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3750
+  },
+  {
+    "name": "ICICI LOMBARD GIC LIMITED",
+    "instrument_key": "NSE_FO|53189",
+    "trading_symbol": "ICICIGI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 325
+  },
+  {
+    "name": "HINDUSTAN ZINC LIMITED",
+    "instrument_key": "NSE_FO|53186",
+    "trading_symbol": "HINDZINC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1225
+  },
+  {
+    "name": "HINDUSTAN UNILEVER LTD.",
+    "instrument_key": "NSE_FO|53185",
+    "trading_symbol": "HINDUNILVR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 300
+  },
+  {
+    "name": "ICICI BANK LTD.",
+    "instrument_key": "NSE_FO|53188",
+    "trading_symbol": "ICICIBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 700
+  },
+  {
+    "name": "HSG & URBAN DEV CORPN LTD",
+    "instrument_key": "NSE_FO|53187",
+    "trading_symbol": "HUDCO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2775
+  },
+  {
+    "name": "DABUR INDIA LTD",
+    "instrument_key": "NSE_FO|53131",
+    "trading_symbol": "DABUR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1250
+  },
+  {
+    "name": "DELHIVERY LIMITED",
+    "instrument_key": "NSE_FO|53133",
+    "trading_symbol": "DELHIVERY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2075
+  },
+  {
+    "name": "DALMIA BHARAT LIMITED",
+    "instrument_key": "NSE_FO|53132",
+    "trading_symbol": "DALBHARAT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 325
+  },
+  {
+    "name": "CYIENT LIMITED",
+    "instrument_key": "NSE_FO|53122",
+    "trading_symbol": "CYIENT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 425
+  },
+  {
+    "name": "CUMMINS INDIA LTD",
+    "instrument_key": "NSE_FO|53121",
+    "trading_symbol": "CUMMINSIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 200
+  },
+  {
+    "name": "EXIDE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53151",
+    "trading_symbol": "EXIDEIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1800
+  },
+  {
+    "name": "ETERNAL LIMITED",
+    "instrument_key": "NSE_FO|53150",
+    "trading_symbol": "ETERNAL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2425
+  },
+  {
+    "name": "FEDERAL BANK LTD",
+    "instrument_key": "NSE_FO|53152",
+    "trading_symbol": "FEDERALBNK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 5000
+  },
+  {
+    "name": "FORTIS HEALTHCARE LTD",
+    "instrument_key": "NSE_FO|53154",
+    "trading_symbol": "FORTIS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 775
+  },
+  {
+    "name": "EICHER MOTORS LTD",
+    "instrument_key": "NSE_FO|53149",
+    "trading_symbol": "EICHERMOT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "DIXON TECHNO (INDIA) LTD",
+    "instrument_key": "NSE_FO|53135",
+    "trading_symbol": "DIXON FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 50
+  },
+  {
+    "name": "DIVI S LABORATORIES LTD",
+    "instrument_key": "NSE_FO|53134",
+    "trading_symbol": "DIVISLAB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "DLF LIMITED",
+    "instrument_key": "NSE_FO|53136",
+    "trading_symbol": "DLF FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 825
+  },
+  {
+    "name": "DR. REDDY S LABORATORIES",
+    "instrument_key": "NSE_FO|53139",
+    "trading_symbol": "DRREDDY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 625
+  },
+  {
+    "name": "AVENUE SUPERMARTS LIMITED",
+    "instrument_key": "NSE_FO|53138",
+    "trading_symbol": "DMART FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "INDRAPRASTHA GAS LTD",
+    "instrument_key": "NSE_FO|53200",
+    "trading_symbol": "IGL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2750
+  },
+  {
+    "name": "IIFL FINANCE LIMITED",
+    "instrument_key": "NSE_FO|53203",
+    "trading_symbol": "IIFL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1650
+  },
+  {
+    "name": "INDIAN BANK",
+    "instrument_key": "NSE_FO|53205",
+    "trading_symbol": "INDIANB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "THE INDIAN HOTELS CO. LTD",
+    "instrument_key": "NSE_FO|53204",
+    "trading_symbol": "INDHOTEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "INTERGLOBE AVIATION LTD",
+    "instrument_key": "NSE_FO|53206",
+    "trading_symbol": "INDIGO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "INDUSIND BANK LIMITED",
+    "instrument_key": "NSE_FO|53230",
+    "trading_symbol": "INDUSINDBK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 700
+  },
+  {
+    "name": "INFOSYS LIMITED",
+    "instrument_key": "NSE_FO|53232",
+    "trading_symbol": "INFY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 400
+  },
+  {
+    "name": "INDUS TOWERS LIMITED",
+    "instrument_key": "NSE_FO|53231",
+    "trading_symbol": "INDUSTOWER FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1700
+  },
+  {
+    "name": "BHARAT DYNAMICS LIMITED",
+    "instrument_key": "NSE_FO|53050",
+    "trading_symbol": "BDL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 325
+  },
+  {
+    "name": "BHARAT FORGE LTD",
+    "instrument_key": "NSE_FO|53052",
+    "trading_symbol": "BHARATFORG FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "BHARAT ELECTRONICS LTD",
+    "instrument_key": "NSE_FO|53051",
+    "trading_symbol": "BEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2850
+  },
+  {
+    "name": "BHEL",
+    "instrument_key": "NSE_FO|53056",
+    "trading_symbol": "BHEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2625
+  },
+  {
+    "name": "BHARTI AIRTEL LIMITED",
+    "instrument_key": "NSE_FO|53055",
+    "trading_symbol": "BHARTIARTL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 475
+  },
+  {
+    "name": "BANDHAN BANK LIMITED",
+    "instrument_key": "NSE_FO|53047",
+    "trading_symbol": "BANDHANBNK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3600
+  },
+  {
+    "name": "BAJAJ FINANCE LIMITED",
+    "instrument_key": "NSE_FO|53046",
+    "trading_symbol": "BAJFINANCE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 750
+  },
+  {
+    "name": "BANK OF INDIA",
+    "instrument_key": "NSE_FO|53049",
+    "trading_symbol": "BANKINDIA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 5200
+  },
+  {
+    "name": "BANK OF BARODA",
+    "instrument_key": "NSE_FO|53048",
+    "trading_symbol": "BANKBARODA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2925
+  },
+  {
+    "name": "AU SMALL FINANCE BANK LTD",
+    "instrument_key": "NSE_FO|53041",
+    "trading_symbol": "AUBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "ASTRAL LIMITED",
+    "instrument_key": "NSE_FO|53040",
+    "trading_symbol": "ASTRAL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 425
+  },
+  {
+    "name": "AXIS BANK LIMITED",
+    "instrument_key": "NSE_FO|53043",
+    "trading_symbol": "AXISBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 625
+  },
+  {
+    "name": "AUROBINDO PHARMA LTD",
+    "instrument_key": "NSE_FO|53042",
+    "trading_symbol": "AUROPHARMA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 550
+  },
+  {
+    "name": "BAJAJ FINSERV LTD.",
+    "instrument_key": "NSE_FO|53045",
+    "trading_symbol": "BAJAJFINSV FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "BAJAJ AUTO LIMITED",
+    "instrument_key": "NSE_FO|53044",
+    "trading_symbol": "BAJAJ-AUTO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 75
+  },
+  {
+    "name": "APOLLO HOSPITALS ENTER. L",
+    "instrument_key": "NSE_FO|53036",
+    "trading_symbol": "APOLLOHOSP FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "ASHOK LEYLAND LTD",
+    "instrument_key": "NSE_FO|53037",
+    "trading_symbol": "ASHOKLEY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 5000
+  },
+  {
+    "name": "ASIAN PAINTS LIMITED",
+    "instrument_key": "NSE_FO|53039",
+    "trading_symbol": "ASIANPAINT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "COAL INDIA LTD",
+    "instrument_key": "NSE_FO|53071",
+    "trading_symbol": "COALINDIA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1350
+  },
+  {
+    "name": "CIPLA LTD",
+    "instrument_key": "NSE_FO|53069",
+    "trading_symbol": "CIPLA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "CHOLAMANDALAM IN & FIN CO",
+    "instrument_key": "NSE_FO|53068",
+    "trading_symbol": "CHOLAFIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 625
+  },
+  {
+    "name": "BRITANNIA INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53061",
+    "trading_symbol": "BRITANNIA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "BHARAT PETROLEUM CORP  LT",
+    "instrument_key": "NSE_FO|53060",
+    "trading_symbol": "BPCL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1975
+  },
+  {
+    "name": "COMPUTER AGE MNGT SER LTD",
+    "instrument_key": "NSE_FO|53063",
+    "trading_symbol": "CAMS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "BSE LIMITED",
+    "instrument_key": "NSE_FO|53062",
+    "trading_symbol": "BSE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "CENTRAL DEPO SER (I) LTD",
+    "instrument_key": "NSE_FO|53065",
+    "trading_symbol": "CDSL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 475
+  },
+  {
+    "name": "CANARA BANK",
+    "instrument_key": "NSE_FO|53064",
+    "trading_symbol": "CANBK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6750
+  },
+  {
+    "name": "CG POWER AND IND SOL LTD",
+    "instrument_key": "NSE_FO|53066",
+    "trading_symbol": "CGPOWER FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 850
+  },
+  {
+    "name": "BLUE STAR LIMITED",
+    "instrument_key": "NSE_FO|53058",
+    "trading_symbol": "BLUESTARCO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 325
+  },
+  {
+    "name": "BIOCON LIMITED.",
+    "instrument_key": "NSE_FO|53057",
+    "trading_symbol": "BIOCON FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2500
+  },
+  {
+    "name": "BOSCH LIMITED",
+    "instrument_key": "NSE_FO|53059",
+    "trading_symbol": "BOSCHLTD FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 25
+  },
+  {
+    "name": "ABB INDIA LIMITED",
+    "instrument_key": "NSE_FO|53012",
+    "trading_symbol": "ABB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "360 ONE WAM LIMITED",
+    "instrument_key": "NSE_FO|53011",
+    "trading_symbol": "360ONE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "NIFTYNXT50",
+    "instrument_key": "NSE_FO|53002",
+    "trading_symbol": "NIFTYNXT50 FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 25
+  },
+  {
+    "name": "360 ONE WAM LIMITED",
+    "instrument_key": "NSE_FO|53004",
+    "trading_symbol": "360ONE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "NIFTY",
+    "instrument_key": "NSE_FO|53001",
+    "trading_symbol": "NIFTY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 75
+  },
+  {
+    "name": "AMBUJA CEMENTS LTD",
+    "instrument_key": "NSE_FO|53032",
+    "trading_symbol": "AMBUJACEM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1050
+  },
+  {
+    "name": "AMBER ENTERPRISES (I) LTD",
+    "instrument_key": "NSE_FO|53031",
+    "trading_symbol": "AMBER FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "APL APOLLO TUBES LTD",
+    "instrument_key": "NSE_FO|53034",
+    "trading_symbol": "APLAPOLLO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "ANGEL ONE LIMITED",
+    "instrument_key": "NSE_FO|53033",
+    "trading_symbol": "ANGELONE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "AMBER ENTERPRISES (I) LTD",
+    "instrument_key": "NSE_FO|53028",
+    "trading_symbol": "AMBER FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "ALKEM LABORATORIES LTD.",
+    "instrument_key": "NSE_FO|53021",
+    "trading_symbol": "ALKEM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "ADANI PORT & SEZ LTD",
+    "instrument_key": "NSE_FO|53020",
+    "trading_symbol": "ADANIPORTS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 475
+  },
+  {
+    "name": "ADANI ENERGY SOLUTION LTD",
+    "instrument_key": "NSE_FO|53014",
+    "trading_symbol": "ADANIENSOL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 675
+  },
+  {
+    "name": "ADITYA BIRLA CAPITAL LTD.",
+    "instrument_key": "NSE_FO|53013",
+    "trading_symbol": "ABCAPITAL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3100
+  },
+  {
+    "name": "ADANI GREEN ENERGY LTD",
+    "instrument_key": "NSE_FO|53016",
+    "trading_symbol": "ADANIGREEN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 600
+  },
+  {
+    "name": "ADANI ENTERPRISES LIMITED",
+    "instrument_key": "NSE_FO|53015",
+    "trading_symbol": "ADANIENT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 300
+  },
+  {
+    "name": "COLGATE PALMOLIVE LTD.",
+    "instrument_key": "NSE_FO|53087",
+    "trading_symbol": "COLPAL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 225
+  },
+  {
+    "name": "COFORGE LIMITED",
+    "instrument_key": "NSE_FO|53086",
+    "trading_symbol": "COFORGE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "CONTAINER CORP OF IND LTD",
+    "instrument_key": "NSE_FO|53104",
+    "trading_symbol": "CONCOR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1250
+  },
+  {
+    "name": "CROMPT GREA CON ELEC LTD",
+    "instrument_key": "NSE_FO|53105",
+    "trading_symbol": "CROMPTON FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1800
+  },
+  {
+    "name": "MARICO LIMITED",
+    "instrument_key": "NSE_FO|53492",
+    "trading_symbol": "MARICO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1200
+  },
+  {
+    "name": "MARUTI SUZUKI INDIA LTD.",
+    "instrument_key": "NSE_FO|53493",
+    "trading_symbol": "MARUTI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 50
+  },
+  {
+    "name": "MANAPPURAM FINANCE LTD",
+    "instrument_key": "NSE_FO|53476",
+    "trading_symbol": "MANAPPURAM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3000
+  },
+  {
+    "name": "MANKIND PHARMA LIMITED",
+    "instrument_key": "NSE_FO|53477",
+    "trading_symbol": "MANKIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 225
+  },
+  {
+    "name": "LODHA DEVELOPERS LIMITED",
+    "instrument_key": "NSE_FO|53365",
+    "trading_symbol": "LODHA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 450
+  },
+  {
+    "name": "KOTAK MAHINDRA BANK LTD",
+    "instrument_key": "NSE_FO|53360",
+    "trading_symbol": "KOTAKBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 400
+  },
+  {
+    "name": "LAURUS LABS LIMITED",
+    "instrument_key": "NSE_FO|53362",
+    "trading_symbol": "LAURUSLABS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1700
+  },
+  {
+    "name": "KPIT TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|53361",
+    "trading_symbol": "KPITTECH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 400
+  },
+  {
+    "name": "LIFE INSURA CORP OF INDIA",
+    "instrument_key": "NSE_FO|53364",
+    "trading_symbol": "LICI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 700
+  },
+  {
+    "name": "LIC HOUSING FINANCE LTD",
+    "instrument_key": "NSE_FO|53363",
+    "trading_symbol": "LICHSGFIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "L&T FINANCE LIMITED",
+    "instrument_key": "NSE_FO|53401",
+    "trading_symbol": "LTF FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 4462
+  },
+  {
+    "name": "LARSEN & TOUBRO LTD.",
+    "instrument_key": "NSE_FO|53400",
+    "trading_symbol": "LT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "LTIMINDTREE LIMITED",
+    "instrument_key": "NSE_FO|53410",
+    "trading_symbol": "LTIM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 150
+  },
+  {
+    "name": "MAHINDRA & MAHINDRA LTD",
+    "instrument_key": "NSE_FO|53412",
+    "trading_symbol": "M&M FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 200
+  },
+  {
+    "name": "LUPIN LIMITED",
+    "instrument_key": "NSE_FO|53411",
+    "trading_symbol": "LUPIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 425
+  },
+  {
+    "name": "KFIN TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|53288",
+    "trading_symbol": "KFINTECH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 450
+  },
+  {
+    "name": "KAYNES TECHNOLOGY IND LTD",
+    "instrument_key": "NSE_FO|53283",
+    "trading_symbol": "KAYNES FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "KALYAN JEWELLERS IND LTD",
+    "instrument_key": "NSE_FO|53282",
+    "trading_symbol": "KALYANKJIL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1175
+  },
+  {
+    "name": "KEI INDUSTRIES LTD.",
+    "instrument_key": "NSE_FO|53285",
+    "trading_symbol": "KEI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "KFIN TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|53287",
+    "trading_symbol": "KFINTECH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 450
+  },
+  {
+    "name": "JINDAL STEEL & POWER LTD",
+    "instrument_key": "NSE_FO|53243",
+    "trading_symbol": "JINDALSTEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 625
+  },
+  {
+    "name": "ITC LTD",
+    "instrument_key": "NSE_FO|53242",
+    "trading_symbol": "ITC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1600
+  },
+  {
+    "name": "INDIAN OIL CORP LTD",
+    "instrument_key": "NSE_FO|53234",
+    "trading_symbol": "IOC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 4875
+  },
+  {
+    "name": "INOX WIND LIMITED",
+    "instrument_key": "NSE_FO|53233",
+    "trading_symbol": "INOXWIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3272
+  },
+  {
+    "name": "INDIAN RENEWABLE ENERGY",
+    "instrument_key": "NSE_FO|53238",
+    "trading_symbol": "IREDA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3450
+  },
+  {
+    "name": "INDIAN RAIL TOUR CORP LTD",
+    "instrument_key": "NSE_FO|53237",
+    "trading_symbol": "IRCTC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 875
+  },
+  {
+    "name": "INDIAN RAILWAY FIN CORP L",
+    "instrument_key": "NSE_FO|53239",
+    "trading_symbol": "IRFC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 4250
+  },
+  {
+    "name": "JUBILANT FOODWORKS LTD",
+    "instrument_key": "NSE_FO|53272",
+    "trading_symbol": "JUBLFOOD FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1250
+  },
+  {
+    "name": "JSW STEEL LIMITED",
+    "instrument_key": "NSE_FO|53271",
+    "trading_symbol": "JSWSTEEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 675
+  },
+  {
+    "name": "JSW ENERGY LIMITED",
+    "instrument_key": "NSE_FO|53267",
+    "trading_symbol": "JSWENERGY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "JIO FIN SERVICES LTD",
+    "instrument_key": "NSE_FO|53266",
+    "trading_symbol": "JIOFIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2350
+  },
+  {
+    "name": "TRENT LTD",
+    "instrument_key": "NSE_FO|53909",
+    "trading_symbol": "TRENT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "TITAGARH RAIL SYSTEMS LTD",
+    "instrument_key": "NSE_FO|53900",
+    "trading_symbol": "TITAGARH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 725
+  },
+  {
+    "name": "TORRENT PHARMACEUTICALS L",
+    "instrument_key": "NSE_FO|53902",
+    "trading_symbol": "TORNTPHARM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "TITAN COMPANY LIMITED",
+    "instrument_key": "NSE_FO|53901",
+    "trading_symbol": "TITAN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "TORRENT POWER LTD",
+    "instrument_key": "NSE_FO|53906",
+    "trading_symbol": "TORNTPOWER FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "VEDANTA LIMITED",
+    "instrument_key": "NSE_FO|53921",
+    "trading_symbol": "VEDL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1150
+  },
+  {
+    "name": "WIPRO LTD",
+    "instrument_key": "NSE_FO|53924",
+    "trading_symbol": "WIPRO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3000
+  },
+  {
+    "name": "VOLTAS LTD",
+    "instrument_key": "NSE_FO|53923",
+    "trading_symbol": "VOLTAS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "ZYDUS LIFESCIENCES LTD",
+    "instrument_key": "NSE_FO|53926",
+    "trading_symbol": "ZYDUSLIFE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 900
+  },
+  {
+    "name": "YES BANK LIMITED",
+    "instrument_key": "NSE_FO|53925",
+    "trading_symbol": "YESBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 31100
+  },
+  {
+    "name": "TVS MOTOR COMPANY  LTD",
+    "instrument_key": "NSE_FO|53911",
+    "trading_symbol": "TVSMOTOR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "UNION BANK OF INDIA",
+    "instrument_key": "NSE_FO|53913",
+    "trading_symbol": "UNIONBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 4425
+  },
+  {
+    "name": "ULTRATECH CEMENT LIMITED",
+    "instrument_key": "NSE_FO|53912",
+    "trading_symbol": "ULTRACEMCO FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 50
+  },
+  {
+    "name": "UNO MINDA LIMITED",
+    "instrument_key": "NSE_FO|53915",
+    "trading_symbol": "UNOMINDA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 550
+  },
+  {
+    "name": "UNITED SPIRITS LIMITED",
+    "instrument_key": "NSE_FO|53914",
+    "trading_symbol": "UNITDSPR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 400
+  },
+  {
+    "name": "VARUN BEVERAGES LIMITED",
+    "instrument_key": "NSE_FO|53919",
+    "trading_symbol": "VBL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1025
+  },
+  {
+    "name": "UPL LIMITED",
+    "instrument_key": "NSE_FO|53918",
+    "trading_symbol": "UPL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1355
+  },
+  {
+    "name": "SUPREME INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53840",
+    "trading_symbol": "SUPREMEIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "SHRIRAM FINANCE LIMITED",
+    "instrument_key": "NSE_FO|53834",
+    "trading_symbol": "SHRIRAMFIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 825
+  },
+  {
+    "name": "SHREE CEMENT LIMITED",
+    "instrument_key": "NSE_FO|53833",
+    "trading_symbol": "SHREECEM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 25
+  },
+  {
+    "name": "SOLAR INDUSTRIES (I) LTD",
+    "instrument_key": "NSE_FO|53836",
+    "trading_symbol": "SOLARINDS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 75
+  },
+  {
+    "name": "SIEMENS LTD",
+    "instrument_key": "NSE_FO|53835",
+    "trading_symbol": "SIEMENS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "SRF LTD",
+    "instrument_key": "NSE_FO|53838",
+    "trading_symbol": "SRF FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 200
+  },
+  {
+    "name": "SONA BLW PRECISION FRGS L",
+    "instrument_key": "NSE_FO|53837",
+    "trading_symbol": "SONACOMS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1050
+  },
+  {
+    "name": "SUN PHARMACEUTICAL IND L",
+    "instrument_key": "NSE_FO|53839",
+    "trading_symbol": "SUNPHARMA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "TATA CONSUMER PRODUCT LTD",
+    "instrument_key": "NSE_FO|53867",
+    "trading_symbol": "TATACONSUM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 550
+  },
+  {
+    "name": "TATA MOTORS LIMITED",
+    "instrument_key": "NSE_FO|53869",
+    "trading_symbol": "TATAMOTORS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA ELXSI LIMITED",
+    "instrument_key": "NSE_FO|53868",
+    "trading_symbol": "TATAELXSI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "TATA CHEMICALS LTD",
+    "instrument_key": "NSE_FO|53852",
+    "trading_symbol": "TATACHEM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 650
+  },
+  {
+    "name": "SYNGENE INTERNATIONAL LTD",
+    "instrument_key": "NSE_FO|53851",
+    "trading_symbol": "SYNGENE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1000
+  },
+  {
+    "name": "REC LIMITED",
+    "instrument_key": "NSE_FO|53803",
+    "trading_symbol": "RECLTD FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1275
+  },
+  {
+    "name": "RBL BANK LIMITED",
+    "instrument_key": "NSE_FO|53802",
+    "trading_symbol": "RBLBANK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3175
+  },
+  {
+    "name": "RAIL VIKAS NIGAM LIMITED",
+    "instrument_key": "NSE_FO|53807",
+    "trading_symbol": "RVNL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1375
+  },
+  {
+    "name": "RELIANCE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53806",
+    "trading_symbol": "RELIANCE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 500
+  },
+  {
+    "name": "SBI CARDS & PAY SER LTD",
+    "instrument_key": "NSE_FO|53809",
+    "trading_symbol": "SBICARD FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 800
+  },
+  {
+    "name": "STEEL AUTHORITY OF INDIA",
+    "instrument_key": "NSE_FO|53808",
+    "trading_symbol": "SAIL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 4700
+  },
+  {
+    "name": "SBI LIFE INSURANCE CO LTD",
+    "instrument_key": "NSE_FO|53812",
+    "trading_symbol": "SBILIFE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "STATE BANK OF INDIA",
+    "instrument_key": "NSE_FO|53815",
+    "trading_symbol": "SBIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 750
+  },
+  {
+    "name": "TATA CONSULTANCY SERV LT",
+    "instrument_key": "NSE_FO|53892",
+    "trading_symbol": "TCS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "TATA TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|53891",
+    "trading_symbol": "TATATECH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 800
+  },
+  {
+    "name": "TATA STEEL LIMITED",
+    "instrument_key": "NSE_FO|53883",
+    "trading_symbol": "TATASTEEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 5500
+  },
+  {
+    "name": "TATA POWER CO LTD",
+    "instrument_key": "NSE_FO|53877",
+    "trading_symbol": "TATAPOWER FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1450
+  },
+  {
+    "name": "TECH MAHINDRA LIMITED",
+    "instrument_key": "NSE_FO|53896",
+    "trading_symbol": "TECHM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 600
+  },
+  {
+    "name": "TUBE INVEST OF INDIA LTD",
+    "instrument_key": "NSE_FO|53899",
+    "trading_symbol": "TIINDIA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 200
+  },
+  {
+    "name": "NESTLE INDIA LIMITED",
+    "instrument_key": "NSE_FO|53720",
+    "trading_symbol": "NESTLEIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "NHPC LTD",
+    "instrument_key": "NSE_FO|53721",
+    "trading_symbol": "NHPC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6400
+  },
+  {
+    "name": "INFO EDGE (I) LTD",
+    "instrument_key": "NSE_FO|53711",
+    "trading_symbol": "NAUKRI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 375
+  },
+  {
+    "name": "NATIONAL ALUMINIUM CO LTD",
+    "instrument_key": "NSE_FO|53710",
+    "trading_symbol": "NATIONALUM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3750
+  },
+  {
+    "name": "NCC LIMITED",
+    "instrument_key": "NSE_FO|53715",
+    "trading_symbol": "NCC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2700
+  },
+  {
+    "name": "NBCC (INDIA) LIMITED",
+    "instrument_key": "NSE_FO|53714",
+    "trading_symbol": "NBCC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6500
+  },
+  {
+    "name": "NMDC LTD.",
+    "instrument_key": "NSE_FO|53746",
+    "trading_symbol": "NMDC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 13500
+  },
+  {
+    "name": "FSN E COMMERCE VENTURES",
+    "instrument_key": "NSE_FO|53748",
+    "trading_symbol": "NYKAA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 3125
+  },
+  {
+    "name": "NTPC LTD",
+    "instrument_key": "NSE_FO|53747",
+    "trading_symbol": "NTPC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1500
+  },
+  {
+    "name": "OBEROI REALTY LIMITED",
+    "instrument_key": "NSE_FO|53749",
+    "trading_symbol": "OBEROIRLTY FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "MAZAGON DOCK SHIPBUIL LTD",
+    "instrument_key": "NSE_FO|53704",
+    "trading_symbol": "MAZDOCK FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "MAX HEALTHCARE INS LTD",
+    "instrument_key": "NSE_FO|53703",
+    "trading_symbol": "MAXHEALTH FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 525
+  },
+  {
+    "name": "MAX FINANCIAL SERV LTD",
+    "instrument_key": "NSE_FO|53706",
+    "trading_symbol": "MFSL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 800
+  },
+  {
+    "name": "MULTI COMMODITY EXCHANGE",
+    "instrument_key": "NSE_FO|53705",
+    "trading_symbol": "MCX FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "MPHASIS LIMITED",
+    "instrument_key": "NSE_FO|53708",
+    "trading_symbol": "MPHASIS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 275
+  },
+  {
+    "name": "SAMVRDHNA MTHRSN INTL LTD",
+    "instrument_key": "NSE_FO|53707",
+    "trading_symbol": "MOTHERSON FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 6150
+  },
+  {
+    "name": "MUTHOOT FINANCE LIMITED",
+    "instrument_key": "NSE_FO|53709",
+    "trading_symbol": "MUTHOOTFIN FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 275
+  },
+  {
+    "name": "PIRAMAL PHARMA LIMITED",
+    "instrument_key": "NSE_FO|53795",
+    "trading_symbol": "PPLPHARMA FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2500
+  },
+  {
+    "name": "PRESTIGE ESTATE LTD",
+    "instrument_key": "NSE_FO|53798",
+    "trading_symbol": "PRESTIGE FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 450
+  },
+  {
+    "name": "PG ELECTROPLAST LTD",
+    "instrument_key": "NSE_FO|53764",
+    "trading_symbol": "PGEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 700
+  },
+  {
+    "name": "THE PHOENIX MILLS LTD",
+    "instrument_key": "NSE_FO|53766",
+    "trading_symbol": "PHOENIXLTD FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "PG ELECTROPLAST LTD",
+    "instrument_key": "NSE_FO|53765",
+    "trading_symbol": "PGEL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 700
+  },
+  {
+    "name": "PIDILITE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53769",
+    "trading_symbol": "PIDILITIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 250
+  },
+  {
+    "name": "OIL INDIA LTD",
+    "instrument_key": "NSE_FO|53751",
+    "trading_symbol": "OIL FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1400
+  },
+  {
+    "name": "ORACLE FIN SERV SOFT LTD.",
+    "instrument_key": "NSE_FO|53750",
+    "trading_symbol": "OFSS FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 75
+  },
+  {
+    "name": "PAGE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53753",
+    "trading_symbol": "PAGEIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 15
+  },
+  {
+    "name": "OIL AND NATURAL GAS CORP.",
+    "instrument_key": "NSE_FO|53752",
+    "trading_symbol": "ONGC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 2250
+  },
+  {
+    "name": "ONE 97 COMMUNICATIONS LTD",
+    "instrument_key": "NSE_FO|53755",
+    "trading_symbol": "PAYTM FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 725
+  },
+  {
+    "name": "PATANJALI FOODS LIMITED",
+    "instrument_key": "NSE_FO|53754",
+    "trading_symbol": "PATANJALI FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 300
+  },
+  {
+    "name": "PERSISTENT SYSTEMS LTD",
+    "instrument_key": "NSE_FO|53757",
+    "trading_symbol": "PERSISTENT FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 100
+  },
+  {
+    "name": "POWER FIN CORP LTD.",
+    "instrument_key": "NSE_FO|53759",
+    "trading_symbol": "PFC FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1300
+  },
+  {
+    "name": "PETRONET LNG LIMITED",
+    "instrument_key": "NSE_FO|53758",
+    "trading_symbol": "PETRONET FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1800
+  },
+  {
+    "name": "POLYCAB INDIA LIMITED",
+    "instrument_key": "NSE_FO|53791",
+    "trading_symbol": "POLYCAB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 125
+  },
+  {
+    "name": "POWER GRID CORP. LTD.",
+    "instrument_key": "NSE_FO|53792",
+    "trading_symbol": "POWERGRID FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 1900
+  },
+  {
+    "name": "PB FINTECH LIMITED",
+    "instrument_key": "NSE_FO|53781",
+    "trading_symbol": "POLICYBZR FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 350
+  },
+  {
+    "name": "PI INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|53777",
+    "trading_symbol": "PIIND FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 175
+  },
+  {
+    "name": "PNB HOUSING FIN LTD.",
+    "instrument_key": "NSE_FO|53779",
+    "trading_symbol": "PNBHOUSING FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 650
+  },
+  {
+    "name": "PUNJAB NATIONAL BANK",
+    "instrument_key": "NSE_FO|53778",
+    "trading_symbol": "PNB FUT 30 SEP 25",
+    "expiry": 1759256999000,
+    "lot_size": 8000
+  },
+  {
+    "name": "181NSETEST",
+    "instrument_key": "NSE_FO|48577",
+    "trading_symbol": "181NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "171NSETEST",
+    "instrument_key": "NSE_FO|48576",
+    "trading_symbol": "171NSETEST FUT 27 NOV 36",
+    "expiry": 2111423399000,
+    "lot_size": 50
+  },
+  {
+    "name": "BOSCH LIMITED",
+    "instrument_key": "NSE_FO|64249",
+    "trading_symbol": "BOSCHLTD FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 25
+  },
+  {
+    "name": "BLUE STAR LIMITED",
+    "instrument_key": "NSE_FO|64248",
+    "trading_symbol": "BLUESTARCO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 325
+  },
+  {
+    "name": "BANDHAN BANK LIMITED",
+    "instrument_key": "NSE_FO|64221",
+    "trading_symbol": "BANDHANBNK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3600
+  },
+  {
+    "name": "BAJAJ FINANCE LIMITED",
+    "instrument_key": "NSE_FO|64220",
+    "trading_symbol": "BAJFINANCE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 750
+  },
+  {
+    "name": "BAJAJ FINSERV LTD.",
+    "instrument_key": "NSE_FO|64219",
+    "trading_symbol": "BAJAJFINSV FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "BAJAJ AUTO LIMITED",
+    "instrument_key": "NSE_FO|64217",
+    "trading_symbol": "BAJAJ-AUTO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 75
+  },
+  {
+    "name": "AXIS BANK LIMITED",
+    "instrument_key": "NSE_FO|64207",
+    "trading_symbol": "AXISBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 625
+  },
+  {
+    "name": "AUROBINDO PHARMA LTD",
+    "instrument_key": "NSE_FO|64206",
+    "trading_symbol": "AUROPHARMA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 550
+  },
+  {
+    "name": "BIOCON LIMITED.",
+    "instrument_key": "NSE_FO|64231",
+    "trading_symbol": "BIOCON FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2500
+  },
+  {
+    "name": "BHEL",
+    "instrument_key": "NSE_FO|64230",
+    "trading_symbol": "BHEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2625
+  },
+  {
+    "name": "BHARTI AIRTEL LIMITED",
+    "instrument_key": "NSE_FO|64229",
+    "trading_symbol": "BHARTIARTL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 475
+  },
+  {
+    "name": "BHARAT FORGE LTD",
+    "instrument_key": "NSE_FO|64228",
+    "trading_symbol": "BHARATFORG FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "BHARAT ELECTRONICS LTD",
+    "instrument_key": "NSE_FO|64227",
+    "trading_symbol": "BEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2850
+  },
+  {
+    "name": "BHARAT DYNAMICS LIMITED",
+    "instrument_key": "NSE_FO|64226",
+    "trading_symbol": "BDL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 325
+  },
+  {
+    "name": "BANK OF INDIA",
+    "instrument_key": "NSE_FO|64223",
+    "trading_symbol": "BANKINDIA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 5200
+  },
+  {
+    "name": "BANK OF BARODA",
+    "instrument_key": "NSE_FO|64222",
+    "trading_symbol": "BANKBARODA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2925
+  },
+  {
+    "name": "BANKNIFTY",
+    "instrument_key": "NSE_FO|64100",
+    "trading_symbol": "BANKNIFTY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 35
+  },
+  {
+    "name": "AU SMALL FINANCE BANK LTD",
+    "instrument_key": "NSE_FO|64121",
+    "trading_symbol": "AUBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "ADANI TOTAL GAS LIMITED",
+    "instrument_key": "NSE_FO|64120",
+    "trading_symbol": "ATGL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 875
+  },
+  {
+    "name": "ASTRAL LIMITED",
+    "instrument_key": "NSE_FO|64119",
+    "trading_symbol": "ASTRAL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 425
+  },
+  {
+    "name": "ASIAN PAINTS LIMITED",
+    "instrument_key": "NSE_FO|64118",
+    "trading_symbol": "ASIANPAINT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "ASHOK LEYLAND LTD",
+    "instrument_key": "NSE_FO|64117",
+    "trading_symbol": "ASHOKLEY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 5000
+  },
+  {
+    "name": "APOLLO HOSPITALS ENTER. L",
+    "instrument_key": "NSE_FO|64116",
+    "trading_symbol": "APOLLOHOSP FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "APL APOLLO TUBES LTD",
+    "instrument_key": "NSE_FO|64115",
+    "trading_symbol": "APLAPOLLO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "ANGEL ONE LIMITED",
+    "instrument_key": "NSE_FO|64114",
+    "trading_symbol": "ANGELONE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "AMBUJA CEMENTS LTD",
+    "instrument_key": "NSE_FO|64113",
+    "trading_symbol": "AMBUJACEM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1050
+  },
+  {
+    "name": "ALKEM LABORATORIES LTD.",
+    "instrument_key": "NSE_FO|64112",
+    "trading_symbol": "ALKEM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "ADANI PORT & SEZ LTD",
+    "instrument_key": "NSE_FO|64111",
+    "trading_symbol": "ADANIPORTS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 475
+  },
+  {
+    "name": "ADANI GREEN ENERGY LTD",
+    "instrument_key": "NSE_FO|64110",
+    "trading_symbol": "ADANIGREEN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 600
+  },
+  {
+    "name": "ADANI ENTERPRISES LIMITED",
+    "instrument_key": "NSE_FO|64109",
+    "trading_symbol": "ADANIENT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 300
+  },
+  {
+    "name": "ADANI ENERGY SOLUTION LTD",
+    "instrument_key": "NSE_FO|64108",
+    "trading_symbol": "ADANIENSOL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 675
+  },
+  {
+    "name": "ADITYA BIRLA FASHION & RT",
+    "instrument_key": "NSE_FO|64107",
+    "trading_symbol": "ABFRL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2600
+  },
+  {
+    "name": "ADITYA BIRLA CAPITAL LTD.",
+    "instrument_key": "NSE_FO|64106",
+    "trading_symbol": "ABCAPITAL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3100
+  },
+  {
+    "name": "ABB INDIA LIMITED",
+    "instrument_key": "NSE_FO|64105",
+    "trading_symbol": "ABB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "NIFTYNXT50",
+    "instrument_key": "NSE_FO|64104",
+    "trading_symbol": "NIFTYNXT50 FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 25
+  },
+  {
+    "name": "NIFTY",
+    "instrument_key": "NSE_FO|64103",
+    "trading_symbol": "NIFTY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 75
+  },
+  {
+    "name": "MIDCPNIFTY",
+    "instrument_key": "NSE_FO|64102",
+    "trading_symbol": "MIDCPNIFTY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 140
+  },
+  {
+    "name": "FINNIFTY",
+    "instrument_key": "NSE_FO|64101",
+    "trading_symbol": "FINNIFTY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 65
+  },
+  {
+    "name": "JSW ENERGY LIMITED",
+    "instrument_key": "NSE_FO|64619",
+    "trading_symbol": "JSWENERGY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "JINDAL STAINLESS LIMITED",
+    "instrument_key": "NSE_FO|64618",
+    "trading_symbol": "JSL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 850
+  },
+  {
+    "name": "JIO FIN SERVICES LTD",
+    "instrument_key": "NSE_FO|64617",
+    "trading_symbol": "JIOFIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2350
+  },
+  {
+    "name": "JINDAL STEEL & POWER LTD",
+    "instrument_key": "NSE_FO|64616",
+    "trading_symbol": "JINDALSTEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 625
+  },
+  {
+    "name": "ITC LTD",
+    "instrument_key": "NSE_FO|64615",
+    "trading_symbol": "ITC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1600
+  },
+  {
+    "name": "INDIAN RAILWAY FIN CORP L",
+    "instrument_key": "NSE_FO|64614",
+    "trading_symbol": "IRFC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 4250
+  },
+  {
+    "name": "INDIAN RENEWABLE ENERGY",
+    "instrument_key": "NSE_FO|64613",
+    "trading_symbol": "IREDA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3450
+  },
+  {
+    "name": "MAHINDRA & MAHINDRA LTD",
+    "instrument_key": "NSE_FO|64637",
+    "trading_symbol": "M&M FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 200
+  },
+  {
+    "name": "LUPIN LIMITED",
+    "instrument_key": "NSE_FO|64636",
+    "trading_symbol": "LUPIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 425
+  },
+  {
+    "name": "LTIMINDTREE LIMITED",
+    "instrument_key": "NSE_FO|64635",
+    "trading_symbol": "LTIM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "L&T FINANCE LIMITED",
+    "instrument_key": "NSE_FO|64634",
+    "trading_symbol": "LTF FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 4462
+  },
+  {
+    "name": "LARSEN & TOUBRO LTD.",
+    "instrument_key": "NSE_FO|64633",
+    "trading_symbol": "LT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "LODHA DEVELOPERS LIMITED",
+    "instrument_key": "NSE_FO|64632",
+    "trading_symbol": "LODHA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 450
+  },
+  {
+    "name": "LIFE INSURA CORP OF INDIA",
+    "instrument_key": "NSE_FO|64631",
+    "trading_symbol": "LICI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 700
+  },
+  {
+    "name": "LIC HOUSING FINANCE LTD",
+    "instrument_key": "NSE_FO|64630",
+    "trading_symbol": "LICHSGFIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "LAURUS LABS LIMITED",
+    "instrument_key": "NSE_FO|64629",
+    "trading_symbol": "LAURUSLABS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1700
+  },
+  {
+    "name": "KPIT TECHNOLOGIES LIMITED",
+    "instrument_key": "NSE_FO|64628",
+    "trading_symbol": "KPITTECH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 400
+  },
+  {
+    "name": "KOTAK MAHINDRA BANK LTD",
+    "instrument_key": "NSE_FO|64627",
+    "trading_symbol": "KOTAKBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 400
+  },
+  {
+    "name": "KEI INDUSTRIES LTD.",
+    "instrument_key": "NSE_FO|64626",
+    "trading_symbol": "KEI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "KAYNES TECHNOLOGY IND LTD",
+    "instrument_key": "NSE_FO|64625",
+    "trading_symbol": "KAYNES FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "KALYAN JEWELLERS IND LTD",
+    "instrument_key": "NSE_FO|64622",
+    "trading_symbol": "KALYANKJIL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1175
+  },
+  {
+    "name": "JUBILANT FOODWORKS LTD",
+    "instrument_key": "NSE_FO|64621",
+    "trading_symbol": "JUBLFOOD FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1250
+  },
+  {
+    "name": "JSW STEEL LIMITED",
+    "instrument_key": "NSE_FO|64620",
+    "trading_symbol": "JSWSTEEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 675
+  },
+  {
+    "name": "INDIAN RAIL TOUR CORP LTD",
+    "instrument_key": "NSE_FO|64548",
+    "trading_symbol": "IRCTC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 875
+  },
+  {
+    "name": "IRB INFRA DEV LTD.",
+    "instrument_key": "NSE_FO|64547",
+    "trading_symbol": "IRB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 11675
+  },
+  {
+    "name": "CG POWER AND IND SOL LTD",
+    "instrument_key": "NSE_FO|64383",
+    "trading_symbol": "CGPOWER FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 850
+  },
+  {
+    "name": "CESC LTD",
+    "instrument_key": "NSE_FO|64382",
+    "trading_symbol": "CESC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3625
+  },
+  {
+    "name": "CENTRAL DEPO SER (I) LTD",
+    "instrument_key": "NSE_FO|64381",
+    "trading_symbol": "CDSL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 475
+  },
+  {
+    "name": "CANARA BANK",
+    "instrument_key": "NSE_FO|64380",
+    "trading_symbol": "CANBK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6750
+  },
+  {
+    "name": "COMPUTER AGE MNGT SER LTD",
+    "instrument_key": "NSE_FO|64379",
+    "trading_symbol": "CAMS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "BSE LIMITED",
+    "instrument_key": "NSE_FO|64378",
+    "trading_symbol": "BSE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "BRITANNIA INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64373",
+    "trading_symbol": "BRITANNIA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "BHARAT PETROLEUM CORP  LT",
+    "instrument_key": "NSE_FO|64372",
+    "trading_symbol": "BPCL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1975
+  },
+  {
+    "name": "DELHIVERY LIMITED",
+    "instrument_key": "NSE_FO|64399",
+    "trading_symbol": "DELHIVERY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2075
+  },
+  {
+    "name": "DALMIA BHARAT LIMITED",
+    "instrument_key": "NSE_FO|64398",
+    "trading_symbol": "DALBHARAT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 325
+  },
+  {
+    "name": "DABUR INDIA LTD",
+    "instrument_key": "NSE_FO|64397",
+    "trading_symbol": "DABUR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1250
+  },
+  {
+    "name": "CYIENT LIMITED",
+    "instrument_key": "NSE_FO|64396",
+    "trading_symbol": "CYIENT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 425
+  },
+  {
+    "name": "CUMMINS INDIA LTD",
+    "instrument_key": "NSE_FO|64395",
+    "trading_symbol": "CUMMINSIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 200
+  },
+  {
+    "name": "CROMPT GREA CON ELEC LTD",
+    "instrument_key": "NSE_FO|64394",
+    "trading_symbol": "CROMPTON FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1800
+  },
+  {
+    "name": "CONTAINER CORP OF IND LTD",
+    "instrument_key": "NSE_FO|64393",
+    "trading_symbol": "CONCOR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1250
+  },
+  {
+    "name": "COLGATE PALMOLIVE LTD.",
+    "instrument_key": "NSE_FO|64392",
+    "trading_symbol": "COLPAL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 225
+  },
+  {
+    "name": "COFORGE LIMITED",
+    "instrument_key": "NSE_FO|64391",
+    "trading_symbol": "COFORGE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "COAL INDIA LTD",
+    "instrument_key": "NSE_FO|64390",
+    "trading_symbol": "COALINDIA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1350
+  },
+  {
+    "name": "CIPLA LTD",
+    "instrument_key": "NSE_FO|64388",
+    "trading_symbol": "CIPLA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "CHOLAMANDALAM IN & FIN CO",
+    "instrument_key": "NSE_FO|64387",
+    "trading_symbol": "CHOLAFIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 625
+  },
+  {
+    "name": "INDIAN OIL CORP LTD",
+    "instrument_key": "NSE_FO|64457",
+    "trading_symbol": "IOC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 4875
+  },
+  {
+    "name": "INOX WIND LIMITED",
+    "instrument_key": "NSE_FO|64456",
+    "trading_symbol": "INOXWIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3272
+  },
+  {
+    "name": "INFOSYS LIMITED",
+    "instrument_key": "NSE_FO|64454",
+    "trading_symbol": "INFY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 400
+  },
+  {
+    "name": "INDUS TOWERS LIMITED",
+    "instrument_key": "NSE_FO|64453",
+    "trading_symbol": "INDUSTOWER FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1700
+  },
+  {
+    "name": "INDUSIND BANK LIMITED",
+    "instrument_key": "NSE_FO|64452",
+    "trading_symbol": "INDUSINDBK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 700
+  },
+  {
+    "name": "INTERGLOBE AVIATION LTD",
+    "instrument_key": "NSE_FO|64451",
+    "trading_symbol": "INDIGO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "INDIAN BANK",
+    "instrument_key": "NSE_FO|64443",
+    "trading_symbol": "INDIANB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "THE INDIAN HOTELS CO. LTD",
+    "instrument_key": "NSE_FO|64442",
+    "trading_symbol": "INDHOTEL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1000
+  },
+  {
+    "name": "GRANULES INDIA LIMITED",
+    "instrument_key": "NSE_FO|64419",
+    "trading_symbol": "GRANULES FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1075
+  },
+  {
+    "name": "GODREJ PROPERTIES LTD",
+    "instrument_key": "NSE_FO|64418",
+    "trading_symbol": "GODREJPROP FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 275
+  },
+  {
+    "name": "GODREJ CONSUMER PRODUCTS",
+    "instrument_key": "NSE_FO|64417",
+    "trading_symbol": "GODREJCP FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "GMR AIRPORTS LIMITED",
+    "instrument_key": "NSE_FO|64416",
+    "trading_symbol": "GMRAIRPORT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6975
+  },
+  {
+    "name": "GLENMARK PHARMACEUTICALS",
+    "instrument_key": "NSE_FO|64415",
+    "trading_symbol": "GLENMARK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "GAIL (INDIA) LTD",
+    "instrument_key": "NSE_FO|64414",
+    "trading_symbol": "GAIL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3150
+  },
+  {
+    "name": "FORTIS HEALTHCARE LTD",
+    "instrument_key": "NSE_FO|64413",
+    "trading_symbol": "FORTIS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 775
+  },
+  {
+    "name": "FEDERAL BANK LTD",
+    "instrument_key": "NSE_FO|64410",
+    "trading_symbol": "FEDERALBNK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 5000
+  },
+  {
+    "name": "EXIDE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64409",
+    "trading_symbol": "EXIDEIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1800
+  },
+  {
+    "name": "ETERNAL LIMITED",
+    "instrument_key": "NSE_FO|64407",
+    "trading_symbol": "ETERNAL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2425
+  },
+  {
+    "name": "EICHER MOTORS LTD",
+    "instrument_key": "NSE_FO|64405",
+    "trading_symbol": "EICHERMOT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "DR. REDDY S LABORATORIES",
+    "instrument_key": "NSE_FO|64404",
+    "trading_symbol": "DRREDDY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 625
+  },
+  {
+    "name": "AVENUE SUPERMARTS LIMITED",
+    "instrument_key": "NSE_FO|64403",
+    "trading_symbol": "DMART FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "DLF LIMITED",
+    "instrument_key": "NSE_FO|64402",
+    "trading_symbol": "DLF FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 825
+  },
+  {
+    "name": "DIXON TECHNO (INDIA) LTD",
+    "instrument_key": "NSE_FO|64401",
+    "trading_symbol": "DIXON FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 50
+  },
+  {
+    "name": "DIVI S LABORATORIES LTD",
+    "instrument_key": "NSE_FO|64400",
+    "trading_symbol": "DIVISLAB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "IIFL FINANCE LIMITED",
+    "instrument_key": "NSE_FO|64441",
+    "trading_symbol": "IIFL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1650
+  },
+  {
+    "name": "INDRAPRASTHA GAS LTD",
+    "instrument_key": "NSE_FO|64440",
+    "trading_symbol": "IGL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2750
+  },
+  {
+    "name": "INDIAN ENERGY EXC LTD",
+    "instrument_key": "NSE_FO|64439",
+    "trading_symbol": "IEX FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3750
+  },
+  {
+    "name": "IDFC FIRST BANK LIMITED",
+    "instrument_key": "NSE_FO|64438",
+    "trading_symbol": "IDFCFIRSTB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 9275
+  },
+  {
+    "name": "VODAFONE IDEA LIMITED",
+    "instrument_key": "NSE_FO|64437",
+    "trading_symbol": "IDEA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 71475
+  },
+  {
+    "name": "ICICI PRU LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|64436",
+    "trading_symbol": "ICICIPRULI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 925
+  },
+  {
+    "name": "ICICI LOMBARD GIC LIMITED",
+    "instrument_key": "NSE_FO|64435",
+    "trading_symbol": "ICICIGI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 325
+  },
+  {
+    "name": "ICICI BANK LTD.",
+    "instrument_key": "NSE_FO|64434",
+    "trading_symbol": "ICICIBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 700
+  },
+  {
+    "name": "HSG & URBAN DEV CORPN LTD",
+    "instrument_key": "NSE_FO|64433",
+    "trading_symbol": "HUDCO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2775
+  },
+  {
+    "name": "HINDUSTAN ZINC LIMITED",
+    "instrument_key": "NSE_FO|64432",
+    "trading_symbol": "HINDZINC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1225
+  },
+  {
+    "name": "HINDUSTAN UNILEVER LTD.",
+    "instrument_key": "NSE_FO|64431",
+    "trading_symbol": "HINDUNILVR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 300
+  },
+  {
+    "name": "HINDUSTAN PETROLEUM CORP",
+    "instrument_key": "NSE_FO|64430",
+    "trading_symbol": "HINDPETRO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2025
+  },
+  {
+    "name": "HINDALCO  INDUSTRIES  LTD",
+    "instrument_key": "NSE_FO|64429",
+    "trading_symbol": "HINDALCO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1400
+  },
+  {
+    "name": "HFCL LIMITED",
+    "instrument_key": "NSE_FO|64428",
+    "trading_symbol": "HFCL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6450
+  },
+  {
+    "name": "HERO MOTOCORP LIMITED",
+    "instrument_key": "NSE_FO|64427",
+    "trading_symbol": "HEROMOTOCO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "HDFC LIFE INS CO LTD",
+    "instrument_key": "NSE_FO|64426",
+    "trading_symbol": "HDFCLIFE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1100
+  },
+  {
+    "name": "HDFC BANK LTD",
+    "instrument_key": "NSE_FO|64425",
+    "trading_symbol": "HDFCBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 550
+  },
+  {
+    "name": "HDFC AMC LIMITED",
+    "instrument_key": "NSE_FO|64424",
+    "trading_symbol": "HDFCAMC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "HCL TECHNOLOGIES LTD",
+    "instrument_key": "NSE_FO|64423",
+    "trading_symbol": "HCLTECH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "HAVELLS INDIA LIMITED",
+    "instrument_key": "NSE_FO|64422",
+    "trading_symbol": "HAVELLS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "HINDUSTAN AERONAUTICS LTD",
+    "instrument_key": "NSE_FO|64421",
+    "trading_symbol": "HAL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 150
+  },
+  {
+    "name": "GRASIM INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64420",
+    "trading_symbol": "GRASIM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "MAZAGON DOCK SHIPBUIL LTD",
+    "instrument_key": "NSE_FO|64908",
+    "trading_symbol": "MAZDOCK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "MAX HEALTHCARE INS LTD",
+    "instrument_key": "NSE_FO|64905",
+    "trading_symbol": "MAXHEALTH FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 525
+  },
+  {
+    "name": "MARUTI SUZUKI INDIA LTD.",
+    "instrument_key": "NSE_FO|64904",
+    "trading_symbol": "MARUTI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 50
+  },
+  {
+    "name": "MARICO LIMITED",
+    "instrument_key": "NSE_FO|64903",
+    "trading_symbol": "MARICO FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1200
+  },
+  {
+    "name": "MANKIND PHARMA LIMITED",
+    "instrument_key": "NSE_FO|64902",
+    "trading_symbol": "MANKIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 225
+  },
+  {
+    "name": "PUNJAB NATIONAL BANK",
+    "instrument_key": "NSE_FO|64979",
+    "trading_symbol": "PNB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 8000
+  },
+  {
+    "name": "PI INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64978",
+    "trading_symbol": "PIIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 175
+  },
+  {
+    "name": "PIDILITE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64977",
+    "trading_symbol": "PIDILITIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "THE PHOENIX MILLS LTD",
+    "instrument_key": "NSE_FO|64976",
+    "trading_symbol": "PHOENIXLTD FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "POWER FIN CORP LTD.",
+    "instrument_key": "NSE_FO|64975",
+    "trading_symbol": "PFC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1300
+  },
+  {
+    "name": "PETRONET LNG LIMITED",
+    "instrument_key": "NSE_FO|64974",
+    "trading_symbol": "PETRONET FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1800
+  },
+  {
+    "name": "PERSISTENT SYSTEMS LTD",
+    "instrument_key": "NSE_FO|64973",
+    "trading_symbol": "PERSISTENT FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 100
+  },
+  {
+    "name": "ONE 97 COMMUNICATIONS LTD",
+    "instrument_key": "NSE_FO|64972",
+    "trading_symbol": "PAYTM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 725
+  },
+  {
+    "name": "PATANJALI FOODS LIMITED",
+    "instrument_key": "NSE_FO|64971",
+    "trading_symbol": "PATANJALI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 300
+  },
+  {
+    "name": "PAGE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64970",
+    "trading_symbol": "PAGEIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 15
+  },
+  {
+    "name": "OIL AND NATURAL GAS CORP.",
+    "instrument_key": "NSE_FO|64969",
+    "trading_symbol": "ONGC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2250
+  },
+  {
+    "name": "OIL INDIA LTD",
+    "instrument_key": "NSE_FO|64968",
+    "trading_symbol": "OIL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1400
+  },
+  {
+    "name": "ORACLE FIN SERV SOFT LTD.",
+    "instrument_key": "NSE_FO|64965",
+    "trading_symbol": "OFSS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 75
+  },
+  {
+    "name": "OBEROI REALTY LIMITED",
+    "instrument_key": "NSE_FO|64964",
+    "trading_symbol": "OBEROIRLTY FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "FSN E COMMERCE VENTURES",
+    "instrument_key": "NSE_FO|64963",
+    "trading_symbol": "NYKAA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3125
+  },
+  {
+    "name": "NTPC LTD",
+    "instrument_key": "NSE_FO|64962",
+    "trading_symbol": "NTPC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1500
+  },
+  {
+    "name": "STEEL AUTHORITY OF INDIA",
+    "instrument_key": "NSE_FO|64999",
+    "trading_symbol": "SAIL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 4700
+  },
+  {
+    "name": "RAIL VIKAS NIGAM LIMITED",
+    "instrument_key": "NSE_FO|64998",
+    "trading_symbol": "RVNL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1375
+  },
+  {
+    "name": "RELIANCE INDUSTRIES LTD",
+    "instrument_key": "NSE_FO|64995",
+    "trading_symbol": "RELIANCE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 500
+  },
+  {
+    "name": "REC LIMITED",
+    "instrument_key": "NSE_FO|64994",
+    "trading_symbol": "RECLTD FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1275
+  },
+  {
+    "name": "RBL BANK LIMITED",
+    "instrument_key": "NSE_FO|64991",
+    "trading_symbol": "RBLBANK FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3175
+  },
+  {
+    "name": "PRESTIGE ESTATE LTD",
+    "instrument_key": "NSE_FO|64990",
+    "trading_symbol": "PRESTIGE FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 450
+  },
+  {
+    "name": "PIRAMAL PHARMA LIMITED",
+    "instrument_key": "NSE_FO|64989",
+    "trading_symbol": "PPLPHARMA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2500
+  },
+  {
+    "name": "POWER GRID CORP. LTD.",
+    "instrument_key": "NSE_FO|64986",
+    "trading_symbol": "POWERGRID FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1900
+  },
+  {
+    "name": "POONAWALLA FINCORP LTD",
+    "instrument_key": "NSE_FO|64985",
+    "trading_symbol": "POONAWALLA FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 1700
+  },
+  {
+    "name": "POLYCAB INDIA LIMITED",
+    "instrument_key": "NSE_FO|64984",
+    "trading_symbol": "POLYCAB FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "PB FINTECH LIMITED",
+    "instrument_key": "NSE_FO|64982",
+    "trading_symbol": "POLICYBZR FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 350
+  },
+  {
+    "name": "PNB HOUSING FIN LTD.",
+    "instrument_key": "NSE_FO|64981",
+    "trading_symbol": "PNBHOUSING FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 650
+  },
+  {
+    "name": "MAX FINANCIAL SERV LTD",
+    "instrument_key": "NSE_FO|64939",
+    "trading_symbol": "MFSL FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 800
+  },
+  {
+    "name": "MULTI COMMODITY EXCHANGE",
+    "instrument_key": "NSE_FO|64938",
+    "trading_symbol": "MCX FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 125
+  },
+  {
+    "name": "NMDC LTD.",
+    "instrument_key": "NSE_FO|64959",
+    "trading_symbol": "NMDC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 13500
+  },
+  {
+    "name": "NHPC LTD",
+    "instrument_key": "NSE_FO|64954",
+    "trading_symbol": "NHPC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6400
+  },
+  {
+    "name": "NESTLE INDIA LIMITED",
+    "instrument_key": "NSE_FO|64953",
+    "trading_symbol": "NESTLEIND FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 250
+  },
+  {
+    "name": "NCC LIMITED",
+    "instrument_key": "NSE_FO|64952",
+    "trading_symbol": "NCC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 2700
+  },
+  {
+    "name": "NBCC (INDIA) LIMITED",
+    "instrument_key": "NSE_FO|64951",
+    "trading_symbol": "NBCC FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6500
+  },
+  {
+    "name": "INFO EDGE (I) LTD",
+    "instrument_key": "NSE_FO|64950",
+    "trading_symbol": "NAUKRI FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 375
+  },
+  {
+    "name": "NATIONAL ALUMINIUM CO LTD",
+    "instrument_key": "NSE_FO|64949",
+    "trading_symbol": "NATIONALUM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3750
+  },
+  {
+    "name": "MUTHOOT FINANCE LIMITED",
+    "instrument_key": "NSE_FO|64944",
+    "trading_symbol": "MUTHOOTFIN FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 275
+  },
+  {
+    "name": "MPHASIS LIMITED",
+    "instrument_key": "NSE_FO|64943",
+    "trading_symbol": "MPHASIS FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 275
+  },
+  {
+    "name": "SAMVRDHNA MTHRSN INTL LTD",
+    "instrument_key": "NSE_FO|64942",
+    "trading_symbol": "MOTHERSON FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 6150
+  },
+  {
+    "name": "MANAPPURAM FINANCE LTD",
+    "instrument_key": "NSE_FO|64897",
+    "trading_symbol": "MANAPPURAM FUT 28 AUG 25",
+    "expiry": 1756405799000,
+    "lot_size": 3000
+  }
+]

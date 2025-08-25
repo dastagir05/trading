@@ -11,7 +11,8 @@ import {
   User,
   Database,
   Sparkles,
-  BarChart2
+  BarChart2,
+  Shield,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -55,6 +56,14 @@ const Sidebar = () => {
       badge: "Powered by Gemini",
       special: true
     },
+    {
+      id: "admin",
+      label: "Admin Panel",
+      icon: <Shield className="w-5 h-5" />,
+      badge: "Admin Only",
+      special: true,
+      admin: true
+    },
   ];
 
   return (
@@ -83,7 +92,9 @@ const Sidebar = () => {
               className={`group w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${
                 activeTab === item.id
                   ? item.special
-                    ? "bg-purple-50 text-purple-700 border border-purple-200 shadow-sm"
+                    ? item.admin
+                      ? "bg-red-50 text-red-700 border border-red-200 shadow-sm"
+                      : "bg-purple-50 text-purple-700 border border-purple-200 shadow-sm"
                     : "bg-green-50 text-green-700 border border-green-200 shadow-sm"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border border-transparent"
               }`}
@@ -93,7 +104,9 @@ const Sidebar = () => {
                   className={`transition-colors ${
                     activeTab === item.id
                       ? item.special
-                        ? "text-purple-600"
+                        ? item.admin
+                          ? "text-red-600"
+                          : "text-purple-600"
                         : "text-green-600"
                       : "text-gray-400 group-hover:text-gray-600"
                   }`}
@@ -107,11 +120,17 @@ const Sidebar = () => {
               {item.badge && (
                 <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                   activeTab === item.id
-                    ? "bg-purple-100 text-purple-700"
+                    ? item.admin
+                      ? "bg-red-100 text-red-700"
+                      : "bg-purple-100 text-purple-700"
                     : "bg-gray-100 text-gray-600"
                 }`}>
-                  <Sparkles className="w-3 h-3 inline mr-1" />
-                  AI
+                  {item.admin ? (
+                    <Shield className="w-3 h-3 inline mr-1" />
+                  ) : (
+                    <Sparkles className="w-3 h-3 inline mr-1" />
+                  )}
+                  {item.admin ? "Admin" : "AI"}
                 </span>
               )}
             </Link>

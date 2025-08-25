@@ -1,17 +1,17 @@
 const express = require("express");
-const { 
-  tradeDetail, 
-  closeTradeManual, 
-  getTrades, 
+const {
+  createTrade,
+  closeTradeManual,
+  getTrades,
   modifyTargetStoploss,
   executeAiTrade,
   getUserAiTradePerformance,
-  getPersonalizedAiTradeSuggestions
+  getPersonalizedAiTradeSuggestions,
 } = require("../controllers/trade.controller");
 
 const router = express.Router();
 
-router.post("/intra", tradeDetail);
+router.post("/createTrade", createTrade);
 router.get("/gettrades", getTrades);
 router.post("/closeTrade", closeTradeManual);
 router.post("/modifyTargetStoploss", modifyTargetStoploss);

@@ -1,0 +1,128 @@
+[
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Midcap 50",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Midcap 50",
+    "exchange_token": "26014",
+    "trading_symbol": "NIFTY MIDCAP 50"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Auto",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Auto",
+    "exchange_token": "26029",
+    "trading_symbol": "NIFTY AUTO"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Bank",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Bank",
+    "exchange_token": "26009",
+    "trading_symbol": "BANKNIFTY"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty IT",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty IT",
+    "exchange_token": "26008",
+    "trading_symbol": "NIFTY IT"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty 50",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty 50",
+    "exchange_token": "26000",
+    "trading_symbol": "NIFTY"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Next 50",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Next 50",
+    "exchange_token": "26013",
+    "trading_symbol": "NIFTYNXT50"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "NIFTY MIDCAP 100",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|NIFTY MIDCAP 100",
+    "exchange_token": "26011",
+    "trading_symbol": "NIFTY MIDCAP 100"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty FMCG",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty FMCG",
+    "exchange_token": "26021",
+    "trading_symbol": "NIFTY FMCG"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "NIFTY SMLCAP 100",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|NIFTY SMLCAP 100",
+    "exchange_token": "26032",
+    "trading_symbol": "NIFTY SMLCAP 100"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Pharma",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Pharma",
+    "exchange_token": "26023",
+    "trading_symbol": "NIFTY PHARMA"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty Fin Service",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty Fin Service",
+    "exchange_token": "26037",
+    "trading_symbol": "FINNIFTY"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty 100",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty 100",
+    "exchange_token": "26012",
+    "trading_symbol": "NIFTY 100"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "NIFTY OIL AND GAS",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|NIFTY OIL AND GAS",
+    "exchange_token": "26071",
+    "trading_symbol": "NIFTY OIL AND GAS"
+  },
+  {
+    "segment": "NSE_INDEX",
+    "name": "Nifty MNC",
+    "exchange": "NSE",
+    "instrument_type": "INDEX",
+    "instrument_key": "NSE_INDEX|Nifty MNC",
+    "exchange_token": "26022",
+    "trading_symbol": "NIFTY MNC"
+  }
+]

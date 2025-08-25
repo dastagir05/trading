@@ -1,71 +1,65 @@
 [
   {
-    "id": "fresh_1755163809462_1",
+    "id": "1",
     "title": "TRADE 1: Nifty Call Buying",
     "sentiment": "bullish",
     "setup": {
-      "currentPrice": 24647.45,
+      "currentPrice": 24876.95,
       "strategy": "Buy Call Option",
-      "strike": "24600 CE",
-      "expiry": "2025-08-14"
+      "strike": "25050 CE",
+      "expiry": "2025-08-21"
     },
     "tradePlan": {
-      "entry": "56.6",
-      "target": "85",
+      "entry": "60.6",
+      "target": "90",
       "stopLoss": "40",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty is trading around 24647. The 24600 CE has the highest OI, suggesting it will act as support; therefore, buy CE.",
+    "logic": "Nifty is currently trading near 24876.95. The 25050 CE, with LTP of 60.6, shows potential upside if Nifty continues its momentum, making it a suitable buy candidate with a defined risk.",
     "confidence": 70,
     "riskLevel": "medium",
-    "timestamp": "2025-08-14T09:30:09.462Z",
-    "marketTime": "15:00 IST",
-    "isFresh": true
+    "timestamp": "just now"
   },
   {
-    "id": "fresh_1755163809462_2",
+    "id": "2",
     "title": "TRADE 2: BankNifty Call Buying",
     "sentiment": "bullish",
     "setup": {
-      "currentPrice": 55392,
+      "currentPrice": 55734.9,
       "strategy": "Buy Call Option",
       "strike": "57500 CE",
       "expiry": "2025-08-28"
     },
     "tradePlan": {
-      "entry": "40.1",
-      "target": "60",
-      "stopLoss": "30",
+      "entry": "38.85",
+      "target": "58",
+      "stopLoss": "28",
       "timeFrame": "Intraday"
     },
-    "logic": "BankNifty is currently trading at 55392. The CE premiums are low at higher strike prices, so a small up move can get a good ROI with buying 57500 CE.",
+    "logic": "BankNifty is trading at 55734.9. The 57500 CE has a LTP of 38.85. If BankNifty continues uptrend, this call option can provide good returns.",
     "confidence": 65,
     "riskLevel": "medium",
-    "timestamp": "2025-08-14T09:30:09.462Z",
-    "marketTime": "15:00 IST",
-    "isFresh": true
+    "timestamp": "just now"
   },
   {
-    "id": "fresh_1755163809462_3",
-    "title": "TRADE 3: BankNifty Put Buying",
+    "id": "3",
+    "title": "TRADE 3: Nifty Put Buying (Slightly Out of Money)",
     "sentiment": "bearish",
     "setup": {
-      "currentPrice": 55392,
+      "currentPrice": 24876.95,
       "strategy": "Buy Put Option",
-      "strike": "53900 PE",
-      "expiry": "2025-08-28"
+      "strike": "24700 PE",
+      "expiry": "2025-08-21"
     },
     "tradePlan": {
-      "entry": "80.35",
-      "target": "120",
-      "stopLoss": "60",
+      "entry": "30.6",
+      "target": "45",
+      "stopLoss": "22",
       "timeFrame": "Intraday"
     },
-    "logic": "BankNifty is currently at 55392, and 53900 PE has a reasonable premium. If BankNifty shows weakness, this could be a profitable trade.",
+    "logic": "Nifty is at 24876.95, and 24700 PE is available at 30.6. If Nifty shows weakness, this trade can give decent profit as 24700 is a good support level.",
     "confidence": 60,
     "riskLevel": "medium",
-    "timestamp": "2025-08-14T09:30:09.462Z",
-    "marketTime": "15:00 IST",
-    "isFresh": true
+    "timestamp": "just now"
   }
 ]

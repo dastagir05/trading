@@ -4,42 +4,34 @@ const aiTradeProcessor = require('../services/aiTradeProcessor');
 // Get all AI trades with optional filtering
 const getAllAiTrades = async (req, res) => {
   try {
-    const { status, limit = 50, page = 1 } = req.query;
-    
-    const query = {};
-    if (status && status !== 'all') {
-      query.status = status;
+    const status = req.query.status;
+
+    let trades;
+
+    if (status === 'all') {
+      trades = await AiTrade.find().sort({ createdAt: -1 });
+    } else if (status === 'active') {
+      console.log("fetch active trade");
+      trades = await AiTrade.find({ status: "active" }).sort({ createdAt: -1 });
+    } else {
+      trades = await AiTrade.find({ status: "suggested" }).sort({ createdAt: -1 });
     }
-    
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    
-    const trades = await AiTrade.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit));
-    
-    const total = await AiTrade.countDocuments(query);
-    
-    res.json({
+
+    return res.json({
       success: true,
       data: trades,
-      pagination: {
-        currentPage: parseInt(page),
-        totalPages: Math.ceil(total / parseInt(limit)),
-        totalTrades: total,
-        hasNext: skip + trades.length < total,
-        hasPrev: parseInt(page) > 1
-      }
     });
+
   } catch (error) {
     console.error('❌ Error getting AI trades:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Failed to fetch AI trades',
       error: error.message
     });
   }
 };
+
 
 // Get AI trade by ID
 const getAiTradeById = async (req, res) => {
@@ -73,7 +65,6 @@ const getAiTradeById = async (req, res) => {
 const getAiTradeStats = async (req, res) => {
   try {
     const stats = await aiTradeProcessor.getStats();
-    
     res.json({
       success: true,
       data: stats

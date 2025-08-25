@@ -10,6 +10,7 @@ const { autoTradeExecute, initializeSocketServer } = require("./trade/auto");
 const watchlistRoutes = require("./routes/watchlist.route");
 const optionRoutes = require("./routes/option.route");
 const aiTradeRoutes = require("./routes/aiTrade.route");
+const adminRoutes = require("./routes/admin.route");
 const aiTradeProcessor = require("./services/aiTradeProcessor");
 const AiSuggesstion = require("./aiTradeSugg/tradeSuggestions.json");
 const {getCode} = require("./tokenG");
@@ -18,13 +19,14 @@ const {getCode} = require("./tokenG");
 const app = express();
 const PORT = 5000;
 const server = http.createServer(app);
-autoTradeExecute()
-initializeSocketServer(server)
+
 
 connectDB();
 
 // Initialize AI Trade Processor with cron jobs
 aiTradeProcessor.init();
+autoTradeExecute()
+initializeSocketServer(server)
 
 app.use(cors());
 app.use(express.json());
@@ -34,6 +36,7 @@ app.use("/api/trade", tradeRoutes);
 app.use("/api/watchlist", watchlistRoutes);
 app.use("/api/option", optionRoutes);
 app.use("/api/ai-trades", aiTradeRoutes);
+app.use("/api/admin", adminRoutes);
 app.get("/api/aiSuggested", (req, res) => {
   res.json(AiSuggesstion);
 });

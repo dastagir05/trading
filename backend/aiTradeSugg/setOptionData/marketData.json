@@ -1,48 +1,265 @@
 {
-  "timestamp": "2025-08-14T09:30:01.920Z",
+  "timestamp": "2025-08-25T11:14:01.935Z",
   "nifty": {
-    "currentPrice": 24647.45,
-    "expiry": "2025-08-14",
+    "currentPrice": 24967.75,
+    "expiry": "2025-08-28",
     "optionChain": [
+      {
+        "strike_price": 24500,
+        "call": {
+          "ltp": 502.45,
+          "oi": 1170300,
+          "iv": 13.55,
+          "delta": 0.9483,
+          "pop": 48.88
+        },
+        "put": null
+      },
       {
         "strike_price": 24550,
         "call": {
-          "ltp": 107.1,
-          "oi": 2935725,
-          "iv": 55.42,
-          "delta": 0.83,
-          "pop": 46.28
+          "ltp": 451,
+          "oi": 56400,
+          "iv": 13.03,
+          "delta": 0.9358,
+          "pop": 48.64
         },
         "put": null
       },
       {
         "strike_price": 24600,
         "call": {
-          "ltp": 56.6,
-          "oi": 15976800,
-          "iv": 36.87,
-          "delta": 0.7589,
-          "pop": 44.28
+          "ltp": 401,
+          "oi": 765975,
+          "iv": 11.93,
+          "delta": 0.9294,
+          "pop": 48.54
+        },
+        "put": null
+      },
+      {
+        "strike_price": 24650,
+        "call": {
+          "ltp": 353.6,
+          "oi": 133650,
+          "iv": 11.25,
+          "delta": 0.9134,
+          "pop": 48.2
         },
         "put": null
       },
       {
         "strike_price": 24700,
+        "call": {
+          "ltp": 307,
+          "oi": 803925,
+          "iv": 10.62,
+          "delta": 0.8908,
+          "pop": 47.7
+        },
+        "put": null
+      },
+      {
+        "strike_price": 24750,
+        "call": {
+          "ltp": 259.4,
+          "oi": 180750,
+          "iv": 10.07,
+          "delta": 0.859,
+          "pop": 46.95
+        },
+        "put": null
+      },
+      {
+        "strike_price": 24800,
+        "call": {
+          "ltp": 215.25,
+          "oi": 1659900,
+          "iv": 9.55,
+          "delta": 0.8162,
+          "pop": 45.83
+        },
+        "put": null
+      },
+      {
+        "strike_price": 24850,
+        "call": {
+          "ltp": 173.9,
+          "oi": 747375,
+          "iv": 9.2,
+          "delta": 0.756,
+          "pop": 44.07
+        },
+        "put": null
+      },
+      {
+        "strike_price": 24900,
+        "call": {
+          "ltp": 134.9,
+          "oi": 4466925,
+          "iv": 8.85,
+          "delta": 0.6809,
+          "pop": 41.6
+        },
+        "put": {
+          "ltp": 39,
+          "oi": 9681600,
+          "iv": 8.51,
+          "delta": -0.3126,
+          "pop": 24.71
+        }
+      },
+      {
+        "strike_price": 24950,
+        "call": {
+          "ltp": 102.5,
+          "oi": 3783225,
+          "iv": 8.68,
+          "delta": 0.5887,
+          "pop": 38.13
+        },
+        "put": {
+          "ltp": 55,
+          "oi": 6265875,
+          "iv": 8.27,
+          "delta": -0.4071,
+          "pop": 30.09
+        }
+      },
+      {
+        "strike_price": 25000,
+        "call": {
+          "ltp": 74.85,
+          "oi": 15695325,
+          "iv": 8.52,
+          "delta": 0.4877,
+          "pop": 33.73
+        },
+        "put": {
+          "ltp": 76.4,
+          "oi": 12014175,
+          "iv": 8.18,
+          "delta": -0.5129,
+          "pop": 35.28
+        }
+      },
+      {
+        "strike_price": 25050,
+        "call": {
+          "ltp": 53,
+          "oi": 4945275,
+          "iv": 8.58,
+          "delta": 0.3868,
+          "pop": 28.61
+        },
+        "put": {
+          "ltp": 105.8,
+          "oi": 1576425,
+          "iv": 8.16,
+          "delta": -0.619,
+          "pop": 39.7
+        }
+      },
+      {
+        "strike_price": 25100,
+        "call": {
+          "ltp": 36.6,
+          "oi": 10617600,
+          "iv": 8.7,
+          "delta": 0.2959,
+          "pop": 23.29
+        },
+        "put": {
+          "ltp": 139,
+          "oi": 2616900,
+          "iv": 8.15,
+          "delta": -0.7167,
+          "pop": 43.18
+        }
+      },
+      {
+        "strike_price": 25150,
         "call": null,
         "put": {
-          "ltp": 46.4,
-          "oi": 8877975,
+          "ltp": 177.9,
+          "oi": 702675,
+          "iv": 8.29,
+          "delta": -0.7962,
+          "pop": 45.62
+        }
+      },
+      {
+        "strike_price": 25200,
+        "call": null,
+        "put": {
+          "ltp": 219.55,
+          "oi": 2222100,
+          "iv": 8.33,
+          "delta": -0.8614,
+          "pop": 47.34
+        }
+      },
+      {
+        "strike_price": 25250,
+        "call": null,
+        "put": {
+          "ltp": 264.35,
+          "oi": 164400,
+          "iv": 8.36,
+          "delta": -0.9105,
+          "pop": 48.51
+        }
+      },
+      {
+        "strike_price": 25300,
+        "call": null,
+        "put": {
+          "ltp": 311,
+          "oi": 604650,
+          "iv": 8.73,
+          "delta": -0.9379,
+          "pop": 49.08
+        }
+      },
+      {
+        "strike_price": 25350,
+        "call": null,
+        "put": {
+          "ltp": 359.35,
+          "oi": 62475,
+          "iv": 8.61,
+          "delta": -0.965,
+          "pop": 49.61
+        }
+      },
+      {
+        "strike_price": 25400,
+        "call": null,
+        "put": {
+          "ltp": 408.4,
+          "oi": 388875,
+          "iv": 8.91,
+          "delta": -0.9769,
+          "pop": 49.83
+        }
+      },
+      {
+        "strike_price": 25450,
+        "call": null,
+        "put": {
+          "ltp": 457.95,
+          "oi": 37725,
           "iv": 0,
           "delta": -1,
           "pop": 99
         }
       },
       {
-        "strike_price": 24750,
+        "strike_price": 25500,
         "call": null,
         "put": {
-          "ltp": 95.5,
-          "oi": 1997025,
+          "ltp": 505.8,
+          "oi": 1915950,
           "iv": 0,
           "delta": -1,
           "pop": 99
@@ -51,292 +268,236 @@
     ]
   },
   "bankNifty": {
-    "currentPrice": 55392,
+    "currentPrice": 55139.3,
     "expiry": "2025-08-28",
     "optionChain": [
       {
-        "strike_price": 52800,
+        "strike_price": 54500,
         "call": null,
         "put": {
-          "ltp": 30.7,
-          "oi": 29750,
-          "iv": 15.4,
-          "delta": -0.0441,
-          "pop": 4.52
+          "ltp": 32.1,
+          "oi": 627410,
+          "iv": 11.86,
+          "delta": -0.1053,
+          "pop": 9.81
         }
       },
       {
-        "strike_price": 52900,
+        "strike_price": 54600,
         "call": null,
         "put": {
-          "ltp": 33,
-          "oi": 28245,
-          "iv": 15.15,
-          "delta": -0.0477,
-          "pop": 4.85
+          "ltp": 41.2,
+          "oi": 176190,
+          "iv": 11.54,
+          "delta": -0.1334,
+          "pop": 12.13
         }
       },
       {
-        "strike_price": 53000,
+        "strike_price": 54700,
         "call": null,
         "put": {
-          "ltp": 36,
-          "oi": 564620,
-          "iv": 14.95,
-          "delta": -0.052,
-          "pop": 5.26
+          "ltp": 53.2,
+          "oi": 211540,
+          "iv": 11.24,
+          "delta": -0.1683,
+          "pop": 14.88
         }
       },
       {
-        "strike_price": 53100,
-        "call": null,
+        "strike_price": 54800,
+        "call": {
+          "ltp": 505.55,
+          "oi": 49805,
+          "iv": 10.71,
+          "delta": 0.7937,
+          "pop": 45.17
+        },
         "put": {
-          "ltp": 38.55,
-          "oi": 40390,
-          "iv": 14.68,
-          "delta": -0.056,
-          "pop": 5.64
+          "ltp": 68.05,
+          "oi": 325850,
+          "iv": 10.9,
+          "delta": -0.2103,
+          "pop": 17.98
         }
       },
       {
-        "strike_price": 53200,
-        "call": null,
+        "strike_price": 54900,
+        "call": {
+          "ltp": 414.45,
+          "oi": 100485,
+          "iv": 10.55,
+          "delta": 0.7393,
+          "pop": 43.52
+        },
         "put": {
-          "ltp": 41.75,
-          "oi": 55965,
-          "iv": 14.45,
-          "delta": -0.0608,
-          "pop": 6.09
+          "ltp": 90.2,
+          "oi": 418285,
+          "iv": 10.7,
+          "delta": -0.2635,
+          "pop": 21.63
         }
       },
       {
-        "strike_price": 53300,
-        "call": null,
+        "strike_price": 55000,
+        "call": {
+          "ltp": 343.4,
+          "oi": 644875,
+          "iv": 10.27,
+          "delta": 0.6784,
+          "pop": 41.49
+        },
         "put": {
+          "ltp": 115.6,
+          "oi": 1436575,
+          "iv": 10.48,
+          "delta": -0.3249,
+          "pop": 25.49
+        }
+      },
+      {
+        "strike_price": 55100,
+        "call": {
+          "ltp": 276.4,
+          "oi": 340585,
+          "iv": 10.18,
+          "delta": 0.6065,
+          "pop": 38.82
+        },
+        "put": {
+          "ltp": 150.15,
+          "oi": 436345,
+          "iv": 10.36,
+          "delta": -0.3953,
+          "pop": 29.5
+        }
+      },
+      {
+        "strike_price": 55200,
+        "call": {
+          "ltp": 225,
+          "oi": 808920,
+          "iv": 9.93,
+          "delta": 0.53,
+          "pop": 35.63
+        },
+        "put": {
+          "ltp": 186.8,
+          "oi": 517335,
+          "iv": 10.2,
+          "delta": -0.4707,
+          "pop": 33.35
+        }
+      },
+      {
+        "strike_price": 55300,
+        "call": {
+          "ltp": 169.4,
+          "oi": 904400,
+          "iv": 9.97,
+          "delta": 0.4502,
+          "pop": 31.88
+        },
+        "put": {
+          "ltp": 237,
+          "oi": 424725,
+          "iv": 10.18,
+          "delta": -0.5487,
+          "pop": 36.89
+        }
+      },
+      {
+        "strike_price": 55400,
+        "call": {
+          "ltp": 129.8,
+          "oi": 817670,
+          "iv": 10.05,
+          "delta": 0.3735,
+          "pop": 27.84
+        },
+        "put": {
+          "ltp": 303,
+          "oi": 289205,
+          "iv": 10.35,
+          "delta": -0.6228,
+          "pop": 39.9
+        }
+      },
+      {
+        "strike_price": 55500,
+        "call": {
+          "ltp": 102.3,
+          "oi": 2249100,
+          "iv": 10.23,
+          "delta": 0.3048,
+          "pop": 23.81
+        },
+        "put": {
+          "ltp": 372,
+          "oi": 932435,
+          "iv": 10.46,
+          "delta": -0.6913,
+          "pop": 42.37
+        }
+      },
+      {
+        "strike_price": 55600,
+        "call": {
+          "ltp": 76.3,
+          "oi": 713930,
+          "iv": 10.41,
+          "delta": 0.2442,
+          "pop": 19.9
+        },
+        "put": {
+          "ltp": 440.7,
+          "oi": 203665,
+          "iv": 10.57,
+          "delta": -0.7523,
+          "pop": 44.36
+        }
+      },
+      {
+        "strike_price": 55700,
+        "call": {
+          "ltp": 58.55,
+          "oi": 675815,
+          "iv": 10.74,
+          "delta": 0.1961,
+          "pop": 16.54
+        },
+        "put": null
+      },
+      {
+        "strike_price": 55800,
+        "call": {
           "ltp": 45.3,
-          "oi": 48090,
-          "iv": 14.21,
-          "delta": -0.0661,
-          "pop": 6.57
-        }
-      },
-      {
-        "strike_price": 53400,
-        "call": null,
-        "put": {
-          "ltp": 48.95,
-          "oi": 44975,
-          "iv": 13.97,
-          "delta": -0.0717,
-          "pop": 7.08
-        }
-      },
-      {
-        "strike_price": 53500,
-        "call": null,
-        "put": {
-          "ltp": 54.05,
-          "oi": 448525,
-          "iv": 13.77,
-          "delta": -0.0787,
-          "pop": 7.72
-        }
-      },
-      {
-        "strike_price": 53600,
-        "call": null,
-        "put": {
-          "ltp": 59.7,
-          "oi": 52080,
-          "iv": 13.6,
-          "delta": -0.0867,
-          "pop": 8.43
-        }
-      },
-      {
-        "strike_price": 53700,
-        "call": null,
-        "put": {
-          "ltp": 65.65,
-          "oi": 60060,
-          "iv": 13.41,
-          "delta": -0.0949,
-          "pop": 9.15
-        }
-      },
-      {
-        "strike_price": 53800,
-        "call": null,
-        "put": {
-          "ltp": 72.55,
-          "oi": 108990,
-          "iv": 13.21,
-          "delta": -0.1044,
-          "pop": 9.97
-        }
-      },
-      {
-        "strike_price": 53900,
-        "call": null,
-        "put": {
-          "ltp": 80.35,
-          "oi": 73185,
-          "iv": 13.04,
-          "delta": -0.1149,
-          "pop": 10.87
-        }
-      },
-      {
-        "strike_price": 54000,
-        "call": null,
-        "put": {
-          "ltp": 89.8,
-          "oi": 798490,
-          "iv": 12.88,
-          "delta": -0.1267,
-          "pop": 11.85
-        }
-      },
-      {
-        "strike_price": 54100,
-        "call": null,
-        "put": {
-          "ltp": 99.2,
-          "oi": 81550,
-          "iv": 12.7,
-          "delta": -0.1394,
-          "pop": 12.88
-        }
-      },
-      {
-        "strike_price": 54200,
-        "call": null,
-        "put": {
-          "ltp": 110.85,
-          "oi": 99190,
-          "iv": 12.54,
-          "delta": -0.1534,
-          "pop": 14
-        }
-      },
-      {
-        "strike_price": 56700,
-        "call": {
-          "ltp": 114.45,
-          "oi": 182560,
-          "iv": 11.06,
-          "delta": 0.1776,
-          "pop": 14.93
+          "oi": 944650,
+          "iv": 11.09,
+          "delta": 0.1569,
+          "pop": 13.61
         },
         "put": null
       },
       {
-        "strike_price": 56800,
+        "strike_price": 55900,
         "call": {
-          "ltp": 99.25,
-          "oi": 184695,
-          "iv": 11.13,
-          "delta": 0.1588,
-          "pop": 13.52
+          "ltp": 38,
+          "oi": 628250,
+          "iv": 11.5,
+          "delta": 0.1266,
+          "pop": 11.22
         },
         "put": null
       },
       {
-        "strike_price": 56900,
+        "strike_price": 56000,
         "call": {
-          "ltp": 86.95,
-          "oi": 148295,
-          "iv": 11.18,
-          "delta": 0.1412,
-          "pop": 12.17
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57000,
-        "call": {
-          "ltp": 75.6,
-          "oi": 2290330,
-          "iv": 11.26,
-          "delta": 0.1258,
-          "pop": 10.95
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57100,
-        "call": {
-          "ltp": 66.4,
-          "oi": 134470,
-          "iv": 11.36,
-          "delta": 0.1121,
-          "pop": 9.85
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57200,
-        "call": {
-          "ltp": 57.9,
-          "oi": 146790,
-          "iv": 11.45,
-          "delta": 0.0996,
-          "pop": 8.82
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57300,
-        "call": {
-          "ltp": 51.15,
-          "oi": 114100,
-          "iv": 11.56,
-          "delta": 0.0887,
-          "pop": 7.92
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57400,
-        "call": {
-          "ltp": 45.35,
-          "oi": 94080,
-          "iv": 11.7,
-          "delta": 0.0796,
-          "pop": 7.14
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57500,
-        "call": {
-          "ltp": 40.1,
-          "oi": 781060,
-          "iv": 11.82,
-          "delta": 0.0709,
-          "pop": 6.4
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57600,
-        "call": {
-          "ltp": 35.7,
-          "oi": 95375,
-          "iv": 11.96,
-          "delta": 0.0636,
-          "pop": 5.76
-        },
-        "put": null
-      },
-      {
-        "strike_price": 57700,
-        "call": {
-          "ltp": 32.6,
-          "oi": 96565,
-          "iv": 12.17,
-          "delta": 0.058,
-          "pop": 5.27
+          "ltp": 30.9,
+          "oi": 2656290,
+          "iv": 11.97,
+          "delta": 0.1035,
+          "pop": 9.33
         },
         "put": null
       }
