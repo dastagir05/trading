@@ -1,405 +1,574 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
+  Brain,
+  FileText,
   TrendingUp,
   Shield,
   Zap,
-  Users,
-  BarChart3,
+  Upload,
   ArrowRight,
   Menu,
   X,
   Star,
   CheckCircle,
-  IndianRupee,
   Target,
   Award,
-  Smartphone,
+  Sparkles,
+  BarChart3,
+  Bot,
+  Camera
 } from "lucide-react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 
-// Mock stock data for animation
-const stockData = [
-  { name: "RELIANCE", price: "2,847.65", change: "+2.34%", positive: true },
-  { name: "TCS", price: "4,156.80", change: "+1.87%", positive: true },
-  { name: "HDFC BANK", price: "1,687.45", change: "-0.65%", positive: false },
-  { name: "INFOSYS", price: "1,834.25", change: "+3.21%", positive: true },
-];
-
-const features = [
-  {
-    icon: <Zap className="w-8 h-8" />,
-    title: "Lightning Fast Execution",
-    description:
-      "Execute trades in milliseconds with our advanced trading infrastructure",
-  },
-  {
-    icon: <Shield className="w-8 h-8" />,
-    title: "Bank-Grade Security",
-    description:
-      "256-bit encryption and multi-factor authentication keep your investments safe",
-  },
-  {
-    icon: <BarChart3 className="w-8 h-8" />,
-    title: "Advanced Analytics",
-    description:
-      "Real-time charts, technical indicators, and market insights at your fingertips",
-  },
-  {
-    icon: <Smartphone className="w-8 h-8" />,
-    title: "Mobile Trading",
-    description:
-      "Trade on-the-go with our intuitive mobile app available on iOS and Android",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Rajesh Kumar",
-    role: "Day Trader",
-    content:
-      "Nivesh Now has transformed my trading experience. The platform is incredibly fast and reliable.",
-    rating: 5,
-  },
-  {
-    name: "Priya Sharma",
-    role: "Investment Advisor",
-    content:
-      "Best trading platform I've used. The analytics tools are top-notch and help me make better decisions.",
-    rating: 5,
-  },
-  {
-    name: "Amit Patel",
-    role: "Portfolio Manager",
-    content:
-      "Outstanding customer service and a platform that never lets you down during crucial market hours.",
-    rating: 5,
-  },
-];
-
-// Animated Chart Component
-const TradingChart = () => {
-  const [activeBar, setActiveBar] = useState(0);
+const Landing = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [aiSuggestionImage, setAiSuggestionImage] = useState(null);
+  const [aiReportImage, setAiReportImage] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeFeature, setActiveFeature] = useState(0);
+  const suggestionFileRef = useRef(null);
+  const reportFileRef = useRef(null);
 
   useEffect(() => {
+    setIsVisible(true);
     const interval = setInterval(() => {
-      setActiveBar((prev) => (prev + 1) % 12);
-    }, 500);
+      setActiveFeature(prev => (prev + 1) % 2);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
-  const chartData = [65, 78, 82, 71, 89, 95, 88, 92, 76, 85, 91, 97];
+  const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: "suggestion" | "report"
+  ) => {
+    const file = event.target.files && event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e.target?.result;
+        if (typeof result === "string") {
+          // if (type === 'suggestion' && result !== null) {
+          //   setAiSuggestionImage(result);
+          // } else {
+          //   setAiReportImage(result);
+          // }
+    }
+  }}
+  };
+
+  const aiFeatures = [
+    {
+      icon: Brain,
+      title: "AI Suggestions",
+      description: "Intelligent trade recommendations powered by machine learning",
+      color: "from-blue-500 to-cyan-500",
+      image: aiSuggestionImage,
+      uploadRef: suggestionFileRef,
+      uploadType: "suggestion"
+    },
+    {
+      icon: FileText,
+      title: "AI Reports",
+      description: "Comprehensive market analysis with predictive insights",
+      color: "from-purple-500 to-pink-500",
+      image: aiReportImage,
+      uploadRef: reportFileRef,
+      uploadType: "report"
+    }
+  ];
+
+  const benefits = [
+    {
+      icon: Zap,
+      title: "Lightning Fast",
+      description: "Execute trades in milliseconds with our advanced infrastructure"
+    },
+    {
+      icon: Shield,
+      title: "Secure & Safe",
+      description: "Bank-grade security with 256-bit encryption protection"
+    },
+    {
+      icon: Target,
+      title: "Precision Trading",
+      description: "AI-powered accuracy for better investment decisions"
+    },
+    {
+      icon: Award,
+      title: "Award Winning",
+      description: "Recognized as India's most innovative trading platform"
+    }
+  ];
 
   return (
-    <div className="relative w-full h-64 bg-gradient-to-br mt-5 from-blue-50 to-green-50 rounded-xl p-6">
-      <div className="flex items-end justify-between h-48 space-x-2 mt-5">
-        {chartData.map((height, index) => (
-          <div
-            key={index}
-            className={`flex-1 rounded-t-lg transition-all duration-300 ${
-              index === activeBar
-                ? "bg-gradient-to-t from-green-500 to-green-400 shadow-lg"
-                : "bg-gradient-to-t from-blue-500 to-blue-400"
-            }`}
-            style={{ height: `${height}%` }}
-          />
-        ))}
-      </div>
-      <div className="absolute top-2 left-6">
-        <div className="text-2xl font-bold text-green-600">₹2,84,750</div>
-        <div className="text-sm text-gray-600">Portfolio Value</div>
-      </div>
-      <div className="absolute top-2 right-6 ">
-        <div className="flex items-center text-green-600">
-          <TrendingUp className="w-4 h-4 mr-1" />
-          <span className="font-semibold">+12.5%</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/50">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                Nivesh Now
+              </span>
+            </div>
+            
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors">Features</a>
+              <a href="#ai-showcase" className="text-slate-700 hover:text-blue-600 transition-colors">AI Tools</a>
+              <a href="#benefits" className="text-slate-700 hover:text-blue-600 transition-colors">Benefits</a>
+              <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
+                Get Started
+              </button>
+            </div>
 
-// Stock Ticker Component
-const StockTicker = () => {
-  return (
-    <div className="overflow-hidden bg-gray-900 py-2 mt-28 fixed bottom-0 w-full">
-      <div className="animate-marquee whitespace-nowrap flex space-x-8">
-        {[...stockData, ...stockData].map((stock, index) => (
-          <div
-            key={index}
-            className="inline-flex items-center space-x-2 text-white"
-          >
-            <span className="font-medium">{stock.name}</span>
-            <span className="text-gray-300">₹{stock.price}</span>
-            <span
-              className={`font-medium ${
-                stock.positive ? "text-green-400" : "text-red-400"
-              }`}
+            <button 
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {stock.change}
-            </span>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-        ))}
-      </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden bg-white border-t border-slate-200">
+              <div className="px-6 py-4 space-y-4">
+                <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors">Features</a>
+                <a href="#ai-showcase" className="block text-slate-700 hover:text-blue-600 transition-colors">AI Tools</a>
+                <a href="#benefits" className="block text-slate-700 hover:text-blue-600 transition-colors">Benefits</a>
+                <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full">
+                  Get Started
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                <span>AI-Powered Trading Platform</span>
+              </div>
+              
+              <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight mb-8">
+                Trade with the Power of
+                <span className="block bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 bg-clip-text text-transparent">
+                  Artificial Intelligence
+                </span>
+              </h1>
+              
+              <p className="text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto mb-12 leading-relaxed">
+                Experience next-generation trading with AI suggestions and intelligent reports that help you make smarter investment decisions.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button className="group bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center">
+                  Start Trading with AI
+                  <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button className="border-2 border-slate-300 text-slate-700 px-10 py-4 rounded-full text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
+                  View Live Demo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Features Showcase */}
+      <section id="ai-showcase" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+              Meet Your AI Trading
+              <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Assistant
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Upload screenshots of our AI features in action and see how intelligent trading transforms your investment strategy.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {aiFeatures.map((feature, index) => (
+              <div 
+                key={index}
+                className={`group relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-8 border border-slate-200 hover:border-blue-300 transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-2 ${
+                  activeFeature === index ? 'ring-2 ring-blue-500 shadow-xl shadow-blue-500/20' : ''
+                }`}
+              >
+                <div className="flex items-center mb-6">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mr-4 group-hover:rotate-6 transition-transform duration-300`}>
+                    <feature.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-slate-600 mt-1">{feature.description}</p>
+                  </div>
+                </div>
+
+                {/* Image Upload Area */}
+                <div className="relative">
+                  {feature.image ? (
+                    <div className="relative group/image">
+                      <img 
+                        src={feature.image} 
+                        alt={feature.title}
+                        className="w-full h-64 object-cover rounded-xl shadow-lg"
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                        <button
+                          onClick={() => (feature.uploadRef.current as HTMLInputElement | null)?.click()}
+                          className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-white/30 transition-colors"
+                        >
+                          <Camera className="w-4 h-4" />
+                          <span>Change Image</span>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="w-full h-64 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/50 transition-all duration-300 group/upload"
+                      onClick={() => (feature.uploadRef.current as HTMLInputElement | null)?.click()}
+                    >
+                      <Upload className="w-12 h-12 text-slate-400 group-hover/upload:text-blue-500 transition-colors mb-4" />
+                      <p className="text-slate-600 font-medium mb-2">Upload {feature.title} Screenshot</p>
+                      <p className="text-sm text-slate-500">Click to upload an image showcasing this feature</p>
+                    </div>
+                  )}
+                  
+                  <input
+                    ref={feature.uploadRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e, feature.uploadType as "suggestion" | "report")}
+                    className="hidden"
+                  />
+                </div>
+
+                {/* Feature Benefits */}
+                <div className="mt-6 space-y-3">
+                  {index === 0 ? (
+                    <>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Real-time market sentiment analysis
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Personalized risk-adjusted recommendations
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Machine learning-powered insights
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Comprehensive market analysis
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Detailed performance metrics
+                      </div>
+                      <div className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        Future trend predictions
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Glow Effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500 pointer-events-none`} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Technology Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold mb-8">
+                Advanced AI Technology
+                <span className="block text-cyan-400">at Your Fingertips</span>
+              </h2>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                    <Bot className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Neural Network Analysis</h3>
+                    <p className="text-slate-300">Our deep learning models process vast amounts of market data to identify profitable opportunities.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                    <BarChart3 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Predictive Modeling</h3>
+                    <p className="text-slate-300">Advanced algorithms forecast market movements with unprecedented accuracy.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4 group">
+                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                    <Sparkles className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Smart Automation</h3>
+                    <p className="text-slate-300">Automated trading strategies that adapt to market conditions in real-time.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Visualization */}
+            <div className="relative">
+              <div className="relative w-full h-96 bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-3xl backdrop-blur-lg border border-slate-700/50 p-8 overflow-hidden">
+                {/* Animated Neural Network */}
+                <div className="absolute inset-0">
+                  <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-blue-400 rounded-full animate-ping"></div>
+                  <div className="absolute top-1/2 right-1/3 w-3 h-3 bg-cyan-400 rounded-full animate-ping delay-500"></div>
+                  <div className="absolute bottom-1/3 left-1/2 w-5 h-5 bg-purple-400 rounded-full animate-ping delay-1000"></div>
+                  <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-green-400 rounded-full animate-ping delay-1500"></div>
+                </div>
+
+                {/* AI Brain Visualization */}
+                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                  <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                    <Brain className="w-12 h-12 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-center mb-4">AI Engine Processing</h3>
+                  <div className="grid grid-cols-3 gap-4 w-full max-w-sm">
+                    <div className="h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div className="h-2 bg-cyan-500 rounded-full animate-pulse delay-300"></div>
+                    <div className="h-2 bg-purple-500 rounded-full animate-pulse delay-600"></div>
+                  </div>
+                  <p className="text-sm text-slate-400 mt-4 text-center">Analyzing market patterns in real-time</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section id="benefits" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+              Why Traders Choose
+              <span className="block bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+                Nivesh Now
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Experience the perfect blend of cutting-edge technology, security, and user-friendly design.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <div 
+                key={index}
+                className="group text-center p-8 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">
+                  {benefit.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Indicators */}
+      <section className="py-20 bg-gradient-to-r from-slate-100 to-blue-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
+            <div className="group">
+              <div className="text-4xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                98.7%
+              </div>
+              <div className="text-slate-600">AI Accuracy Rate</div>
+            </div>
+            <div className="group">
+              <div className="text-4xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                50K+
+              </div>
+              <div className="text-slate-600">Active AI Users</div>
+            </div>
+            <div className="group">
+              <div className="text-4xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                ₹5Cr+
+              </div>
+              <div className="text-slate-600">AI-Guided Trades</div>
+            </div>
+            <div className="group">
+              <div className="text-4xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                24/7
+              </div>
+              <div className="text-slate-600">AI Monitoring</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 bg-gradient-to-br from-blue-600 via-cyan-600 to-emerald-600">
+        <div className="max-w-4xl mx-auto px-6 text-center text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            Ready to Trade with AI?
+          </h2>
+          <p className="text-xl mb-12 opacity-90">
+            Join the future of trading today. Experience the power of AI suggestions and intelligent market reports.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+            <button className="group bg-white text-blue-600 px-10 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center">
+              Get Started Free
+              <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button className="border-2 border-white/30 text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-white/10 transition-all duration-300">
+              Contact Sales
+            </button>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-8 text-sm opacity-75">
+            <div className="flex items-center">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              No Setup Fees
+            </div>
+            <div className="flex items-center">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              SEBI Registered
+            </div>
+            <div className="flex items-center">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              AI-Powered Trading
+            </div>
+            <div className="flex items-center">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              24/7 Support
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <span className="text-xl font-bold">Nivesh Now</span>
+              </div>
+              <p className="text-slate-400">
+                India's most advanced AI-powered trading platform for smart investors.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Features</h4>
+              <div className="space-y-2 text-slate-400">
+                <div>AI Suggestions</div>
+                <div>AI Reports</div>
+                <div>Real-time Analytics</div>
+                <div>Mobile Trading</div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <div className="space-y-2 text-slate-400">
+                <div>About Us</div>
+                <div>Careers</div>
+                <div>Press</div>
+                <div>Blog</div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <div className="space-y-2 text-slate-400">
+                <div>Help Center</div>
+                <div>Contact Us</div>
+                <div>API Docs</div>
+                <div>Status</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="text-slate-400 mb-4 md:mb-0">
+              © 2025 Nivesh Now. All rights reserved.
+            </div>
+            <div className="flex space-x-6 text-slate-400">
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <style jsx>{`
+        @keyframes ping {
+          75%, 100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: .5;
+          }
+        }
+        
+        .animate-ping {
+          animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      `}</style>
     </div>
   );
 };
-
-function Landing() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-white pt-20">
-        <section className="pt-28 pb-14 bg-gradient-to-br from-blue-50 via-white to-green-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
-                    <Award className="w-4 h-4" />
-                    <span>India's #1 Trading Platform</span>
-                  </div>
-                  <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                    Trade Smarter with
-                    <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                      {" "}
-                      Nivesh Now
-                    </span>
-                  </h1>
-                  <p className="text-xl text-gray-600 leading-relaxed">
-                    Experience lightning-fast trading, advanced analytics, and
-                    bank-grade security. Join over 1 million traders who trust
-                    Nivesh Now for their investment journey.
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center group">
-                    Start Trading Now
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-blue-600 hover:text-blue-600 transition-colors">
-                    Watch Demo
-                  </button>
-                </div>
-
-                <div className="flex items-center space-x-8 pt-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">10L+</div>
-                    <div className="text-sm text-gray-600">Active Users</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">
-                      ₹50K Cr+
-                    </div>
-                    <div className="text-sm text-gray-600">Daily Volume</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900">
-                      99.9%
-                    </div>
-                    <div className="text-sm text-gray-600">Uptime</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6 ">
-                <TradingChart />
-                <div className="bg-white rounded-xl shadow-xl p-6 space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Top Gainers Today
-                  </h3>
-                  {stockData.map((stock, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center"
-                    >
-                      <div>
-                        <div className="font-medium text-gray-900">
-                          {stock.name}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          ₹{stock.price}
-                        </div>
-                      </div>
-                      <div
-                        className={`font-semibold ${
-                          stock.positive ? "text-green-600" : "text-red-600"
-                        }`}
-                      >
-                        {stock.change}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <StockTicker />
-        </section>
-
-        {/* Features Section */}
-        <section id="features" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Why Choose Nivesh Now?
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Powerful features designed to help you make smarter investment
-                decisions and maximize your returns.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="group p-6 rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="py-20 bg-gradient-to-br from-blue-600 to-green-600">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Trusted by Millions
-              </h2>
-              <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-                Join India's fastest-growing trading community and experience
-                the difference.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">10L+</div>
-                <div className="text-blue-100">Active Traders</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">
-                  ₹50K Cr+
-                </div>
-                <div className="text-blue-100">Daily Trading Volume</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">0.01s</div>
-                <div className="text-blue-100">Average Order Execution</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">24/7</div>
-                <div className="text-blue-100">Customer Support</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                What Our Traders Say
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Real experiences from real traders who've transformed their
-                investment journey with Nivesh Now.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-current"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 mb-4">"{testimonial.content}"</p>
-                  <div className="border-t pt-4">
-                    <div className="font-semibold text-gray-900">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {testimonial.role}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Ready to Start Your Trading Journey?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Join millions of traders who trust Nivesh Now. Open your account
-                in minutes and start trading today.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                <button className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center group">
-                  Open Free Account
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="border border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-semibold hover:border-blue-600 hover:text-blue-600 transition-colors">
-                  Schedule Demo
-                </button>
-              </div>
-
-              <div className="flex items-center justify-center space-x-6 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
-                  Zero Account Opening Charges
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
-                  SEBI Registered
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
-                  Bank Grade Security
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <Footer />
-    </>
-  );
-}
 
 export default Landing;

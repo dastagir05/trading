@@ -1,0 +1,11 @@
+📊 Daily AI Trade Report - 28/8/2025, 6:50:00 pm
+Total suggestions: 29
+stoploss_hit: 8 trades, Avg confidence: 70.3%, P&L: ₹-11527.79
+expired: 7 trades, Avg confidence: 67.1%, P&L: ₹0.00
+target_hit: 9 trades, Avg confidence: 68.3%, P&L: ₹9933.24
+suggested: 5 trades, Avg confidence: 68.0%, P&L: ₹0.00
+📊 Daily AI Trade Report - 29/8/2025, 4:21:00 pm
+Total suggestions: 6
+completed: 2 trades, Avg confidence: 65.0%, P&L: ₹-2763.51
+stoploss_hit: 1 trades, Avg confidence: 75.0%, P&L: ₹-1475.42
+target_hit: 3 trades, Avg confidence: 66.7%, P&L: ₹6768.69

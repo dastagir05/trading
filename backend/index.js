@@ -12,21 +12,22 @@ const optionRoutes = require("./routes/option.route");
 const aiTradeRoutes = require("./routes/aiTrade.route");
 const adminRoutes = require("./routes/admin.route");
 const aiTradeProcessor = require("./services/aiTradeProcessor");
+const strategyProcessor = require("./services/strategyTradeProcess");
 const AiSuggesstion = require("./aiTradeSugg/tradeSuggestions.json");
-const {getCode} = require("./tokenG");
+const { getCode } = require("./tokenG");
 
 /* first import generateFreshtrade and run through or we say in index.js  */
 const app = express();
 const PORT = 5000;
 const server = http.createServer(app);
 
-
 connectDB();
 
 // Initialize AI Trade Processor with cron jobs
 aiTradeProcessor.init();
-autoTradeExecute()
-initializeSocketServer(server)
+strategyProcessor.init();
+autoTradeExecute();
+initializeSocketServer(server);
 
 app.use(cors());
 app.use(express.json());
@@ -40,8 +41,7 @@ app.use("/api/admin", adminRoutes);
 app.get("/api/aiSuggested", (req, res) => {
   res.json(AiSuggesstion);
 });
-app.use("/", getCode)
-
+app.use("/", getCode);
 
 server.listen(PORT, () => {
   console.log(`🚀 Server listening on http://localhost:${PORT}`);

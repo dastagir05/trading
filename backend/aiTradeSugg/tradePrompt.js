@@ -45,18 +45,20 @@ ${JSON.stringify(marketData, null, 2)}
 
 ## Response Format
 Return exactly 3 trade suggestions in JSON format as an array of objects with the following structure:
-give any price round off not in decimal
+give any price round off not in decimal and expiry should be a proper data e.g.2025-08-28,if is not strategy then it must be a buy trade only,
+like for strategy make  schema like mentioning which two symbol and use & give entry= 35 not like "entry": "CALL=87 & PUT=53 it just 87 & 53 & 88 and target and stoploss also in entry
+the strategy make isStrategy true and for normal trade make it false and don't give strike like Nifty 24700 CALL BUY/SELL & PUT BUY/SELL strike must be Nifty 24700 CALL & Nifty 24700 PUT
 \`\`\`json
 [
   {
+    "isStrategy": "true/false",
     "title": "Descriptive trade title",
     "sentiment": "BULLISH/BEARISH/NEUTRAL",
     "setup": {
       "currentPrice": "current spot price",
       "strategy": "strategy type",
       "strike": "stock and strike selection e.g.Nifty 25050 PUT/CALL",
-      "expiry": "expiry selection "
-      
+      "expiry": "expiry selection"
     },
     "tradePlan": {
       "entry": "entry price",
@@ -130,15 +132,15 @@ function generateBasicMarketDataSection(marketData) {
 ## BASIC MARKET DATA
 
 ### NIFTY:
-- **Current Price**: ${marketData.nifty?.spotPrice || "N/A"}
+- **Current Price**: ${marketData.nifty?.currentPrice || "N/A"}
 - **Change**: ${marketData.nifty?.change || "N/A"} (${
     marketData.nifty?.pChange || "N/A"
   }%)
 
 ### BANKNIFTY:
-- **Current Price**: ${marketData.banknifty?.spotPrice || "N/A"}
-- **Change**: ${marketData.banknifty?.change || "N/A"} (${
-    marketData.banknifty?.pChange || "N/A"
+- **Current Price**: ${marketData.banknifty?.currentPrice || "N/A"}
+- **Change**: ${marketData.bankNifty?.change || "N/A"} (${
+    marketData.bankNifty?.pChange || "N/A"
   }%)
 `;
 }

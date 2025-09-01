@@ -25,8 +25,9 @@ interface AiTradeStats {
   suggestedTrades: number;
   activeTrades: number;
   completedTrades: number,
-  targetHit: number;
-  stopLossHit: number;
+  targetHitNumber: number;
+  stopLossHitNumber: number;
+  activeExpiredNumber:number;
   expired: number;
   cancelled: number;
   totalPnL: number;

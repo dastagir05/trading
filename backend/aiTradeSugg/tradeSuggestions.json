@@ -1,71 +1,74 @@
 [
   {
-    "title": "Nifty Bearish Reversal Play",
-    "sentiment": "BEARISH",
+    "isStrategy": "false",
+    "title": "Nifty Bullish Reversal Trade",
+    "sentiment": "BULLISH",
     "setup": {
-      "currentPrice": "24968",
-      "strategy": "Put Buying",
-      "strike": "Nifty 25000 PUT",
-      "expiry": "2025-08-28"
+      "currentPrice": "24557",
+      "strategy": "Call Buying",
+      "strike": "Nifty 24500 CALL",
+      "expiry": "2025-09-02"
     },
     "tradePlan": {
-      "entry": "76",
-      "target": "115",
-      "stopLoss": "55",
+      "entry": "145",
+      "target": "175",
+      "stopLoss": "125",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty is near a resistance level, and the current market sentiment is bearish. RSI bullish zone indicates possible overbought condition and reversal. Buying 25000 PUT offers a reasonable risk-reward ratio for an intraday bearish move.",
-    "confidence": "70",
-    "riskLevel": "MEDIUM",
-    "id": "fresh_1756120448902_1",
-    "timestamp": "2025-08-25T11:14:08.902Z",
-    "marketTime": "16:44 IST",
-    "isFresh": true
-  },
-  {
-    "title": "BankNifty Momentum Breakdown",
-    "sentiment": "BEARISH",
-    "setup": {
-      "currentPrice": "55139",
-      "strategy": "Put Buying",
-      "strike": "BankNifty 55500 PUT",
-      "expiry": "2025-08-28"
-    },
-    "tradePlan": {
-      "entry": "102",
-      "target": "155",
-      "stopLoss": "70",
-      "timeFrame": "Intraday"
-    },
-    "logic": "BankNifty is showing bearish momentum. High Open Interest (OI) at 55500 PUT indicates a strong resistance. Expecting a breakdown, buying the 55500 PUT provides a good risk-reward setup with an affordable premium.",
+    "logic": "Nifty is near support, and RSI indicates a bullish zone. Buying the 24500 call option offers a good risk-reward opportunity if the price bounces from this level. High OI at 24500 Put indicates a strong support",
     "confidence": "75",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1756120448902_2",
-    "timestamp": "2025-08-25T11:14:08.902Z",
-    "marketTime": "16:44 IST",
+    "id": "fresh_1756446309065_1",
+    "timestamp": "2025-08-29T05:45:09.065Z",
+    "marketTime": "11:15 IST",
     "isFresh": true
   },
   {
-    "title": "Nifty Rangebound Play",
+    "isStrategy": "true",
+    "title": "Nifty Neutral Iron Condor",
     "sentiment": "NEUTRAL",
     "setup": {
-      "currentPrice": "24968",
-      "strategy": "Short Strangle",
-      "strike": "Nifty 25100 CALL & Nifty 24900 PUT",
-      "expiry": "2025-08-28"
+      "currentPrice": "24557",
+      "strategy": "Iron Condor",
+      "strike": "Nifty 24450 PUT & Nifty 24700 CALL",
+      "expiry": "2025-09-02"
     },
     "tradePlan": {
-      "entry": "176",
-      "target": "130",
-      "stopLoss": "220",
+      "entry": "43 & 46",
+      "target": "25 & 25",
+      "stopLoss": "65 & 65",
       "timeFrame": "Intraday"
     },
-    "logic": "Considering the current market indecisiveness and the limited time left for expiry, a short strangle can capitalize on time decay if Nifty stays within a range. Sell Nifty 25100 CALL at 37 and Nifty 24900 PUT at 39. Collect premium to profit if Nifty remains between these strikes.",
+    "logic": "Market is showing a neutral bias. An Iron Condor strategy, selling OTM calls and puts, can profit from time decay and low volatility. High OI at 24500 and 24700 act as resistance",
+    "confidence": "80",
+    "riskLevel": "LOW",
+    "id": "fresh_1756446309065_2",
+    "timestamp": "2025-08-29T05:45:09.065Z",
+    "marketTime": "11:15 IST",
+    "isFresh": true
+  },
+  {
+    "isStrategy": "false",
+    "title": "BankNifty Range Breakout Anticipation",
+    "sentiment": "BEARISH",
+    "setup": {
+      "currentPrice": "53981",
+      "strategy": "Put Buying",
+      "strike": "BankNifty 53000 PUT",
+      "expiry": "2025-09-30"
+    },
+    "tradePlan": {
+      "entry": "264",
+      "target": "300",
+      "stopLoss": "234",
+      "timeFrame": "Intraday"
+    },
+    "logic": "BankNifty is trading near a resistance level. Considering the possibility of a breakdown, buying the 53000 put allows to take an affordable position anticipating a potential downward breakout.",
     "confidence": "65",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1756120448902_3",
-    "timestamp": "2025-08-25T11:14:08.902Z",
-    "marketTime": "16:44 IST",
+    "id": "fresh_1756446309065_3",
+    "timestamp": "2025-08-29T05:45:09.065Z",
+    "marketTime": "11:15 IST",
     "isFresh": true
   }
 ]

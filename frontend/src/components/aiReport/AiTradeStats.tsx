@@ -19,8 +19,9 @@ export interface AiTradeStatsProps {
     suggestedTrades: number;
     activeTrades: number;
     completedTrades: number,
-    targetHit: number;
-    stopLossHit: number;
+    targetHitNumber: number;
+    stopLossHitNumber: number;
+    activeExpiredNumber:number;
     expired: number;
     cancelled: number;
     totalPnL: number;
@@ -49,35 +50,42 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
     },
     {
       title: 'Target Hit',
-      value: stats.targetHit,
+      value: stats.targetHitNumber,
       icon: Target,
       color: 'bg-green-500',
       textColor: 'text-green-600'
     },
     {
       title: 'Stop Loss Hit',
-      value: stats.stopLossHit,
+      value: stats.stopLossHitNumber,
       icon: Shield,
       color: 'bg-red-500',
       textColor: 'text-red-600'
     },
+    // {
+    //   title: 'Completed Trades',
+    //   value: stats.completedTrades,
+    //   icon: Shield,
+    //   color: 'bg-green-500',
+    //   textColor: 'text-orange-400'
+    // },
     {
-      title: 'Completed Trades',
-      value: stats.completedTrades,
-      icon: Shield,
+      title: 'Actively Expired Trades',
+      value: stats.activeExpiredNumber,
+      icon: CheckCircle,
       color: 'bg-green-500',
-      textColor: 'text-red-600'
+      textColor: 'text-yellow-500'
     },
     {
       title: 'Success Rate',
-      value: `${(stats.winRate)*100 }%`,
+      value: `${((stats.winRate)*100).toFixed(2) }%`,
       icon: BarChart3,
       color: 'bg-purple-500',
       textColor: 'text-purple-600'
     },
     {
       title: 'Total P&L',
-      value: `₹${stats.totalPnL}`,
+      value: `₹${stats.totalPnL.toFixed(2)}`,
       icon: DollarSign,
       color: stats.totalPnL >= 0 ? 'bg-green-500' : 'bg-red-500',
       textColor: stats.totalPnL >= 0 ? 'text-green-600' : 'text-red-600'
@@ -87,10 +95,10 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
   const statusBreakdown = [
     { label: 'Suggested', count: stats.suggestedTrades, color: 'bg-gray-100 text-gray-700' },
     { label: 'Active', count: stats.activeTrades, color: 'bg-blue-100 text-blue-700' },
-    { label: 'Target Hit', count: stats.targetHit, color: 'bg-green-100 text-green-700' },
-    { label: 'Stop Loss Hit', count: stats.stopLossHit, color: 'bg-red-100 text-red-700' },
-    { label: 'Expired', count: stats.expired, color: 'bg-yellow-100 text-yellow-700' },
-    { label: 'Cancelled', count: stats.cancelled, color: 'bg-gray-100 text-gray-700' }
+    { label: 'Target Hit', count: stats.targetHitNumber, color: 'bg-green-100 text-green-700' },
+    { label: 'Stop Loss Hit', count: stats.stopLossHitNumber, color: 'bg-red-100 text-red-700' },
+    { label: 'Actively Expired', count: stats.activeExpiredNumber, color: 'bg-yellow-100 text-yellow-700' },
+    { label: 'Expired', count: stats.expired, color: 'bg-gray-100 text-gray-700' }
   ];
 
   return (
@@ -171,12 +179,12 @@ const AiTradeStats: React.FC<AiTradeStatsProps> = ({ stats }) => {
             
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Profitable Trades</span>
-              <span className="font-semibold text-green-600">{stats.targetHit}</span>
+              <span className="font-semibold text-green-600">{stats.targetHitNumber}</span>
             </div>
             
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Loss Making Trades</span>
-              <span className="font-semibold text-red-600">{stats.stopLossHit}</span>
+              <span className="font-semibold text-red-600">{stats.stopLossHitNumber}</span>
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ class AiTradeProcessor {
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "15,45 9-14 * * 1-5",
+      "20,50 9-14 * * 1-5",
       () => {
         this.generateFreshSuggestions();
       },
@@ -32,7 +32,7 @@ class AiTradeProcessor {
       async () => {
         console.log("Monitoring suggested trades for activation");
         await setOptData.fetchAndSaveOC();
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         this.monitorSuggestedTrades();
       },
       {
@@ -54,7 +54,7 @@ class AiTradeProcessor {
 
     // Daily cleanup and reporting at 6 PM
     cron.schedule(
-      "0 18 * * 1-5",
+      "*/1 0-19 * * 1-5",
       () => {
         this.dailyCleanup();
       },
@@ -64,6 +64,19 @@ class AiTradeProcessor {
     );
 
     console.log("🤖 AI Trade Processor initialized with cron jobs");
+  }
+
+  async deleteExpiredTrades() {
+    try {
+      const result = await AiTrade.deleteMany({
+        status: "expired",
+        isValid: true,
+      });
+
+      console.log(`🗑 Deleted ${result.deletedCount} expired trades`);
+    } catch (error) {
+      console.error("❌ Error deleting expired trades:", error);
+    }
   }
 
   async testActiveExpire() {
@@ -125,11 +138,14 @@ class AiTradeProcessor {
       );
 
       for (const trade of suggestedTrades) {
-        if (trade.setup.strike.split(" ").length < 4){
-        await this.checkSuggestedTradeForActivation(trade);
-      } else {
-        console.log("two trade strike have more then 3 letter", trade.setup.strike)
-      }
+        if (trade.setup.strike.split(" ").length < 5) {
+          await this.checkSuggestedTradeForActivation(trade);
+        } else {
+          console.log(
+            "two trade strike have more then 3 letter",
+            trade.setup.strike
+          );
+        }
       }
     } catch (error) {
       console.error("❌ Error monitoring suggested trades:", error);
@@ -145,9 +161,15 @@ class AiTradeProcessor {
       });
 
       console.log(`Found ${activeTrades.length} active trades to monitor`);
-
+      // if (trade.setup.strike.split(" ").length < 4) {
+      //   await this.checkSuggestedTradeForActivation(trade);
+      // }
       for (const trade of activeTrades) {
-        await this.checkActiveTradeStatus(trade);
+        if (trade.isStrategy === true) {
+          continue;
+        } else {
+          await this.checkActiveTradeStatus(trade);
+        }
       }
     } catch (error) {
       console.error("❌ Error monitoring active trades:", error);
@@ -226,6 +248,7 @@ class AiTradeProcessor {
       let words = trade.setup.strike.split(" ");
       const currentPrice = await this.getCurrentMarketPrice(words);
       const suggestedEntry = this.parsePrice(trade.tradePlan.entry);
+      const suggestedTarget = this.parsePrice(trade.tradePlan.target);
 
       if (!currentPrice || !suggestedEntry) {
         console.log(`Cannot get price data for ${trade.setup.symbol}`);
@@ -235,7 +258,11 @@ class AiTradeProcessor {
       // Allow 1% tolerance for entry price
       const tolerance = suggestedEntry * 0.01;
       let priceInRange = Math.abs(currentPrice - suggestedEntry) <= tolerance;
-      if (priceInRange === false && currentPrice > suggestedEntry) {
+      if (
+        priceInRange === false &&
+        currentPrice > suggestedEntry &&
+        currentPrice + 10 < suggestedTarget
+      ) {
         // this also good for buy not for sell
         priceInRange = true;
       }
@@ -270,6 +297,7 @@ class AiTradeProcessor {
 
       // Record entry price and time
       trade.entryPrice = currentPrice;
+      // console.log("active trde with quantity", words, words[0])
       if (words[0] === "Nifty") {
         trade.quantity = 75;
       } else {
@@ -294,6 +322,7 @@ class AiTradeProcessor {
   // Check target and stop loss for active trades
   async checkTargetStopLoss(trade) {
     try {
+      // console.log("cTS", trade)
       let words = trade.setup.strike.split(" ");
       const currentPrice = await this.getCurrentMarketPrice(words);
       const entryPrice =
@@ -414,6 +443,7 @@ class AiTradeProcessor {
   }
 
   async calculateCharges(last_price, trade) {
+    // console.log("CalCHar", last_price, trade)
     const brokerage = 40;
     const stt = last_price * trade.quantity * 0.001;
     const sebi = trade.entryPrice * last_price * trade.quantity * 0.000001;
@@ -440,8 +470,8 @@ class AiTradeProcessor {
 
   // Get current market price (placeholder - integrate with your market data provider)
   async getCurrentMarketPrice(words) {
-    console.log("words", words)  //expected Nifty 25000 CALL/PUT 
-    const [name, strikePrice, side] = words; 
+    console.log("words", words); //expected Nifty 25000 CALL/PUT
+    const [name, strikePrice, side] = words;
     const filePath = path.join(
       __dirname,
       "../aiTradeSugg/setOptionData/marketData.json"
@@ -450,7 +480,9 @@ class AiTradeProcessor {
     const marketData = JSON.parse(rawData);
 
     try {
-      console.log(`Getting current price for ${name} ${strikePrice} ${side} ...`);
+      console.log(
+        `Getting current price for ${name} ${strikePrice} ${side} ...`
+      );
 
       if (name === "Nifty") {
         let activeOP = marketData.nifty.optionChain;
@@ -540,6 +572,7 @@ class AiTradeProcessor {
       }
 
       // Create new AI trade with 'suggested' status
+      console.log("creating new suggestion to AiTrade", suggestion.isStrategy);
       const aiTrade = new AiTrade({
         aiTradeId: suggestion.id,
         title: suggestion.title,
@@ -551,6 +584,7 @@ class AiTradeProcessor {
           expiry: suggestion.setup.expiry,
           symbol: this.extractSymbol(suggestion.setup.strike),
         },
+        isStrategy: suggestion.isStrategy === "true",
         tradePlan: suggestion.tradePlan,
         logic: suggestion.logic,
         confidence: suggestion.confidence,
@@ -596,7 +630,8 @@ class AiTradeProcessor {
       // Mark expired suggestions as invalid
       const expiredSuggestions = await AiTrade.find({
         status: "suggested",
-        expiryDate: { $lt: new Date() },
+        // processedToStrategy:false,
+        // expiryDate: { $lt: new Date() },
         isValid: true,
       });
 
@@ -652,13 +687,21 @@ class AiTradeProcessor {
 
       console.log("📊 Daily AI Trade Report:");
       console.log(`Total suggestions: ${totalTrades}`);
+      let reportText = `📊 Daily AI Trade Report - ${new Date().toLocaleString(
+        "en-IN",
+        { timeZone: "Asia/Kolkata" }
+      )}\n`;
+      reportText += `Total suggestions: ${totalTrades}\n`;
+
       dailyStats.forEach((stat) => {
-        console.log(
-          `${stat._id}: ${stat.count} trades, Avg confidence: ${
-            stat.totalConfidence?.toFixed(1) || "N/A"
-          }%, P&L: ₹${stat.totalPnL?.toFixed(2) || "0"}`
-        );
+        reportText += `${stat._id}: ${stat.count} trades, Avg confidence: ${
+          stat.totalConfidence?.toFixed(1) || "N/A"
+        }%, P&L: ₹${stat.totalPnL?.toFixed(2) || "0"}\n`;
       });
+
+      // write to file (overwrite each day)
+      await fs.appendFile("ai-daily-report.txt", reportText, "utf-8");
+      console.log("Report saved ✅");
     } catch (error) {
       console.error("❌ Error generating daily report:", error);
     }
@@ -713,6 +756,15 @@ class AiTradeProcessor {
             activeTrades: {
               $sum: { $cond: [{ $eq: ["$status", "active"] }, 1, 0] },
             },
+            targetHitNumber: {
+              $sum: { $cond: [{ $eq: ["$status", "target_hit"] }, 1, 0] },
+            },
+            stopLossHitNumber: {
+              $sum: { $cond: [{ $eq: ["$status", "stoploss_hit"] }, 1, 0] },
+            },
+            activeExpiredNumber: {
+              $sum: { $cond: [{ $eq: ["$status", "active_expired"] }, 1, 0] },
+            },
             completedTrades: {
               $sum: {
                 $cond: [
@@ -733,6 +785,7 @@ class AiTradeProcessor {
                     $and: [
                       { $ne: ["$status", "suggested"] },
                       { $ne: ["$status", "active"] },
+                      { $ne: ["$status", "active_expired"] },
                     ],
                   },
                   { $cond: [{ $gt: ["$pnl", 0] }, 1, 0] },

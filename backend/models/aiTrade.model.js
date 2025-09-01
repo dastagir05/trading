@@ -39,7 +39,7 @@ const AiTradeSchema = new Schema(
       type: String,
       enum: ["LOW", "MEDIUM", "HIGH"],
     },
-    
+
     // Trade execution details
     status: {
       type: String,
@@ -50,22 +50,23 @@ const AiTradeSchema = new Schema(
         "stoploss_hit",
         "expired",
         "cancelled",
-        "active_expired"
+        "complete",
+        "active_expired",
       ],
       default: "suggested",
     },
-    
+
     // Entry details
     entryPrice: Number,
     entryTime: Date,
     quantity: Number,
     marginUsed: Number,
-    
+
     // Exit details
     exitPrice: Number,
     exitTime: Date,
     exitReason: String,
-    
+
     // Performance metrics
     pnl: Number,
     netPnL: Number,
@@ -77,8 +78,7 @@ const AiTradeSchema = new Schema(
       sebi: Number,
       total: Number,
     },
-    
-   
+
     // Timestamps
     suggestedAt: {
       type: Date,
@@ -86,30 +86,42 @@ const AiTradeSchema = new Schema(
     },
     activatedAt: Date,
     completedAt: Date,
-    
+
     // Validity
     isValid: {
       type: Boolean,
       default: true,
     },
     expiryDate: Date,
-    
+
     // Tags for categorization
     tags: [String],
-    
+
     // Notes and updates
-    notes: [{
-      timestamp: Date,
-      message: String,
-      type: {
-        type: String,
-        enum: ["info", "warning", "error", "success", "expired_on_time"],
+    notes: [
+      {
+        timestamp: Date,
+        message: String,
+        type: {
+          type: String,
+          enum: ["info", "warning", "error", "success", "expired_on_time"],
+        },
       },
-    }],
+    ],
+
+    // strategy flag
+    isStrategy: {
+      type: Boolean,
+      require: true,
+    },
+    processedToStrategy: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { 
+  {
     timestamps: true,
-    collection: "aiTrades"
+    collection: "aiTrades",
   }
 );
 
@@ -123,18 +135,23 @@ AiTradeSchema.index({ suggestedAt: -1 });
 
 // Pre-save middleware to calculate PnL
 AiTradeSchema.pre("save", function (next) {
-  if (this.exitPrice && this.entryPrice && this.quantity && this.status !== "suggested") {
+  if (
+    this.exitPrice &&
+    this.entryPrice &&
+    this.quantity &&
+    this.status !== "suggested"
+  ) {
     const grossPnL = (this.exitPrice - this.entryPrice) * this.quantity;
     const charges = this.charges?.total || 0;
     this.pnl = parseFloat((grossPnL - charges).toFixed(2));
-    
+
     if (this.entryPrice > 0) {
       this.percentPnL = parseFloat(
         ((this.pnl / (this.entryPrice * this.quantity)) * 100).toFixed(2)
       );
     }
   }
-  
+
   // Set expiry date based on timeFrame
   if (this.tradePlan?.timeFrame && !this.expiryDate) {
     const now = new Date();
@@ -144,15 +161,15 @@ AiTradeSchema.pre("save", function (next) {
       this.expiryDate.setHours(15, 30, 0, 0);
     } else if (this.tradePlan.timeFrame.includes("days")) {
       const days = parseInt(this.tradePlan.timeFrame.match(/\d+/)[0]);
-      this.expiryDate = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+      this.expiryDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
     }
   }
-  
+
   next();
 });
 
 // Method to add notes
-AiTradeSchema.methods.addNote = function(message, type = "info") {
+AiTradeSchema.methods.addNote = function (message, type = "info") {
   this.notes.push({
     timestamp: new Date(),
     message,
@@ -162,18 +179,20 @@ AiTradeSchema.methods.addNote = function(message, type = "info") {
 };
 
 // Method to update status
-AiTradeSchema.methods.updateStatus = function(newStatus, exitReason = null) {
+AiTradeSchema.methods.updateStatus = function (newStatus, exitReason = null) {
   this.status = newStatus;
-  
+
   if (newStatus === "active" && !this.activatedAt) {
     this.activatedAt = new Date();
-  } else if (["target_hit", "stoploss_hit", "expired", "cancelled"].includes(newStatus)) {
+  } else if (
+    ["target_hit", "stoploss_hit", "expired", "cancelled"].includes(newStatus)
+  ) {
     this.completedAt = new Date();
     if (exitReason) {
       this.exitReason = exitReason;
     }
   }
-  
+
   return this.save();
 };
 

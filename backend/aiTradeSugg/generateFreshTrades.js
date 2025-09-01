@@ -19,10 +19,18 @@ async function generateFreshTradeSuggestions() {
 
     // Step 2: Check Market Hours
     const marketStatus = checkMarketHours();
+    console.log(
+      "check that acc current market going not yesterday's",
+      marketData.timestamp
+    );
     console.log(marketStatus.message);
 
     // Step 3: Generate Enhanced AI Prompt with Technical Analysis
     console.log("🤖 Generating enhanced AI trade suggestions...");
+    console.log(
+      "sending data to ai wher market data nifty price is ",
+      marketData.nifty?.spotPrice
+    );
     const enhancedPrompt = await generateEnhancedPrompt(marketData);
 
     // Step 4: Get AI Response
@@ -50,7 +58,7 @@ async function updateMarketData() {
   await setOptData.fetchAndSaveOC();
 
   // Wait for file to be written
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const marketDataPath = path.join(__dirname, "setOptionData/marketData.json");
   if (!fs.existsSync(marketDataPath)) {
@@ -160,6 +168,7 @@ async function saveAndStoreTrades(validatedTrades) {
   // Save to database
   console.log("📝 Creating new AI trades in database...");
   for (const trade of validatedTrades) {
+    console.log("createing new aitrade", trade.isStrategy);
     const aiTrade = new AiTrade({
       aiTradeId: trade.id,
       title: trade.title,
@@ -173,6 +182,7 @@ async function saveAndStoreTrades(validatedTrades) {
         instrumentKey: generateInstrumentKey(trade.setup.strike),
       },
       tradePlan: trade.tradePlan,
+      isStrategy: trade.isStrategy,
       logic: trade.logic,
       confidence: trade.confidence,
       riskLevel: trade.riskLevel,
