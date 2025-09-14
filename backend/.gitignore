@@ -2,3 +2,7 @@
 node_modules/
 .env
 dist/
+marketData.json
+tradeSuggestions.json
+tokenG.js
+ttokenG.js

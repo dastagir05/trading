@@ -1,74 +1,74 @@
 [
   {
     "isStrategy": "false",
-    "title": "Nifty Bullish Reversal Trade",
+    "title": "Nifty Bullish Momentum Trade",
     "sentiment": "BULLISH",
     "setup": {
-      "currentPrice": "24557",
+      "currentPrice": "25049",
       "strategy": "Call Buying",
-      "strike": "Nifty 24500 CALL",
-      "expiry": "2025-09-02"
+      "strike": "Nifty 25050 CALL",
+      "expiry": "2025-09-16"
     },
     "tradePlan": {
-      "entry": "145",
-      "target": "175",
-      "stopLoss": "125",
+      "entry": "96",
+      "target": "125",
+      "stopLoss": "75",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty is near support, and RSI indicates a bullish zone. Buying the 24500 call option offers a good risk-reward opportunity if the price bounces from this level. High OI at 24500 Put indicates a strong support",
+    "logic": "Nifty is showing signs of upward momentum. The 25050 Call option has a reasonable IV and delta, offering leveraged exposure to further price appreciation. Buying at 96 provides a good risk-reward opportunity.",
     "confidence": "75",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1756446309065_1",
-    "timestamp": "2025-08-29T05:45:09.065Z",
-    "marketTime": "11:15 IST",
+    "id": "fresh_1757650511096_1",
+    "timestamp": "2025-09-12T04:15:11.097Z",
+    "marketTime": "9:45 IST",
     "isFresh": true
   },
   {
     "isStrategy": "true",
-    "title": "Nifty Neutral Iron Condor",
+    "title": "BankNifty Short Strangle for Range-Bound Expectation",
     "sentiment": "NEUTRAL",
     "setup": {
-      "currentPrice": "24557",
-      "strategy": "Iron Condor",
-      "strike": "Nifty 24450 PUT & Nifty 24700 CALL",
-      "expiry": "2025-09-02"
+      "currentPrice": "54629",
+      "strategy": "Short Strangle",
+      "strike": "BankNifty 55700 CALL & BankNifty 53500 PUT",
+      "expiry": "2025-09-30"
     },
     "tradePlan": {
-      "entry": "43 & 46",
-      "target": "25 & 25",
-      "stopLoss": "65 & 65",
+      "entry": "178 & 113",
+      "target": "140 & 90",
+      "stopLoss": "210 & 145",
       "timeFrame": "Intraday"
     },
-    "logic": "Market is showing a neutral bias. An Iron Condor strategy, selling OTM calls and puts, can profit from time decay and low volatility. High OI at 24500 and 24700 act as resistance",
-    "confidence": "80",
-    "riskLevel": "LOW",
-    "id": "fresh_1756446309065_2",
-    "timestamp": "2025-08-29T05:45:09.065Z",
-    "marketTime": "11:15 IST",
+    "logic": "BankNifty may consolidate in a range. Selling OTM call and put options allows us to profit from time decay if the price stays between the strikes at expiry. The short strangle strategy is used when a range-bound movement is expected. Considering current IV levels, the premiums are attractive for a weekly expiry.",
+    "confidence": "70",
+    "riskLevel": "MEDIUM",
+    "id": "fresh_1757650511097_2",
+    "timestamp": "2025-09-12T04:15:11.097Z",
+    "marketTime": "9:45 IST",
     "isFresh": true
   },
   {
     "isStrategy": "false",
-    "title": "BankNifty Range Breakout Anticipation",
+    "title": "Nifty Bearish Reversal Trade",
     "sentiment": "BEARISH",
     "setup": {
-      "currentPrice": "53981",
+      "currentPrice": "25049",
       "strategy": "Put Buying",
-      "strike": "BankNifty 53000 PUT",
-      "expiry": "2025-09-30"
+      "strike": "Nifty 25000 PUT",
+      "expiry": "2025-09-16"
     },
     "tradePlan": {
-      "entry": "264",
-      "target": "300",
-      "stopLoss": "234",
+      "entry": "50",
+      "target": "70",
+      "stopLoss": "40",
       "timeFrame": "Intraday"
     },
-    "logic": "BankNifty is trading near a resistance level. Considering the possibility of a breakdown, buying the 53000 put allows to take an affordable position anticipating a potential downward breakout.",
+    "logic": "Nifty may face resistance at the current level. The 25000 Put option is available at a reasonable price, providing an opportunity to profit from any potential downside movement. The put option has a suitable delta for leveraged exposure to the downside.",
     "confidence": "65",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1756446309065_3",
-    "timestamp": "2025-08-29T05:45:09.065Z",
-    "marketTime": "11:15 IST",
+    "id": "fresh_1757650511097_3",
+    "timestamp": "2025-09-12T04:15:11.097Z",
+    "marketTime": "9:45 IST",
     "isFresh": true
   }
 ]

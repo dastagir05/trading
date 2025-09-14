@@ -6,13 +6,19 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      _id?: string; // ✅ Add this line
-      role?: string; // ✅ Optional
+      _id?: string;
+      role?: string;
+      adminId?: string;
+      permissions?: string[];
+      isAdmin?: boolean;
     };
   }
 
   interface User {
     _id?: string;
     role?: string;
+    adminId?: string;
+    permissions?: string[];
+    isAdmin?: boolean;
   }
 }

@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const Trade = require("../models/trade.model");
 const AiTrade = require("../models/aiTrade.model");
 const Settings = require("../models/settings.model");
+const Admin = require("../models/admin.model");
+const AdminLog = require("../models/adminLog.model");
 const os = require('os');
 const mongoose = require('mongoose');
 const fs = require('fs');
@@ -9,7 +11,16 @@ const path = require('path');
 
 // Get admin dashboard stats
 const getAdminStats = async (req, res) => {
+  const startTime = Date.now();
+  const ipAddress = req.ip || req.connection.remoteAddress || req.headers['x-forwarded-for'] || 'unknown';
+  const userAgent = req.headers['user-agent'] || 'unknown';
+  
   try {
+    // Get admin info from request (assuming it's passed from middleware)
+    const adminId = req.adminId || req.user?.adminId;
+    const adminEmail = req.adminEmail || req.user?.email || 'unknown';
+    const adminName = req.adminName || req.user?.name || 'unknown';
+
     // Get user statistics
     const totalUsers = await User.countDocuments();
     const activeUsers = await User.countDocuments({
@@ -17,19 +28,31 @@ const getAdminStats = async (req, res) => {
     });
     const premiumUsers = await User.countDocuments({ role: "admin" }); // Assuming admin = premium for now
 
+    // Get admin statistics
+    const totalAdmins = await Admin.countDocuments();
+    const activeAdmins = await Admin.countDocuments({
+      lastLogin: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } // Last 7 days
+    });
+
     // Get system health metrics
     const systemHealth = await getSystemHealth();
     
     // Get database statistics
     const dbStats = await getDatabaseStats();
     
-    // Get recent activity
-    // const recentActivity = await getRecentActivity();
+    // Get recent admin activity
+    const recentAdminActivity = await AdminLog.find({})
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select('action description adminName createdAt status riskLevel')
+      .lean();
 
     const stats = {
       totalUsers,
       activeUsers,
       premiumUsers,
+      totalAdmins,
+      activeAdmins,
       systemHealth: systemHealth.status,
       serverLoad: systemHealth.cpuUsage,
       databaseConnections: dbStats.connections,
@@ -37,8 +60,24 @@ const getAdminStats = async (req, res) => {
       errorRate: dbStats.errorRate,
       uptime: systemHealth.uptime,
       lastBackup: dbStats.lastBackup,
-      // recentActivity
+      recentAdminActivity
     };
+
+    const responseTime = Date.now() - startTime;
+
+    // Log admin stats access
+    if (adminId) {
+      await AdminLog.logAction(adminId, 'other', 'Admin dashboard stats accessed', {
+        adminEmail,
+        adminName,
+        ipAddress,
+        userAgent,
+        details: { statsKeys: Object.keys(stats) },
+        status: 'success',
+        responseTime,
+        riskLevel: 'low'
+      });
+    }
 
     res.json({
       success: true,
@@ -46,6 +85,23 @@ const getAdminStats = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching admin stats:', error);
+    
+    const responseTime = Date.now() - startTime;
+    
+    // Log error
+    if (req.adminId) {
+      await AdminLog.logAction(req.adminId, 'other', 'Admin dashboard stats access failed', {
+        adminEmail: req.adminEmail || 'unknown',
+        adminName: req.adminName || 'unknown',
+        ipAddress,
+        userAgent,
+        status: 'error',
+        errorMessage: error.message,
+        responseTime,
+        riskLevel: 'medium'
+      });
+    }
+    
     res.status(500).json({
       success: false,
       message: 'Failed to fetch admin statistics',
@@ -256,8 +312,14 @@ const getSystemLogs = async (req, res) => {
 
 // Get analytics data
 const getAnalyticsData = async (req, res) => {
+  const startTime = Date.now();
+  const ipAddress = req.ip || req.connection.remoteAddress || req.headers['x-forwarded-for'] || 'unknown';
+  const userAgent = req.headers['user-agent'] || 'unknown';
+  
   try {
     const { timeRange = '7d' } = req.query;
+    
+    console.log('Fetching analytics data for timeRange:', timeRange);
     
     // Calculate date range
     const now = new Date();
@@ -276,20 +338,32 @@ const getAnalyticsData = async (req, res) => {
         startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     }
     
+    console.log('Date range:', { startDate, endDate: now });
+    
     // Get user growth data
+    console.log('Fetching user growth data...');
     const userGrowth = await getUserGrowthData(startDate, now);
+    console.log('User growth data:', userGrowth);
     
     // Get revenue data (based on trades)
+    console.log('Fetching revenue data...');
     const revenueData = await getRevenueData(startDate, now);
+    console.log('Revenue data:', revenueData);
     
     // Get activity data
+    console.log('Fetching activity data...');
     const activityData = await getActivityData(startDate, now);
+    console.log('Activity data:', activityData);
     
     // Get top features usage
+    console.log('Fetching top features...');
     const topFeatures = await getTopFeaturesUsage();
+    console.log('Top features:', topFeatures);
     
     // Get recent activity
+    console.log('Fetching recent activity...');
     const recentActivity = await getRecentAnalyticsActivity();
+    console.log('Recent activity:', recentActivity);
     
     const analyticsData = {
       userGrowth,
@@ -299,12 +373,17 @@ const getAnalyticsData = async (req, res) => {
       recentActivity
     };
     
+    const responseTime = Date.now() - startTime;
+    console.log('Analytics data fetched successfully in', responseTime, 'ms');
+    
     res.json({
       success: true,
       data: analyticsData
     });
   } catch (error) {
     console.error('Error fetching analytics data:', error);
+    const responseTime = Date.now() - startTime;
+    
     res.status(500).json({
       success: false,
       message: 'Failed to fetch analytics data',

@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   return (
     <>
-      {/* <div className="mt-1 max-w-9xl mx-auto  w-full">
+      <div className="mt-1 max-w-9xl mx-auto  w-full">
         <div className="text-black flex gap-4">
           {session?.user?.name && (
             <p className="font-semibold text-xl">Hello, {session.user.name}</p>
@@ -37,7 +37,7 @@ export default function Dashboard() {
             Change
           </button>
         </div>
-      </div> */}
+      </div>
        <MyDashboard /> 
      
     </>

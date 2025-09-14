@@ -17,7 +17,7 @@ class AiTradeProcessor {
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "20,50 9-14 * * 1-5",
+      "20,45 9-14 * * 1-5",
       () => {
         this.generateFreshSuggestions();
       },
@@ -54,7 +54,7 @@ class AiTradeProcessor {
 
     // Daily cleanup and reporting at 6 PM
     cron.schedule(
-      "*/1 0-19 * * 1-5",
+      "0 16 * * 1-5",
       () => {
         this.dailyCleanup();
       },
@@ -358,7 +358,7 @@ class AiTradeProcessor {
         await trade.save();
 
         console.log(
-          ` Sum up Active Expired for ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
+          `Sum up Active Expired for ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
         );
       }
 

@@ -16,31 +16,27 @@ import {
   Eye,
   Lock,
   Globe,
-  Server
+  Server,
+  LogOut,
+  User,
+  Monitor
 } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 import AdminUserManagement from './AdminUserManagement';
 import AdminSystemMonitor from './AdminSystemMonitor';
 import AdminAnalytics from './AdminAnalytics';
 import AdminSettings from './AdminSettings';
-import axios from 'axios';
+import AdminProfile from './AdminProfile';
+import AdminActivity from './AdminActivity';
+import adminApiService, { type AdminStats } from '@/services/adminApi';
 
-interface AdminStats {
-  totalUsers: number;
-  activeUsers: number;
-  premiumUsers: number;
-  systemHealth: 'excellent' | 'good' | 'warning' | 'critical';
-  serverLoad: number;
-  databaseConnections: number;
-  apiRequests: number;
-  errorRate: number;
-  uptime: number;
-  lastBackup: string;
-}
+// AdminStats interface is now imported from adminApi service
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { data: session } = useSession();
 
   useEffect(() => {
     fetchAdminStats();
@@ -48,12 +44,11 @@ const AdminDashboard: React.FC = () => {
 
   const fetchAdminStats = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stats`);
-      const result = response.data      
+      const result = await adminApiService.getAdminStats();
       if (result.success) {
         setStats(result.data);
       } else {
-        console.error('Failed to fetch admin stats:', result.message);
+        console.error('Failed to fetch admin stats:', result);
       }
     } catch (error) {
       console.error('Failed to fetch admin stats:', error);
@@ -64,8 +59,10 @@ const AdminDashboard: React.FC = () => {
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
+    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'activity', label: 'Activity', icon: Activity },
     { id: 'users', label: 'User Management', icon: Users },
-    { id: 'monitor', label: 'System Monitor', icon: Activity },
+    { id: 'monitor', label: 'System Monitor', icon: Monitor },
     { id: 'analytics', label: 'Analytics', icon: TrendingUp },
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
@@ -114,6 +111,29 @@ const AdminDashboard: React.FC = () => {
             <div className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
               <Server className="w-4 h-4 inline mr-1" />
               {stats?.uptime}% Uptime
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-600">Welcome, {session?.user?.name || 'Admin'}</span>
+              <button
+                onClick={async () => {
+                  try {
+                    // Logout from backend first
+                    if (session?.user?.adminId) {
+                      await adminApiService.adminLogout(session.user.adminId);
+                    }
+                    // Then logout from NextAuth
+                    await signOut({ callbackUrl: "/" });
+                  } catch (error) {
+                    console.error('Logout error:', error);
+                    // Still logout from NextAuth even if backend fails
+                    await signOut({ callbackUrl: "/" });
+                  }
+                }}
+                className="flex items-center space-x-1 px-3 py-1 bg-red-100 text-red-700 text-sm font-medium rounded-full hover:bg-red-200 transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
             </div>
           </div>
         </div>
@@ -231,6 +251,8 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
         
+        {activeTab === 'profile' && <AdminProfile />}
+        {activeTab === 'activity' && <AdminActivity />}
         {activeTab === 'users' && <AdminUserManagement />}
         {activeTab === 'monitor' && <AdminSystemMonitor />}
         {activeTab === 'analytics' && <AdminAnalytics />}

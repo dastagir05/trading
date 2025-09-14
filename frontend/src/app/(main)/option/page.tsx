@@ -1,5 +1,5 @@
 
-import OptionsPage from "@/components/option/Claude2";
+import OptionsPage from "@/components/option/Option2";
 export default function Option() {
 
   // const [realProfile, setRealProfile] = useState(false);

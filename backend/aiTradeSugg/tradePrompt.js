@@ -57,7 +57,7 @@ the strategy make isStrategy true and for normal trade make it false and don't g
     "setup": {
       "currentPrice": "current spot price",
       "strategy": "strategy type",
-      "strike": "stock and strike selection e.g.Nifty 25050 PUT/CALL",
+      "strike": "stock and strike selection e.g.Nifty 25050 PUT/CALL and BUY/SELL",
       "expiry": "expiry selection"
     },
     "tradePlan": {

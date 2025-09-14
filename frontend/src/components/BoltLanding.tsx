@@ -19,6 +19,8 @@ import {
   Bot,
   Camera
 } from "lucide-react";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Landing = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -101,51 +103,11 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
+    <>
+     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                Nivesh Now
-              </span>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-slate-700 hover:text-blue-600 transition-colors">Features</a>
-              <a href="#ai-showcase" className="text-slate-700 hover:text-blue-600 transition-colors">AI Tools</a>
-              <a href="#benefits" className="text-slate-700 hover:text-blue-600 transition-colors">Benefits</a>
-              <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
-                Get Started
-              </button>
-            </div>
-
-            <button 
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden bg-white border-t border-slate-200">
-              <div className="px-6 py-4 space-y-4">
-                <a href="#features" className="block text-slate-700 hover:text-blue-600 transition-colors">Features</a>
-                <a href="#ai-showcase" className="block text-slate-700 hover:text-blue-600 transition-colors">AI Tools</a>
-                <a href="#benefits" className="block text-slate-700 hover:text-blue-600 transition-colors">Benefits</a>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full">
-                  Get Started
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        <Navbar />
       </nav>
 
       {/* Hero Section */}
@@ -567,7 +529,9 @@ const Landing = () => {
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
       `}</style>
-    </div>
+    </div> 
+    <Footer />
+    </>
   );
 };
 
