@@ -17,6 +17,7 @@ const AiTradeSchema = new Schema(
     },
     setup: {
       currentPrice: Number,
+      instrument_key: String,
       strategy: String,
       strike: String,
       expiry: String,
@@ -52,6 +53,8 @@ const AiTradeSchema = new Schema(
         "cancelled",
         "complete",
         "active_expired",
+        "completed",
+        "strategy_exit",
       ],
       default: "suggested",
     },

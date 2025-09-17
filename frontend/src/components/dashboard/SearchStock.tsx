@@ -46,7 +46,7 @@ const SearchStockDialog = ({
   if (!openDialog) return null;
 
   return (
-    <div className="fixed inset-0 text-black bg-white/10 z-50 flex items-center justify-center backdrop-blur-xs">
+    <div className="fixed inset-0 text-black bg-white/10 z-50 flex items-center justify-center backdrop-blur-xs ">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <h2 className="text-xl font-semibold mb-4">Search Stocks</h2>
         <input
@@ -62,7 +62,7 @@ const SearchStockDialog = ({
               key={index}
               className="p-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
-                onSelectStock(stock); // ✅ Send selected stock to parent
+                onSelectStock(stock); 
                 closeDialog();
               }}
             >

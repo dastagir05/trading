@@ -29,7 +29,7 @@ async function generateFreshTradeSuggestions() {
     console.log("🤖 Generating enhanced AI trade suggestions...");
     console.log(
       "sending data to ai wher market data nifty price is ",
-      marketData.nifty?.spotPrice
+      marketData.nifty?.currentPrice
     );
     const enhancedPrompt = await generateEnhancedPrompt(marketData);
 
@@ -101,7 +101,7 @@ async function generateEnhancedPrompt(marketData) {
     engine.generateCompleteAnalysis("NSE_INDEX|Nifty 50", marketData.nifty),
     engine.generateCompleteAnalysis(
       "NSE_INDEX|Nifty Bank",
-      marketData.banknifty
+      marketData.bankNifty
     ),
   ]);
 
@@ -138,6 +138,7 @@ function processAIResponse(aiResponse, marketTime) {
     .replace(/```/g, "")
     .trim();
 
+  console.log("cleanText,GfreshTrade", cleanText, aiResponse)
   const trades = JSON.parse(cleanText);
 
   return trades.map((trade, index) => ({
@@ -174,6 +175,7 @@ async function saveAndStoreTrades(validatedTrades) {
       title: trade.title,
       sentiment: trade.sentiment,
       setup: {
+        instrument_key: trade.setup.instrument_key,
         currentPrice: trade.setup.currentPrice,
         strategy: trade.setup.strategy,
         strike: trade.setup.strike,

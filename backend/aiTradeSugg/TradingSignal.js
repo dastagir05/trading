@@ -44,7 +44,7 @@ class TradingAnalysisEngine {
     try {
       const { unit, interval } = { unit: "minutes", interval: "5" };
       const toDate = new Date().toISOString().split("T")[0];
-      const fromDate = "2025-08-04";
+      const fromDate = "2025-08-24";
 
       const yesterday = `https://api.upstox.com/v3/historical-candle/${instrumentkey}/${unit}/${interval}/${toDate}/${fromDate}`;
       const url = `https://api.upstox.com/v3/historical-candle/intraday/${instrumentkey}/${unit}/${interval}`;

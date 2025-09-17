@@ -111,7 +111,7 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-32 pb-20 px-6 h-screen flex items-center justify-center">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -530,7 +530,6 @@ const Landing = () => {
         }
       `}</style>
     </div> 
-    <Footer />
     </>
   );
 };

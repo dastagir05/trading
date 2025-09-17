@@ -3,6 +3,7 @@ const AiTrade = require("../models/aiTrade.model");
 const StrategyTrade = require("../models/strategyTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
+const getArrayLTP = require("./getLtp");
 
 class StrategyTradeProcessor {
   constructor() {
@@ -11,12 +12,16 @@ class StrategyTradeProcessor {
       "../aiTradeSugg/tradeSuggestions.json"
     );
     this.isProcessing = false;
+    this.arrSuggIK = []; //all suggested symbol
+    this.arractiveIK = []; //all active instrukey
+    this.combineIK = []
+    this.priceOfIK = [];
   }
 
   init() {
     // convert aitradeS to strategy trades every 30 minutes during market hours
     cron.schedule(
-      "21,46 9-14 * * 1-5",
+      "21,48 9-14 * * 1-5",
       () => {
         this.processAiTradesToStrategies();
       },
@@ -49,6 +54,14 @@ class StrategyTradeProcessor {
     );
 
     console.log("🤖 Strategy Trade Processor initialized with cron jobs");
+  }
+
+  async setFreshValueOfIK(){
+  
+    this.combineIK = this.arrSuggIK.concat(this.arractiveIK.filter(x => !this.arrSuggIK.includes(x)));
+    const Ik = await getArrayLTP(this.combineIK)
+    console.log("IK setFFresh", Ik,this.combineIK)
+    this.priceOfIK = Ik;
   }
 
   // Process AI trades that are strategies
@@ -112,6 +125,7 @@ class StrategyTradeProcessor {
       // Parse individual instruments from strike
       const instruments = this.parseMultiInstrumentStrike(aiTrade.setup.strike);
       // Parse entry, target, and stopLoss values
+      const instrument_keys = this.parseMultipleValues(aiTrade.setup.instrument_key)
       const entryValues = this.parseMultipleValues(aiTrade.tradePlan.entry);
       const targetValues = this.parseMultipleValues(aiTrade.tradePlan.target);
       const stopLossValues = this.parseMultipleValues(
@@ -120,11 +134,13 @@ class StrategyTradeProcessor {
 
       this.validateTradePlanValues(
         instruments,
+        instrument_keys,
         entryValues,
         targetValues,
         stopLossValues
       );
       console.log(`Found ${instruments.length} instruments`);
+      console.log(`Instrument keys: ${instrument_keys}`)
       console.log(`Entry values: ${entryValues}`);
       console.log(`Target values: ${targetValues}`);
       console.log(`StopLoss values: ${stopLossValues}`);
@@ -142,6 +158,8 @@ class StrategyTradeProcessor {
         confidence: aiTrade.confidence,
         riskLevel: aiTrade.riskLevel,
         status: "suggested",
+        expiryDate: aiTrade.expiryDate,
+        instrument_keys: aiTrade.setup.instrument_key,
         suggestedAt: aiTrade.suggestedAt,
         tags: aiTrade.tags || [],
         tradeType: tradeType, // Add trade type to strategy
@@ -154,6 +172,9 @@ class StrategyTradeProcessor {
           tradeType: tradeType, // BUY or SELL
 
           setup: {
+            instrument_key: instrument_keys[index] ||
+            instrument_keys[0] ||
+            aiTrade.setup.instrument_key,
             currentPrice: instrument.currentPrice || aiTrade.setup.currentPrice,
             strategy: aiTrade.setup.strategy,
             strike: instrument.strike,
@@ -279,13 +300,14 @@ class StrategyTradeProcessor {
         (trade) => trade.expiryDate && now > trade.expiryDate
       );
 
-      if (expiredTrades.length > 0) {
+      if (strategy.expiryDate && now > strategy.expiryDate) {
         for (const trade of expiredTrades) {
           await strategy.updateTrade(trade.tradeId, {
             status: "expired",
             exitReason: "Trade expired before activation",
           });
         }
+        strategy.status = "expired"
         // Update parent AiTrade status
         await this.updateAiTradeStatus(strategy.strategyId, "expired");
         return;
@@ -345,7 +367,7 @@ class StrategyTradeProcessor {
   async checkTradeEntryConditions(trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
       const suggestedEntry = this.parsePrice(trade.tradePlan.entry);
 
       if (!currentPrice || !suggestedEntry) {
@@ -379,7 +401,7 @@ class StrategyTradeProcessor {
   async activateStrategyTrade(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
 
       if (!currentPrice) {
         console.log(
@@ -439,7 +461,7 @@ class StrategyTradeProcessor {
   async handleExpiredTrade(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
 
       const pnl = this.calculatePnL(
         trade.entryPrice,
@@ -471,7 +493,7 @@ class StrategyTradeProcessor {
   async checkTradeTargetStopLoss(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
       const targetPrice = this.parsePrice(trade.tradePlan.target);
       const stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
 
@@ -563,6 +585,9 @@ class StrategyTradeProcessor {
       trade.sentiment,
       trade.tradeType
     );
+    if (pnl > 0){
+      pnl = -pnl
+    }
 
     await strategy.updateTrade(trade.tradeId, {
       status: "stoploss_hit",
@@ -608,7 +633,7 @@ class StrategyTradeProcessor {
       for (const trade of otherActiveTrades) {
         try {
           const words = trade.setup.strike.split(" ");
-          const currentPrice = await this.getCurrentMarketPrice(words);
+          const currentPrice = await this.getCurrentMarketPrice(words,trade);
 
           if (!currentPrice) {
             console.log(
@@ -680,7 +705,7 @@ class StrategyTradeProcessor {
 
         strategy.totalPnL = totalPnL;
         strategy.netPnL = netPnL;
-        strategy.totalCharges = totalCharges;
+        strategy.totalCharges.total = totalCharges;
         await strategy.save();
 
         // Update parent AiTrade status
@@ -854,6 +879,7 @@ class StrategyTradeProcessor {
 
   validateTradePlanValues(
     instruments,
+    instrument_key,
     entryValues,
     targetValues,
     stopLossValues
@@ -863,6 +889,11 @@ class StrategyTradeProcessor {
     if (entryValues.length !== instrumentCount) {
       console.warn(
         `⚠️ Entry values count (${entryValues.length}) doesn't match instruments count (${instrumentCount})`
+      );
+    }
+    if (instrument_key.length !== instrumentCount) {
+      console.warn(
+        `⚠️ Entry values count (${instrument_key.length}) doesn't match instruments count (${instrumentCount})`
       );
     }
 
@@ -879,13 +910,12 @@ class StrategyTradeProcessor {
     }
   }
 
-  async getCurrentMarketPrice(words) {
+  async getCurrentMarketPrice(words,trade) {
     const [name, strikePrice, side] = words;
     const filePath = path.join(
       __dirname,
       "../aiTradeSugg/setOptionData/marketData.json"
     );
-
     try {
       const rawData = await fs.readFile(filePath, "utf8");
       const marketData = JSON.parse(rawData);

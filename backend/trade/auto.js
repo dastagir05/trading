@@ -4,7 +4,7 @@ const expiredTrades = require("./autoEntryStatus/validityExpireTrades");
 const { Server } = require("socket.io");
 const marketFeed = require("./wsMS");
 const cron = require("node-cron");
-const getMarketStatus = require("../services/marketStatus");
+const { getMarketStatus } = require("../services/marketStatus");
 function autoTradeExecute() {
   cron.schedule("*/1 9-15 * * 1-5", async () => {
     const now = new Date();

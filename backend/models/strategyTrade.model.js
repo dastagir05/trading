@@ -17,6 +17,7 @@ const StrategyTradeSchema = new Schema(
       required: true,
     },
     logic: String,
+    instrument_keys:String,
 
     // Individual trades within the strategy
     trades: [
@@ -28,6 +29,7 @@ const StrategyTradeSchema = new Schema(
         },
         setup: {
           currentPrice: Number,
+          instrument_key: String,
           strategy: String,
           strike: String,
           expiry: String,
@@ -50,6 +52,8 @@ const StrategyTradeSchema = new Schema(
             "stoploss_hit",
             "expired",
             "cancelled",
+            "strategy_exit",
+            "complete"
           ],
           default: "pending",
         },
@@ -105,6 +109,7 @@ const StrategyTradeSchema = new Schema(
       type: String,
       enum: [
         "suggested",
+        "strategy_exit",
         "partial_active", // Some trades active, some not
         "fully_active", // All trades active
         "completed", // All trades completed
@@ -127,6 +132,7 @@ const StrategyTradeSchema = new Schema(
       sebi: { type: Number, default: 0 },
       total: { type: Number, default: 0 },
     },
+    expiryDate: Date,
 
     // Strategy timestamps
     suggestedAt: {

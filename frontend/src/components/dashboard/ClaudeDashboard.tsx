@@ -77,7 +77,7 @@ function MyDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 relative ">
       {/* Header with refresh */}
       {/* <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 sticky top-0 z-10">
         <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -402,11 +402,11 @@ function MyDashboard() {
           </div>
 
           {/* Right Column - Personal Data */}
-          <div className="space-y-8">
+          <div className="space-y-8 ">
             {/* Watchlist */}
-            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 overflow-hidden">
+            {/* <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 "> */}
               <Watchlist watchlistName="defaultWatchlist" />
-            </div>
+            
 
             {/* Market News */}
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50">

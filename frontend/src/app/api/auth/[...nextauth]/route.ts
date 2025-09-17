@@ -20,7 +20,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token._id = user._id;
+        // Assign values from backend (user object passed from signIn)
+        token._id = user._id; 
         token.role = user.role || "user";
         token.adminId = user.adminId;
         token.permissions = user.permissions;
@@ -28,6 +29,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    
 
     async session({ session, token }) {
       if (token) {
@@ -89,9 +91,9 @@ export const authOptions: NextAuthOptions = {
             }),
           });
           const result = await res.json();
-
-          user._id = result.user._id;
-          user.role = result.user.role;
+          console.log('result', result)
+          user._id = result._id || result.user._id;
+          user.role = result.role || result.user.role || "user";
         }
       } catch (error) {
         console.error("Error posting user to backend", error);

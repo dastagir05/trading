@@ -1,74 +1,77 @@
 [
   {
     "isStrategy": "false",
-    "title": "Nifty Bullish Momentum Trade",
-    "sentiment": "BULLISH",
+    "title": "Nifty Bearish Momentum Trade",
+    "sentiment": "BEARISH",
     "setup": {
-      "currentPrice": "25049",
-      "strategy": "Call Buying",
-      "strike": "Nifty 25050 CALL",
-      "expiry": "2025-09-16"
+      "currentPrice": "25314",
+      "instrument_key": "NSE_FO|47762",
+      "strategy": "Put Buying",
+      "strike": "Nifty 25300 PUT",
+      "expiry": "2025-09-23"
     },
     "tradePlan": {
-      "entry": "96",
-      "target": "125",
-      "stopLoss": "75",
+      "entry": "73",
+      "target": "95",
+      "stopLoss": "62",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty is showing signs of upward momentum. The 25050 Call option has a reasonable IV and delta, offering leveraged exposure to further price appreciation. Buying at 96 provides a good risk-reward opportunity.",
+    "logic": "Nifty is showing bearish momentum with price near resistance. The RSI is in the bearish zone. Buying the 25300 PUT allows us to capitalize on the expected downward move.",
     "confidence": "75",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1757650511096_1",
-    "timestamp": "2025-09-12T04:15:11.097Z",
-    "marketTime": "9:45 IST",
-    "isFresh": true
-  },
-  {
-    "isStrategy": "true",
-    "title": "BankNifty Short Strangle for Range-Bound Expectation",
-    "sentiment": "NEUTRAL",
-    "setup": {
-      "currentPrice": "54629",
-      "strategy": "Short Strangle",
-      "strike": "BankNifty 55700 CALL & BankNifty 53500 PUT",
-      "expiry": "2025-09-30"
-    },
-    "tradePlan": {
-      "entry": "178 & 113",
-      "target": "140 & 90",
-      "stopLoss": "210 & 145",
-      "timeFrame": "Intraday"
-    },
-    "logic": "BankNifty may consolidate in a range. Selling OTM call and put options allows us to profit from time decay if the price stays between the strikes at expiry. The short strangle strategy is used when a range-bound movement is expected. Considering current IV levels, the premiums are attractive for a weekly expiry.",
-    "confidence": "70",
-    "riskLevel": "MEDIUM",
-    "id": "fresh_1757650511097_2",
-    "timestamp": "2025-09-12T04:15:11.097Z",
-    "marketTime": "9:45 IST",
+    "id": "fresh_1758100632478_1",
+    "timestamp": "2025-09-17T09:17:12.478Z",
+    "marketTime": "14:47 IST",
     "isFresh": true
   },
   {
     "isStrategy": "false",
-    "title": "Nifty Bearish Reversal Trade",
-    "sentiment": "BEARISH",
+    "title": "BankNifty Pullback Trade",
+    "sentiment": "BULLISH",
     "setup": {
-      "currentPrice": "25049",
-      "strategy": "Put Buying",
-      "strike": "Nifty 25000 PUT",
-      "expiry": "2025-09-16"
+      "currentPrice": "55450",
+      "instrument_key": "NSE_FO|55058",
+      "strategy": "Call Buying",
+      "strike": "BankNifty 56500 CALL",
+      "expiry": "2025-09-30"
     },
     "tradePlan": {
-      "entry": "50",
-      "target": "70",
-      "stopLoss": "40",
+      "entry": "102",
+      "target": "125",
+      "stopLoss": "85",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty may face resistance at the current level. The 25000 Put option is available at a reasonable price, providing an opportunity to profit from any potential downside movement. The put option has a suitable delta for leveraged exposure to the downside.",
-    "confidence": "65",
+    "logic": "BankNifty RSI indicates bullish momentum although overall strength is neutral. The 56500 CALL option is relatively cheap. A pullback towards resistance may increase option value. ",
+    "confidence": "60",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1757650511097_3",
-    "timestamp": "2025-09-12T04:15:11.097Z",
-    "marketTime": "9:45 IST",
+    "id": "fresh_1758100632478_2",
+    "timestamp": "2025-09-17T09:17:12.478Z",
+    "marketTime": "14:47 IST",
+    "isFresh": true
+  },
+  {
+    "isStrategy": "true",
+    "title": "Nifty Range Bound - Iron Condor",
+    "sentiment": "NEUTRAL",
+    "setup": {
+      "currentPrice": "25314",
+      "instrument_key": "NSE_FO|47734,NSE_FO|47793,NSE_FO|47752,NSE_FO|47777",
+      "strategy": "Iron Condor",
+      "strike": "Nifty 25000 PUT & Nifty 25700 CALL",
+      "expiry": "2025-09-23"
+    },
+    "tradePlan": {
+      "entry": "18 & 15 & 22 & 50",
+      "target": "75",
+      "stopLoss": "150",
+      "timeFrame": "Intraday"
+    },
+    "logic": "With undefined option sentiment, implement an Iron Condor. Sell OTM calls and puts to profit from theta decay assuming range-bound market.",
+    "confidence": "55",
+    "riskLevel": "LOW",
+    "id": "fresh_1758100632478_3",
+    "timestamp": "2025-09-17T09:17:12.478Z",
+    "marketTime": "14:47 IST",
     "isFresh": true
   }
 ]

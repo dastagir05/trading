@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
-    // 🔐 AUTHENTICATION / PROFILE
     name: {
       type: String,
       required: true,
@@ -15,7 +14,7 @@ const userSchema = new Schema(
       type: String,
     },
     provider: {
-      type: String, // e.g., "google", "github"
+      type: String, 
     },
     providerId: {
       type: String,

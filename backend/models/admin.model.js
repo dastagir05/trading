@@ -27,7 +27,7 @@ const adminSchema = new Schema(
       required: true,
       unique: true,
     },
-    
+
     // 👤 ADMIN PROFILE
     adminId: {
       type: String,
@@ -43,7 +43,7 @@ const adminSchema = new Schema(
       type: [String],
       default: ["read", "write", "delete", "manage_users", "view_logs"],
     },
-    
+
     // 📊 ADMIN STATISTICS
     totalLogins: {
       type: Number,
@@ -59,7 +59,7 @@ const adminSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    
+
     // 🔒 SECURITY
     isActive: {
       type: Boolean,
@@ -76,7 +76,7 @@ const adminSchema = new Schema(
     lockUntil: {
       type: Date,
     },
-    
+
     // 📝 ADMIN ACTIVITIES
     actionsPerformed: {
       type: Number,
@@ -90,7 +90,7 @@ const adminSchema = new Schema(
       type: Number,
       default: 0,
     },
-    
+
     // 📍 LOCATION & DEVICE INFO
     lastLoginLocation: {
       city: String,
@@ -102,7 +102,7 @@ const adminSchema = new Schema(
       platform: String,
       browser: String,
     },
-    
+
     // 🏷️ METADATA
     createdBy: {
       type: Schema.Types.ObjectId,
@@ -114,80 +114,83 @@ const adminSchema = new Schema(
       maxlength: 500,
     },
   },
-  { 
+  {
     timestamps: true,
-    collection: "admins"
+    collection: "admins",
   }
 );
 
 // Indexes for better performance
-adminSchema.index({ email: 1 });
-adminSchema.index({ adminId: 1 });
+// adminSchema.index({ email: 1 });
+// adminSchema.index({ adminId: 1 });
 adminSchema.index({ role: 1 });
 adminSchema.index({ isActive: 1 });
 adminSchema.index({ lastLogin: -1 });
 
 // Virtual for account lock status
-adminSchema.virtual('isLocked').get(function() {
+adminSchema.virtual("isLocked").get(function () {
   return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
 // Pre-save middleware to generate adminId
-adminSchema.pre('save', function(next) {
+adminSchema.pre("save", function (next) {
   if (!this.adminId) {
-    this.adminId = `ADM_${Date.now()}_${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    this.adminId = `ADM_${Date.now()}_${Math.random()
+      .toString(36)
+      .substr(2, 9)
+      .toUpperCase()}`;
   }
   next();
 });
 
 // Method to increment login attempts
-adminSchema.methods.incLoginAttempts = function() {
+adminSchema.methods.incLoginAttempts = function () {
   // If we have a previous lock that has expired, restart at 1
   if (this.lockUntil && this.lockUntil < Date.now()) {
     return this.updateOne({
       $unset: { lockUntil: 1 },
-      $set: { loginAttempts: 1 }
+      $set: { loginAttempts: 1 },
     });
   }
-  
+
   const updates = { $inc: { loginAttempts: 1 } };
-  
+
   // Lock account after 5 failed attempts for 2 hours
   if (this.loginAttempts + 1 >= 5 && !this.isLocked) {
     updates.$set = { lockUntil: Date.now() + 2 * 60 * 60 * 1000 }; // 2 hours
   }
-  
+
   return this.updateOne(updates);
 };
 
 // Method to reset login attempts
-adminSchema.methods.resetLoginAttempts = function() {
+adminSchema.methods.resetLoginAttempts = function () {
   return this.updateOne({
-    $unset: { loginAttempts: 1, lockUntil: 1 }
+    $unset: { loginAttempts: 1, lockUntil: 1 },
   });
 };
 
 // Method to update last login
-adminSchema.methods.updateLastLogin = function(ip, location, deviceInfo) {
+adminSchema.methods.updateLastLogin = function (ip, location, deviceInfo) {
   this.lastLogin = new Date();
   this.lastLoginIP = ip;
   this.lastActivity = new Date();
   this.totalLogins += 1;
-  
+
   if (location) {
     this.lastLoginLocation = location;
   }
-  
+
   if (deviceInfo) {
     this.deviceInfo = deviceInfo;
   }
-  
+
   return this.save();
 };
 
 // Method to check permissions
-adminSchema.methods.hasPermission = function(permission) {
-  return this.permissions.includes(permission) || this.role === 'super_admin';
+adminSchema.methods.hasPermission = function (permission) {
+  return this.permissions.includes(permission) || this.role === "super_admin";
 };
 
 // Transform JSON output

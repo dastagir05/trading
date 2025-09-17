@@ -3,6 +3,7 @@ const AiTrade = require("../models/aiTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
 const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
+const getArrayLTP = require("./getLtp");
 
 class AiTradeProcessor {
   constructor() {
@@ -11,13 +12,17 @@ class AiTradeProcessor {
       "../aiTradeSugg/tradeSuggestions.json"
     );
     this.isProcessing = false;
+    this.arrSuggIK = []; //all suggested symbol
+    this.arractiveIK = []; //all active instrukey
+    this.combineIK = []
+    this.priceOfIK = []; //allsuggactive ik with their price 
   }
 
   // Initialize the cron jobs
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "20,45 9-14 * * 1-5",
+      "20,47 9-14 * * 1-5",
       () => {
         this.generateFreshSuggestions();
       },
@@ -98,6 +103,14 @@ class AiTradeProcessor {
     }
   }
 
+  async setFreshValueOfIK(){
+  
+    this.combineIK = this.arrSuggIK.concat(this.arractiveIK.filter(x => !this.arrSuggIK.includes(x)));
+    const Ik = await getArrayLTP(this.combineIK)
+    console.log("IK setFFresh", Ik,this.combineIK)
+    this.priceOfIK = Ik;
+  }
+
   // Generate fresh trade suggestions
   async generateFreshSuggestions() {
     if (this.isProcessing) {
@@ -139,6 +152,11 @@ class AiTradeProcessor {
 
       for (const trade of suggestedTrades) {
         if (trade.setup.strike.split(" ").length < 5) {
+          if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
+              this.arrSuggIK.push(trade.setup.instrument_key);
+              this.setFreshValueOfIK()
+              console.log("sugg ik found ", trade.setup.instrument_key);
+          }
           await this.checkSuggestedTradeForActivation(trade);
         } else {
           console.log(
@@ -168,6 +186,11 @@ class AiTradeProcessor {
         if (trade.isStrategy === true) {
           continue;
         } else {
+          if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
+            this.arractiveIK.push(trade.setup.instrument_key)
+            console.log("act ik found ", trade.setup.instrument_key);
+            this.setFreshValueOfIK()
+        }
           await this.checkActiveTradeStatus(trade);
         }
       }
@@ -246,7 +269,7 @@ class AiTradeProcessor {
   async checkEntryConditions(trade) {
     try {
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
       const suggestedEntry = this.parsePrice(trade.tradePlan.entry);
       const suggestedTarget = this.parsePrice(trade.tradePlan.target);
 
@@ -287,7 +310,7 @@ class AiTradeProcessor {
       // Get current market price for entry
       console.log("active trades", trade);
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
 
       // Update trade status and record entry details
       await trade.updateStatus(
@@ -324,7 +347,7 @@ class AiTradeProcessor {
     try {
       // console.log("cTS", trade)
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words);
+      const currentPrice = await this.getCurrentMarketPrice(words,trade);
       const entryPrice =
         trade.entryPrice || this.parsePrice(trade.tradePlan.entry);
       const targetPrice = this.parsePrice(trade.tradePlan.target);
@@ -469,55 +492,67 @@ class AiTradeProcessor {
   }
 
   // Get current market price (placeholder - integrate with your market data provider)
-  async getCurrentMarketPrice(words) {
-    console.log("words", words); //expected Nifty 25000 CALL/PUT
-    const [name, strikePrice, side] = words;
-    const filePath = path.join(
-      __dirname,
-      "../aiTradeSugg/setOptionData/marketData.json"
-    );
-    const rawData = await fs.readFile(filePath, "utf8"); // 👈 async version
-    const marketData = JSON.parse(rawData);
+  async getCurrentMarketPrice(words,trade) {
 
-    try {
-      console.log(
-        `Getting current price for ${name} ${strikePrice} ${side} ...`
-      );
-
-      if (name === "Nifty") {
-        let activeOP = marketData.nifty.optionChain;
-        // console.log("nifty price at procc", marketData.nifty.currentPrice)
-        for (const stpr of activeOP) {
-          if (stpr.strike_price == strikePrice) {
-            if (side === "CALL") {
-              return stpr.call?.ltp; // return ltp if exists
-            } else {
-              return stpr.put?.ltp;
-            }
-          }
-        }
+    if(trade.setup.instrument_key){
+      if(this.priceOfIK.length > 0){
+        console.log("i am sending cuMP")
+        let r1 =  this.priceOfIK.find(obj => (obj.instrument_key === trade.setup.instrument_key)? obj.last_price : null)
+        console.log("r1",trade.setup.instrument_key,r1.last_price)
+        return r1.last_price 
       } else {
-        let activeOP = marketData.bankNifty.optionChain;
-        for (const stpr of activeOP) {
-          if (stpr.strike_price == strikePrice) {
-            if (side === "CALL") {
-              return stpr.call?.ltp; // return ltp if exists
-            } else {
-              return stpr.put?.ltp;
-            }
-          }
-        }
+        console.log("Price of IK arr is 0")
       }
-
-      // if not found, return random variation
-      const basePrice = 100;
-      const randomVariation = (Math.random() - 0.5) * 10;
-      console.log("rnvarr", randomVariation);
-      return basePrice + randomVariation;
-    } catch (error) {
-      console.error(`Error getting current price for ${strikePrice}:`, error);
-      return null;
     }
+
+    // console.log("words", words); //expected Nifty 25000 CALL/PUT
+    // const [name, strikePrice, side] = words;
+    // const filePath = path.join(
+    //   __dirname,
+    //   "../aiTradeSugg/setOptionData/marketData.json"
+    // );
+    // const rawData = await fs.readFile(filePath, "utf8"); // 👈 async version
+    // const marketData = JSON.parse(rawData);
+
+    // try {
+    //   console.log(
+    //     `Getting current price for ${name} ${strikePrice} ${side} ...`
+    //   );
+
+    //   if (name === "Nifty") {
+    //     let activeOP = marketData.nifty.optionChain;
+    //     // console.log("nifty price at procc", marketData.nifty.currentPrice)
+    //     for (const stpr of activeOP) {
+    //       if (stpr.strike_price == strikePrice) {
+    //         if (side === "CALL") {
+    //           return stpr.call?.ltp; // return ltp if exists
+    //         } else {
+    //           return stpr.put?.ltp;
+    //         }
+    //       }
+    //     }
+    //   } else {
+    //     let activeOP = marketData.bankNifty.optionChain;
+    //     for (const stpr of activeOP) {
+    //       if (stpr.strike_price == strikePrice) {
+    //         if (side === "CALL") {
+    //           return stpr.call?.ltp; // return ltp if exists
+    //         } else {
+    //           return stpr.put?.ltp;
+    //         }
+    //       }
+    //     }
+    //   }
+
+    //   // if not found, return random variation
+    //   const basePrice = 100;
+    //   const randomVariation = (Math.random() - 0.5) * 10;
+    //   console.log("rnvarr", randomVariation);
+    //   return basePrice + randomVariation;
+    // } catch (error) {
+    //   console.error(`Error getting current price for ${strikePrice}:`, error);
+    //   return null;
+    // }
   }
 
   // Parse price string to number
@@ -812,61 +847,6 @@ class AiTradeProcessor {
     } catch (error) {
       console.error(`❌ Error getting trades by status ${status}:`, error);
       return [];
-    }
-  }
-
-  // Manual trade activation (for testing or manual intervention)
-  async manuallyActivateTrade(tradeId) {
-    try {
-      const trade = await AiTrade.findOne({
-        aiTradeId: tradeId,
-        status: "suggested",
-      });
-      if (!trade) {
-        throw new Error("Trade not found or not in suggested status");
-      }
-
-      return await this.activateTrade(trade);
-    } catch (error) {
-      console.error(`❌ Error manually activating trade ${tradeId}:`, error);
-      return false;
-    }
-  }
-
-  // Manual trade exit (for testing or manual intervention)
-  async manuallyExitTrade(tradeId, exitReason = "Manual exit") {
-    try {
-      const trade = await AiTrade.findOne({
-        aiTradeId: tradeId,
-        status: "active",
-      });
-      if (!trade) {
-        throw new Error("Trade not found or not active");
-      }
-
-      const currentPrice = await this.getCurrentMarketPrice(trade.setup.symbol);
-      const entryPrice =
-        trade.entryPrice || this.parsePrice(trade.tradePlan.entry);
-      const pnl = this.calculatePnL(entryPrice, currentPrice, trade.sentiment);
-
-      await trade.updateStatus("manual_exit", exitReason);
-      trade.pnl = pnl;
-      trade.exitPrice = currentPrice;
-      trade.exitTime = new Date();
-      await trade.save();
-
-      await trade.addNote(
-        `Manual exit at ₹${currentPrice}. P&L: ₹${pnl}`,
-        "info"
-      );
-
-      console.log(
-        `🔄 Manually exited trade ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
-      );
-      return true;
-    } catch (error) {
-      console.error(`❌ Error manually exiting trade ${tradeId}:`, error);
-      return false;
     }
   }
 }

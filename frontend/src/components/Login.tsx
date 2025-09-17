@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ openDialog, closeDialog }) => {
 
   if (!openDialog) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center text-black bg-white/30 backdrop-blur-xs">
+    <div className="fixed h-screen inset-0 z-50 flex items-center justify-center text-black bg-white/30 backdrop-blur-xs">
       <div className="relative bg-white rounded-lg shadow-md p-6 w-[90%] max-w-sm text-center">
         <button
           onClick={closeDialog}
@@ -69,9 +69,9 @@ const Login: React.FC<LoginProps> = ({ openDialog, closeDialog }) => {
           />
           Continue with GitHub
         </button>
-        <button className="w-full mt-3 bg-green-500 hover:bg-green-600 text-white py-2 rounded">
+        {/* <button className="w-full mt-3 bg-green-500 hover:bg-green-600 text-white py-2 rounded">
           Continue
-        </button>
+        </button> */}
 
         <p className="text-xs text-gray-500 mt-4">
           By proceeding, I agree to{" "}

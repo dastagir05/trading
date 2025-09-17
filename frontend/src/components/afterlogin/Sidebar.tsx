@@ -26,10 +26,10 @@ const Sidebar = () => {
       label: "Dashboard",
       icon: <BarChart3 className="w-5 h-5" />,
     },
-    { 
-      id: "chart", 
-      label: "Chart", 
-      icon: <PieChart className="w-5 h-5" /> 
+    {
+      id: "chart",
+      label: "Chart",
+      icon: <PieChart className="w-5 h-5" />,
     },
     {
       id: "mytrades",
@@ -46,34 +46,34 @@ const Sidebar = () => {
       label: "Options",
       icon: <Activity className="w-5 h-5" />,
     },
-    {
-      id: "stockd",
-      label: "Stock Detail",
-      icon: <Database className="w-5 h-5" />,
-    },
+    // {
+    //   id: "stockd",
+    //   label: "Stock Detail",
+    //   icon: <Database className="w-5 h-5" />,
+    // },
     {
       id: "aisuggestion",
       label: "AI Suggestions",
       icon: <Brain className="w-5 h-5" />,
       badge: "Powered by Gemini",
-      special: true
+      special: true,
     },
   ];
 
-  // Add admin link if user is admin
+  // Add admin link admin login
   if (session?.user?.email === "pinjaridastageer@gmail.com") {
     sidebarItems.push({
       id: "admin",
       label: "Admin Panel",
       icon: <Shield className="w-5 h-5" />,
       badge: "Admin",
-      special: true
+      special: true,
     });
     return;
   }
 
   return (
-    <aside className="w-64 bg-white shadow-sm border-r rounded-lg mt-2 ml-1 border-gray-200 min-h-screen sticky top-0 ">
+    <aside className="w-72 bg-white shadow-sm border-r rounded-lg ml-1 border-gray-200 min-h-screen sticky top-0 ">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
@@ -98,8 +98,7 @@ const Sidebar = () => {
               className={`group w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-200 ${
                 activeTab === item.id
                   ? item.special
-                    ? 
-                      "bg-purple-50 text-purple-700 border border-purple-200 shadow-sm"
+                    ? "bg-purple-50 text-purple-700 border border-purple-200 shadow-sm"
                     : "bg-green-50 text-green-700 border border-green-200 shadow-sm"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border border-transparent"
               }`}
@@ -118,14 +117,16 @@ const Sidebar = () => {
                 </div>
                 <span className="font-medium">{item.label}</span>
               </div>
-              
+
               {/* Special badge for AI Suggestions */}
               {item.badge && (
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                  activeTab === item.id
-                    ? "bg-purple-100 text-purple-700"
-                    : "bg-gray-100 text-gray-600"
-                }`}>
+                <span
+                  className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    activeTab === item.id
+                      ? "bg-purple-100 text-purple-700"
+                      : "bg-gray-100 text-gray-600"
+                  }`}
+                >
                   {item.badge}
                 </span>
               )}
@@ -137,7 +138,9 @@ const Sidebar = () => {
         <div className="mt-8 p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg border border-purple-100">
           <div className="flex items-center space-x-2 mb-2">
             <Brain className="w-4 h-4 text-purple-600" />
-            <h3 className="text-sm font-semibold text-purple-900">AI Features</h3>
+            <h3 className="text-sm font-semibold text-purple-900">
+              AI Features
+            </h3>
           </div>
           <p className="text-xs text-purple-700 mb-3">
             Smart recommendations powered by advanced AI
@@ -159,7 +162,7 @@ const Sidebar = () => {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+        {/* <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
           <h3 className="text-sm font-semibold text-gray-900 mb-3">Today's Performance</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -175,7 +178,7 @@ const Sidebar = () => {
               <span className="text-sm font-semibold text-blue-600">78%</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Settings Link */}
         <div className="mt-6 pt-4 border-t border-gray-200">

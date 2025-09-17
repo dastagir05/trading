@@ -47,6 +47,7 @@ const getIndexPrice = async (instrumentKey) => {
         strike_price: item.strike_price,
         call: item.call_options?.market_data?.ltp 
           ? {
+              instrument_key: item.call_options.instrument_key,
               ltp: item.call_options.market_data.ltp,
               oi: item.call_options.market_data.oi,
               iv: item.call_options.option_greeks?.iv,
@@ -56,6 +57,7 @@ const getIndexPrice = async (instrumentKey) => {
           : null,
         put: item.put_options?.market_data?.ltp 
           ? {
+            instrument_key: item.put_options.instrument_key,
               ltp: item.put_options.market_data.ltp,
               oi: item.put_options.market_data.oi,
               iv: item.put_options.option_greeks?.iv,
@@ -70,8 +72,8 @@ const getIndexPrice = async (instrumentKey) => {
     // Step 1: Start with ₹30–₹120 (your preferred active range)
 let filtered = data.map(d => ({
     strike_price: d.strike_price,
-    call: d.call?.ltp >= 20 && d.call?.ltp <= 180 ? d.call : null,
-    put: d.put?.ltp >= 20 && d.put?.ltp <= 180 ? d.put : null,
+    call: d.call?.ltp >= 10 && d.call?.ltp <= 180 ? d.call : null,
+    put: d.put?.ltp >= 10 && d.put?.ltp <= 180 ? d.put : null,
   })).filter(d => d.call || d.put);
   
   // Step 2: Expand to ₹30–₹200 only if no results

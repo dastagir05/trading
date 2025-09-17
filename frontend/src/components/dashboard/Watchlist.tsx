@@ -30,9 +30,11 @@ const Watchlist = ({ watchlistName }: WatchlistProps) => {
 
     try {
       // Replace with your actual API URL
+      console.log("before session user",session?.user._id, session?.user)
       if (!session?.user?._id) return;
-
+      console.log("beff res")
       const res = await fetch(`/api/getLTP/${stock.instrument_key}`);
+      console.log("reswatch", res.json())
       const data: SingleResponce = await res.json();
       console.log("wat data", data);
       const ltp = data?.last_price;
@@ -105,8 +107,6 @@ const Watchlist = ({ watchlistName }: WatchlistProps) => {
 
   return (
     <>
-      <div>
-        {" "}
         {/* Watchlist */}
         <div className="bg-white rounded-lg shadow-sm ">
           <div className="p-6 border-b border-gray-200">
@@ -201,7 +201,7 @@ const Watchlist = ({ watchlistName }: WatchlistProps) => {
             </button>
           </div>
         </div>
-      </div>
+
       <SearchStockDialog
         openDialog={openDialog}
         closeDialog={() => setOpenDialog(false)}

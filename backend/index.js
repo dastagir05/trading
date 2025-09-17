@@ -11,13 +11,11 @@ const watchlistRoutes = require("./routes/watchlist.route");
 const optionRoutes = require("./routes/option.route");
 const aiTradeRoutes = require("./routes/aiTrade.route");
 const adminRoutes = require("./routes/admin.route");
-const adminAuthRoutes = require("./routes/adminAuth.route");
 const aiTradeProcessor = require("./services/aiTradeProcessor");
 const strategyProcessor = require("./services/strategyTradeProcess");
 const AiSuggesstion = require("./aiTradeSugg/tradeSuggestions.json");
 const { getCode } = require("./tokenG");
 
-/* first import generateFreshtrade and run through or we say in index.js  */
 const app = express();
 const PORT = 5000;
 const server = http.createServer(app);
@@ -39,7 +37,6 @@ app.use("/api/watchlist", watchlistRoutes);
 app.use("/api/option", optionRoutes);
 app.use("/api/ai-trades", aiTradeRoutes);
 app.use("/api/admin", adminRoutes);
-// app.use("/api/admin-auth", adminAuthRoutes);
 app.get("/api/aiSuggested", (req, res) => {
   res.json(AiSuggesstion);
 });

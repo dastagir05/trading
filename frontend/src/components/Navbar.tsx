@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2 border border-gray-200 rounded-lg px-4 py-2">
               <Search size={"16px"} strke-width={"1px"} />
-              <input type="text" placeholder="Search Groww..." />
+              <input type="text" placeholder="Search Nifty..." />
               <p className="text-sm text-gray-500">Ctrl+K</p>
             </div>
             <button
