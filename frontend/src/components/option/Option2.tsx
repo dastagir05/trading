@@ -41,6 +41,13 @@ type OptionItem = {
   put_options: OptionContract;
 };
 
+type ChartProp = {
+  instrument_key: string;
+  trading_symbol: string;
+  expiry: string;   // optional
+};
+
+
 type ViewMode = "small" | "medium" | "large" | string;
 
 const popularIndices = [
@@ -188,8 +195,20 @@ const OptionsPage = () => {
   const isCallITM = (strike: number) => strike <= atmStrike;
   const isPutITM = (strike: number) => strike > atmStrike;
 
-  const handleShowGraph = (instrumentKey: string) => {
-    router.push(`/chart?instrumentKey=${instrumentKey}`);
+  const handleShowGraph = ({instrument_key,trading_symbol,expiry}:ChartProp) => {
+    /*
+    name: match.name,
+          trading_symbol: match.trading_symbol,
+          exchange: "NSE_FO",
+          instrument_key: instrumentKeyProp,
+          expiry: match.expiry,
+          lotSize: match.lot_size,
+    */
+   let lotSize = 35
+   if (trading_symbol.includes("NSE_INDEX|Nifty 50")){
+      lotSize= 75
+   }
+    router.push(`/chart?instrumentKey=${instrument_key}&name=${trading_symbol}&expiry=${expiry}&lotSize=${lotSize}`);
   };
 
   const handleRefresh = () => {
@@ -498,7 +517,7 @@ const OptionsPage = () => {
                       <td className={`px-3 py-3 text-right border-r-2 border-gray-300 ${callITM ? "bg-green-25" : ""}`}>
                         <div className="flex items-center justify-end gap-2">
                           <button
-                            onClick={() => handleShowGraph(item.call_options.instrument_key)}
+                            onClick={() => handleShowGraph({instrument_key: item.call_options.instrument_key,trading_symbol: item.underlying_key,expiry:item.expiry})}
                             className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700"
                           >
                             <LineChart size={14} />
@@ -530,7 +549,11 @@ const OptionsPage = () => {
                             ₹{item.put_options.market_data.ltp.toFixed(2)}
                           </span>
                           <button
-                            onClick={() => handleShowGraph(item.put_options.instrument_key)}
+                            onClick={() => handleShowGraph({
+                              instrument_key: item.put_options.instrument_key,
+                              trading_symbol: item.underlying_key,
+                              expiry: item.expiry
+                            })}
                             className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700"
                           >
                             <LineChart size={14} />

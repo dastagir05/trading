@@ -319,8 +319,8 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
                 </div>
 
                 <div>
-                  <label className="block font-medium">
-                    Entry Price (Default LTP) {form.entryPrice}
+                  <label className="block font-medium ">
+                    Entry Price (Default) {form.entryPrice}
                   </label>
                   <input
                     type="number"

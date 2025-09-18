@@ -37,6 +37,10 @@ function autoTradeExecute() {
   });
 }
 
+const AiTrade = require("../models/aiTrade.model"); 
+const  getArrayLTP  = require("../services/getLtp"); // your function
+
+
 function initializeSocketServer(server) {
   const io = new Server(server, {
     cors: {
@@ -61,6 +65,33 @@ function initializeSocketServer(server) {
       console.log("Subscribing to", instrumentKey);
       activeInstruments.set(socket.id, instrumentKey);
       marketFeed.subscribe(instrumentKey, socket);
+    });
+
+    // ai ws for monitoring active trade 
+    socket.on("subscribeAiTrades", async () => {
+      socket.join("aiTradesRoom");
+      console.log(`📡 ${socket.id} subscribed to AI trades`);
+    // Send initial snapshot
+      const trades = await AiTrade.find({
+         status: "active" ,
+         isStrategy: false
+        });
+      const instrumentKeys = trades.map(t => t.setup.instrument_key);
+      const prices = await getArrayLTP(instrumentKeys);
+
+      const priceMap = new Map(prices.map(p => [p.instrument_key, p]));
+
+      const enriched = trades.map(t => {
+        const price = priceMap.get(t.setup.instrument_key);
+        const entry = t.entryPrice || parseFloat(t.tradePlan.entry);
+
+        return {
+          ...t.toObject(),
+          currentPrice: price?.last_price ?? null,
+          unrealisedPnL: price ? (price.last_price - entry) * t.quantity : null,
+        };
+      });
+      socket.emit("aiTradesUpdate", enriched)
     });
 
     socket.on("disconnect", () => {

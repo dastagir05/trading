@@ -145,10 +145,6 @@ class StrategyTradeProcessor {
       console.log(`Target values: ${targetValues}`);
       console.log(`StopLoss values: ${stopLossValues}`);
 
-      // Determine trade type (BUY/SELL) from sentiment or strategy
-      const tradeType = this.determineTradeType(aiTrade);
-      console.log(`Determined trade type as: ${tradeType}`);
-
       // Create strategy trade
       const strategyTrade = new StrategyTrade({
         strategyId: aiTrade.aiTradeId,
@@ -162,14 +158,12 @@ class StrategyTradeProcessor {
         instrument_keys: aiTrade.setup.instrument_key,
         suggestedAt: aiTrade.suggestedAt,
         tags: aiTrade.tags || [],
-        tradeType: tradeType, // Add trade type to strategy
 
         // Convert instruments to individual trades
         trades: instruments.map((instrument, index) => ({
           tradeId: `${aiTrade.aiTradeId}_trade_${index + 1}`,
           symbol: this.extractSymbolFromStrike(instrument.strike),
           sentiment: aiTrade.sentiment,
-          tradeType: tradeType, // BUY or SELL
 
           setup: {
             instrument_key: instrument_keys[index] ||
@@ -208,47 +202,12 @@ class StrategyTradeProcessor {
       await aiTrade.save();
 
       console.log(
-        `✅ Strategy Trade Separated: ${aiTrade.title} with ${instruments.length} trades (${tradeType})`
+        `✅ Strategy Trade Separated: ${aiTrade.title} with ${instruments.length} )`
       );
     } catch (error) {
       console.error(`❌ Error converting AI trade to strategy:`, error);
     }
-  }
-
-  // NEW: Determine if this is a BUY or SELL strategy
-  determineTradeType(aiTrade) {
-    // First check if "SELL" is explicitly mentioned in the strike
-    const strikeString = aiTrade.setup?.strike?.toUpperCase() || "";
-    console.log(`Determining trade type from strike: ${strikeString}`);
-    if (strikeString.includes(" SELL")) {
-      return "SELL";
-    }
-
-    // Check for BUY explicitly mentioned
-    if (strikeString.includes(" BUY")) {
-      return "BUY";
-    }
-
-    // Fallback: Check strategy name or title for SELL indicators
-    const sellIndicators = [
-      "sell",
-      "short",
-      "write",
-      "covered call",
-      "cash secured put",
-      "iron condor",
-      "iron butterfly",
-    ];
-    const titleLower = aiTrade.title?.toLowerCase() || "";
-    const strategyLower = aiTrade.setup?.strategy?.toLowerCase() || "";
-
-    const isSellStrategy = sellIndicators.some(
-      (indicator) =>
-        titleLower.includes(indicator) || strategyLower.includes(indicator)
-    );
-    console.log(`Inferred trade type as: ${isSellStrategy ? "SELL" : "BUY"}`);
-    return isSellStrategy ? "SELL" : "BUY";
-  }
+  } 
 
   // Monitor suggested strategy trades for activation
   async monitorSuggestedStrategyTrades() {
@@ -464,10 +423,8 @@ class StrategyTradeProcessor {
       const currentPrice = await this.getCurrentMarketPrice(words,trade);
 
       const pnl = this.calculatePnL(
-        trade.entryPrice,
         currentPrice,
-        trade.sentiment,
-        trade.tradeType
+        trade,
       );
 
       await strategy.updateTrade(trade.tradeId, {
@@ -493,45 +450,55 @@ class StrategyTradeProcessor {
   async checkTradeTargetStopLoss(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
-      const targetPrice = this.parsePrice(trade.tradePlan.target);
-      const stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
+      let currentPrice = await this.getCurrentMarketPrice(words,trade);
+      let targetPrice = this.parsePrice(trade.tradePlan.target);
+      let stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
+      let entryPrice = this.parsePrice(trade.tradePlan.entry)
 
       if (!currentPrice || !targetPrice || !stopLossPrice) {
         console.log(`Missing price data for ${trade.setup.strike}`);
         return;
       }
 
-      const tradeType = trade.tradeType || "SELL";
-
+      let tradeType ;
+      if (trade.tradePlan.entry > trade.tradePlan.target){
+        tradeType = "BUY"
+      }else {
+        tradeType = "SELL"
+      }
       // UPDATED logic for BUY vs SELL strategies
       let targetHit = false;
       let stopLossHit = false;
 
-      if (tradeType === "SELL") {
-        // For SELL strategies - we sold at entry price, target is when we can buy back cheaper
-        // Entry = premium received, Target = lower premium to buy back, StopLoss = higher premium
-        targetHit = currentPrice <= targetPrice; // Can buy back cheaper = profit
-        stopLossHit = currentPrice >= stopLossPrice; // Must buy back expensive = loss
-
-        console.log(
-          `🔍 SELL Trade Check - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
-        );
-      } else {
-        // For BUY strategies - existing logic
-        if (trade.sentiment === "bullish") {
-          targetHit = currentPrice >= targetPrice;
-          stopLossHit = currentPrice <= stopLossPrice;
-        } else {
-          targetHit = currentPrice <= targetPrice;
-          stopLossHit = currentPrice >= stopLossPrice;
-        }
-
-        console.log(
-          `🔍 BUY Trade Check (${trade.sentiment}) - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
-        );
-      }
-
+      // if (tradeType === "SELL") {
+      //   targetHit = currentPrice <= targetPrice; // Can buy back cheaper = profit
+      //   stopLossHit = currentPrice >= stopLossPrice; // Must buy back expensive = loss
+      //   trade.tradeType = "SELL"
+      //   console.log(
+      //     `🔍 SELL Trade Check - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
+      //   );
+      // } else {
+      //     targetHit = currentPrice >= targetPrice;
+      //     stopLossHit = currentPrice <= stopLossPrice;
+      //     trade.tradeType = "BUY"
+      //   console.log(
+      //     `🔍 BUY Trade Check (${trade.sentiment}) - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
+      //   );
+      // }
+      if (entryPrice > targetPrice && currentPrice <= targetPrice){
+        entryPrice,currentPrice = currentPrice,entryPrice
+        targetHit = true
+     }
+     if (entryPrice < targetPrice && currentPrice >= targetPrice){
+        targetHit = true
+     }
+     if (entryPrice < stopLossPrice && currentPrice >= stopLossPrice){
+      entryPrice,currentPrice = currentPrice,entryPrice
+      stopLoss = true
+   }
+   if (entryPrice > stopLossPrice && currentPrice <= stopLossPrice){
+      stopLossHit = true
+   }
       // Handle conditions
       if (targetHit) {
         await this.handleTargetHit(strategy, trade, currentPrice);
@@ -546,10 +513,8 @@ class StrategyTradeProcessor {
   // Handle target hit
   async handleTargetHit(strategy, trade, currentPrice) {
     const pnl = this.calculatePnL(
-      trade.entryPrice,
       currentPrice,
-      trade.sentiment,
-      trade.tradeType
+      trade,
     );
 
     await strategy.updateTrade(trade.tradeId, {
@@ -563,9 +528,7 @@ class StrategyTradeProcessor {
     this.calculateTradeCharges(currentPrice, trade);
 
     await strategy.addNote(
-      `Trade ${trade.tradeId} (${
-        trade.tradeType
-      }) target hit at ₹${currentPrice}. P&L: ₹${pnl.toFixed(2)}`,
+      `Trade ${trade.tradeId} target hit at ₹${currentPrice}. P&L: ₹${pnl.toFixed(2)}`,
       "success"
     );
 
@@ -580,10 +543,8 @@ class StrategyTradeProcessor {
   // Handle stop loss hit
   async handleStopLossHit(strategy, trade, currentPrice) {
     const pnl = this.calculatePnL(
-      trade.entryPrice,
       currentPrice,
-      trade.sentiment,
-      trade.tradeType
+      trade
     );
     if (pnl > 0){
       pnl = -pnl
@@ -643,10 +604,8 @@ class StrategyTradeProcessor {
           }
 
           const pnl = this.calculatePnL(
-            trade.entryPrice,
             currentPrice,
-            trade.sentiment,
-            trade.tradeType
+            trade,
           );
 
           await strategy.updateTrade(trade.tradeId, {
@@ -743,20 +702,18 @@ class StrategyTradeProcessor {
   }
 
   // UPDATED: Calculate P&L based on trade type (BUY/SELL)
-  calculatePnL(entryPrice, exitPrice, sentiment, tradeType = "BUY") {
-    if (tradeType === "SELL") {
-      // For SELL strategies: We receive premium at entry, pay premium at exit
-      // Profit = Entry Premium - Exit Premium
-      return entryPrice - exitPrice;
-    } else {
-      // For BUY strategies: We pay premium at entry, receive premium at exit
-      // Existing logic based on sentiment
-      if (sentiment === "bullish") {
-        return exitPrice - entryPrice; // Buy low, sell high
-      } else {
-        return entryPrice - exitPrice; // Buy puts - profit when price falls
-      }
+  calculatePnL(exitPrice, trade) {
+    if (trade.tradePlan.entry < trade.tradePlan){
+      return exitPrice - trade.entryPrice
+    }else {
+      return trade.entryPrice - exitPrice
     }
+
+    // if (tradeType === "SELL") {
+    //   return entryPrice - exitPrice;
+    // } else {
+    //     return exitPrice - entryPrice; // Buy low, sell high
+    // }
   }
 
   // NEW: Calculate strategy total P&L properly handling mixed BUY/SELL trades

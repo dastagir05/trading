@@ -30,6 +30,15 @@ class AiTradeProcessor {
         timezone: "Asia/Kolkata",
       }
     );
+    cron.schedule(
+      "25 15 * * 1-5",
+      () => {
+        this.updateExpireTrades();
+      },
+      {
+        timezone: "Asia/Kolkata",
+      }
+    );
 
     // Monitor suggested trades for activation every 2 minutes during market hours
     cron.schedule(
@@ -70,6 +79,42 @@ class AiTradeProcessor {
 
     console.log("🤖 AI Trade Processor initialized with cron jobs");
   }
+  async updateExpireTrades() {
+    try {
+      const activeTrades = await AiTrade.find({
+        $or: [
+          { status: "active" },
+          { status: "pending" },
+          { status: "suggested"}
+        ],
+        isValid: true,
+        createdAt: { $gt: new Date("2025-09-16T10:19:00.191Z") }
+      });
+      
+
+      console.log(`Found ${activeTrades.length} active trades to monitor`);
+      for (const trade of activeTrades) {
+        let now = new Date();
+        let expiryDate = new Date(trade.setup.expiry + "T09:55:00")
+        if (trade.isStrategy === true) {
+          continue;
+        } else if (now > expiryDate){
+          await trade.updateStatus(
+            "active_expired",
+            "Active trade expired based on timeframe"
+          );
+          await trade.addNote(
+            `Active trade expired at ${trade.expiryDate}`,
+            "warning"
+          );
+          console.log(`⏰ Active AI trade expired: ${trade.title}`);
+          await this.checkTargetStopLoss(trade);
+        }
+      }
+    }catch {
+      console.log("err in uupdateExpire")
+    }
+  }
 
   async deleteExpiredTrades() {
     try {
@@ -103,13 +148,24 @@ class AiTradeProcessor {
     }
   }
 
-  async setFreshValueOfIK(){
+  async setFreshValueOfIK() {
+    this.combineIK = this.arrSuggIK.concat(
+      this.arractiveIK.filter(x => !this.arrSuggIK.includes(x))
+    );
   
-    this.combineIK = this.arrSuggIK.concat(this.arractiveIK.filter(x => !this.arrSuggIK.includes(x)));
-    const Ik = await getArrayLTP(this.combineIK)
-    console.log("IK setFFresh", Ik,this.combineIK)
-    this.priceOfIK = Ik;
+    const Ik = await getArrayLTP(this.combineIK);
+    console.log("IK setFresh", Ik, this.combineIK);
+  
+    // merge latest prices instead of overwrite
+    const priceMap = new Map(this.priceOfIK.map(item => [item.instrument_key, item]));
+  
+    for (const item of Ik) {
+      priceMap.set(item.instrument_key, item);
+    }
+  
+    this.priceOfIK = Array.from(priceMap.values());
   }
+  
 
   // Generate fresh trade suggestions
   async generateFreshSuggestions() {
@@ -154,7 +210,7 @@ class AiTradeProcessor {
         if (trade.setup.strike.split(" ").length < 5) {
           if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
               this.arrSuggIK.push(trade.setup.instrument_key);
-              this.setFreshValueOfIK()
+              await this.setFreshValueOfIK()
               console.log("sugg ik found ", trade.setup.instrument_key);
           }
           await this.checkSuggestedTradeForActivation(trade);
@@ -189,7 +245,7 @@ class AiTradeProcessor {
           if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
             this.arractiveIK.push(trade.setup.instrument_key)
             console.log("act ik found ", trade.setup.instrument_key);
-            this.setFreshValueOfIK()
+            await this.setFreshValueOfIK()
         }
           await this.checkActiveTradeStatus(trade);
         }
@@ -205,7 +261,7 @@ class AiTradeProcessor {
       const now = new Date();
 
       // Check if trade has expired before activation
-      if (trade.expiryDate && now > trade.expiryDate) {
+      if (trade.expiryDate && now > trade.expiryDate && false) {
         await trade.updateStatus(
           "expired",
           "Trade suggestion expired before activation"
@@ -241,7 +297,7 @@ class AiTradeProcessor {
       const now = new Date();
 
       // Check if trade has expired
-      if (trade.expiryDate && now > trade.expiryDate) {
+      if (trade.expiryDate && now > trade.expiryDate && false) {
         await trade.updateStatus(
           "active_expired",
           "Active trade expired based on timeframe"
@@ -347,12 +403,12 @@ class AiTradeProcessor {
     try {
       // console.log("cTS", trade)
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
-      const entryPrice =
+      let currentPrice = await this.getCurrentMarketPrice(words,trade);
+      let entryPrice =
         trade.entryPrice || this.parsePrice(trade.tradePlan.entry);
-      const targetPrice = this.parsePrice(trade.tradePlan.target);
-      const stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
-
+      let targetPrice = this.parsePrice(trade.tradePlan.target);
+      let stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
+      let ogEntryPrice = this.parsePrice(trade.tradePlan.entry)
       if (!currentPrice || !entryPrice || !targetPrice || !stopLossPrice) {
         console.log(`Missing price data for ${trade.setup.symbol}`);
         return;
@@ -362,28 +418,28 @@ class AiTradeProcessor {
         `Price check for ${trade.title}: Current: ${currentPrice}, Target: ${targetPrice}, SL: ${stopLossPrice}`
       );
 
-      if (trade.status === "active_expired") {
-        const pnl = this.calculatePnL(
-          entryPrice,
-          currentPrice,
-          trade.sentiment
-        );
-        await trade.addNote(
-          `Expired at ₹${currentPrice}. P&L: ₹${pnl}`,
-          "warning"
-        );
+      // if (trade.status === "active_expired" && false) {
+      //   const pnl = this.calculatePnL(
+      //     entryPrice,
+      //     currentPrice,
+      //     trade.sentiment
+      //   );
+      //   await trade.addNote(
+      //     `Expired at ₹${currentPrice}. P&L: ₹${pnl}`,
+      //     "warning"
+      //   );
 
-        // Update P&L
-        trade.pnl = pnl * trade.quantity;
-        trade.exitPrice = currentPrice;
-        trade.exitTime = new Date();
-        this.calculateCharges(currentPrice, trade);
-        await trade.save();
+      //   // Update P&L
+      //   trade.pnl = pnl * trade.quantity;
+      //   trade.exitPrice = currentPrice;
+      //   trade.exitTime = new Date();
+      //   this.calculateCharges(currentPrice, trade);
+      //   await trade.save();
 
-        console.log(
-          `Sum up Active Expired for ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
-        );
-      }
+      //   console.log(
+      //     `Sum up Active Expired for ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
+      //   );
+      // }
 
       // Check for target hit // i add active_expired
       /*
@@ -392,12 +448,25 @@ class AiTradeProcessor {
         (trade.sentiment === "bearish" && currentPrice <= targetPrice) 
       )
       */
-      if (currentPrice >= targetPrice) {
+     let targetHitTrue = false
+     if (ogEntryPrice > targetPrice && currentPrice <= targetPrice){
+        entryPrice,currentPrice = currentPrice,entryPrice
+        targetHitTrue = true
+     }
+     if (ogEntryPrice < targetPrice && currentPrice >= targetPrice){
+        targetHitTrue = true
+     }
+
+      if (targetHitTrue) {
+      // if (currentPrice >= targetPrice && ogEntryPrice <= targetPrice) {
         const pnl = this.calculatePnL(
           entryPrice,
           currentPrice,
           trade.sentiment
         );
+        if (ogEntryPrice >= targetPrice){
+            
+        }
         await trade.updateStatus("target_hit", "Target price achieved");
         await trade.addNote(
           `Target hit at ₹${currentPrice}. P&L: ₹${pnl}`,
@@ -415,14 +484,17 @@ class AiTradeProcessor {
           `🎯 Target hit for ${trade.title}: ₹${currentPrice}, P&L: ₹${pnl}`
         );
       }
-      // Check for stop loss hit
-      /* 
-      (
-        (trade.sentiment === "bullish" && currentPrice <= stopLossPrice) ||
-        (trade.sentiment === "bearish" && currentPrice >= stopLossPrice)
-      )
-      */
-      else if (currentPrice <= stopLossPrice) {
+
+      let stopLossTrue = false
+      if (ogEntryPrice < stopLossPrice && currentPrice >= stopLossPrice){
+         entryPrice,currentPrice = currentPrice,entryPrice
+         stopLossTrue = true
+      }
+      if (ogEntryPrice > stopLossPrice && currentPrice <= stopLossPrice){
+         stopLossTrue = true
+      }
+ 
+       if (stopLossTrue) {
         const pnl = this.calculatePnL(
           entryPrice,
           currentPrice,
@@ -447,7 +519,7 @@ class AiTradeProcessor {
       }
     } catch (error) {
       console.error(
-        `❌ Error checking target/stop loss for ${trade.aiTradeId}:`,
+        `❌ Error checking target/stop loss for ${trade.setup.instrument_key} ${trade.aiTradeId}:`,
         error
       );
     }

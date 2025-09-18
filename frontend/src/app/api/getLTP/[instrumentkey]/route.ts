@@ -28,6 +28,9 @@ export async function GET(
     console.log("raw", raw);
     if (!Array.isArray(raw) && !raw.includes(",")) {
       const first = Object.values(quoteMap)[0] as any;
+      if (first.last_price === 0){
+        first.last_price = first.cp
+      }
       console.log("fir wtt", first)
       return NextResponse.json({
         last_price: first.last_price,

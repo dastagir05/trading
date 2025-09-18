@@ -36,6 +36,7 @@ const getCompanyIcon = (symbol: string) => {
     RELIANCE: <Fuel className="w-6 h-6 text-orange-600" />,
     TCS: <Cpu className="w-6 h-6 text-blue-600" />,
     HDFCBANK: <Landmark className="w-6 h-6 text-red-600" />,
+    BankNifty: <Landmark className="w-6 h-6 text-red-600" />,
     INFY: <Cpu className="w-6 h-6 text-blue-500" />,
     BHARTIARTL: <Smartphone className="w-6 h-6 text-red-500" />,
     MARUTI: <Car className="w-6 h-6 text-blue-600" />,
@@ -211,7 +212,7 @@ const TradeTable = () => {
     const ltp = ltpData[instrumentKey];
     console.log("let",ltp)
     // return ltpData ? ltpData.last_price - entryPrice : 0;
-    return ltp ? ltp - entryPrice : 0;
+    return ltp ? ltp - entryPrice : ltpData.last_price - entryPrice;
   };
   return (
     <>

@@ -59,12 +59,6 @@ const popularIndices = [
 
 const Chart = () => {
   const chartContainerRef = useRef(null);
-  const [selectedTimeframe, setSelectedTimeframe] = useState("15m");
-  const [selectedIndex, setSelectedIndex] = useState("NSE_INDEX|Nifty 50");
-  const [isLive, setIsLive] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
   const candleSeriesRef = useRef<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -80,6 +74,9 @@ const Chart = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const searchParams = useSearchParams();
   const instrumentKeyProp = searchParams.get("instrumentKey");
+  const nameProp = searchParams.get("name")
+  const expiryProp = searchParams.get("expiry")
+  const lotSizeProp = searchParams.get("lotSize")
 
   const router = useRouter();
 
@@ -88,11 +85,12 @@ const Chart = () => {
     if (!instrumentKeyProp) {
       // No param; use default and mark ready so we fetch once
       setIsReady(true);
+      console.log("i am ready")
       return;
     }
 
     const exchange = instrumentKeyProp.split("|")[0];
-
+    console.log("exchange", exchange)
     if (exchange === "NSE_EQ") {
       const match = EQ_Stock.find(
         (stock: any) => stock.instrument_key === instrumentKeyProp
@@ -131,20 +129,20 @@ const Chart = () => {
           lotSize: match.lot_size,
         });
       } else if (Array.isArray(nse_fo)) {
-        const match = nse_fo.find(
-          (stock: any) => stock.instrument_key === instrumentKeyProp
-        );
-        if (match) {
+        console.log("i am here")
+        // const match = nse_fo.find(
+        //   (stock: any) => stock.instrument_key === instrumentKeyProp
+        // );
+        // if (match) {
           setStockInfo({
-            name: match.name,
-            trading_symbol: match.trading_symbol,
+            name: nameProp || "Not Found",
+            trading_symbol: instrumentKeyProp,
             exchange: "NSE_FO",
-            instrument_type: match.instrument_key,
             instrument_key: instrumentKeyProp,
-            expiry: match.expiry,
-            lotSize: match.lot_size,
+            expiry: expiryProp,
+            lotSize: lotSizeProp,
           });
-        }
+        // }
       }
     }
 
@@ -428,7 +426,7 @@ const Chart = () => {
           lotSize={stockInfo.lotSize || undefined}
         />
                 <button 
-                onClick={() => gotoOptainpage(stockInfo.instrument_key)}
+                onClick={() => gotoOptainpage(stockInfo.name)}
                 className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105">
                   OPTIONS
                 </button>
