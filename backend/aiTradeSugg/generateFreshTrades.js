@@ -37,7 +37,7 @@ async function generateFreshTradeSuggestions() {
     const aiResponse = await getAIResponse(enhancedPrompt);
 
     // Step 5: Process and Validate Trades
-    const validatedTrades = processAIResponse(aiResponse, marketStatus.time);
+    const validatedTrades = processAIResponse(aiResponse, marketStatus);
 
     // Step 6: Save and Store Trades
     await saveAndStoreTrades(validatedTrades);
@@ -73,22 +73,67 @@ async function updateMarketData() {
 
 // Step 2: Check Market Hours
 function checkMarketHours() {
-  const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-  const currentTime = hour * 100 + minute;
+  const nowUTC = Date.now();
 
+  // Get hours and minutes in IST
+  const options = {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
+  const timeParts = new Intl.DateTimeFormat("en-IN", options).formatToParts(
+    nowUTC
+  );
+
+  const hour = parseInt(timeParts.find((p) => p.type === "hour").value, 10);
+  const minute = parseInt(timeParts.find((p) => p.type === "minute").value, 10);
+
+  const currentTime = hour * 100 + minute;
   const isMarketOpen = currentTime >= 915 && currentTime <= 1530;
-  const timeString = `${hour}:${minute.toString().padStart(2, "0")} IST`;
+
+  // Get date string in DD/MM/YYYY
+  const dateString = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(nowUTC);
+
+  const timeString = `${hour.toString().padStart(2, "0")}:${minute
+    .toString()
+    .padStart(2, "0")} IST`;
 
   return {
     isOpen: isMarketOpen,
     time: timeString,
+    date: dateString,
     message: isMarketOpen
       ? "✅ Market is open. Generating live trade suggestions..."
       : "⚠️ Market is closed. Generating suggestions for next market session...",
   };
 }
+
+console.log(checkMarketHours());
+
+// function checkMarketHours() {
+//   const now = new Date();
+//   const hour = now.getHours();
+//   const minute = now.getMinutes();
+//   const currentTime = hour * 100 + minute;
+
+//   const isMarketOpen = currentTime >= 915 && currentTime <= 1530;
+//   const dateString = now.toLocaleDateString("en-IN", { day: "2-digit", month: "2-digit", year: "numeric" });
+//   const timeString = `${hour}:${minute.toString().padStart(2, "0")} IST`;
+
+//   return {
+//     isOpen: isMarketOpen,
+//     time: timeString,
+//     message: isMarketOpen
+//       ? "✅ Market is open. Generating live trade suggestions..."
+//       : "⚠️ Market is closed. Generating suggestions for next market session...",
+//   };
+// }
 
 // Step 3: Generate Enhanced Prompt with Technical Analysis
 async function generateEnhancedPrompt(marketData) {
@@ -132,20 +177,20 @@ async function getAIResponse(promptText) {
 }
 
 // Step 5: Process AI Response
-function processAIResponse(aiResponse, marketTime) {
+function processAIResponse(aiResponse, marketStatus) {
   let cleanText = aiResponse
     .replace(/```json/g, "")
     .replace(/```/g, "")
     .trim();
 
-  console.log("cleanText,GfreshTrade", cleanText, aiResponse)
+  console.log("cleanText,GfreshTrade", cleanText, aiResponse);
   const trades = JSON.parse(cleanText);
 
   return trades.map((trade, index) => ({
     ...trade,
     id: `fresh_${Date.now()}_${index + 1}`,
     timestamp: new Date().toISOString(),
-    marketTime,
+    marketTime: marketStatus.time + " on " + marketStatus.date,
     isFresh: true,
   }));
 }
@@ -165,6 +210,16 @@ async function saveAndStoreTrades(validatedTrades) {
     console.error("❌ Error saving file:", err);
     throw err;
   }
+  const timestampIST = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(new Date());
 
   // Save to database
   console.log("📝 Creating new AI trades in database...");
@@ -181,18 +236,17 @@ async function saveAndStoreTrades(validatedTrades) {
         strike: trade.setup.strike,
         expiry: trade.setup.expiry,
         symbol: extractSymbol(trade.setup.strike),
-        instrumentKey: generateInstrumentKey(trade.setup.strike),
       },
       tradePlan: trade.tradePlan,
       isStrategy: trade.isStrategy,
       logic: trade.logic,
       confidence: trade.confidence,
       riskLevel: trade.riskLevel,
-      suggestedAt: new Date(trade.timestamp),
+      suggestedAt: timestampIST,
       tags: generateTags(trade),
       notes: [
         {
-          timestamp: new Date(),
+          timestamp: timestampIST,
           message: `Fresh trade suggestion generated at ${trade.marketTime}`,
           type: "info",
         },

@@ -56,7 +56,7 @@ the strategy make isStrategy true and for normal trade make it false and don't g
     "sentiment": "BULLISH/BEARISH/NEUTRAL",
     "setup": {
       "currentPrice": "current spot price",
-      "instrument_key": "e.g. NSE_FO|53020, many instrument for strategy by , seprated",
+      "instrument_key": "e.g. NSE_FO|53020 & .. many instrument for strategy by , seprated",
       "strategy": "strategy type",
       "strike": "stock and strike selection e.g.Nifty 25050 PUT/CALL and BUY/SELL", // e.g. Nifty 23040 PUT BUY ,BUY mean target is grater then entry and SELL mean target is small then entry 
       "expiry": "expiry selection"

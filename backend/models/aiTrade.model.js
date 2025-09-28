@@ -173,8 +173,21 @@ AiTradeSchema.pre("save", function (next) {
 
 // Method to add notes
 AiTradeSchema.methods.addNote = function (message, type = "info") {
+  const timestampIST = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(new Date());
+
+  console.log(timestampIST); // e.g. "28/09/2025, 14:50:33"
+
   this.notes.push({
-    timestamp: new Date(),
+    timestamp: timestampIST,
     message,
     type,
   });

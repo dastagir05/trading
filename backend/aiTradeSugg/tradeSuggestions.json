@@ -1,77 +1,77 @@
 [
   {
     "isStrategy": "false",
-    "title": "Nifty Bearish Trade - Potential Breakdown",
+    "title": "Nifty Bearish Trade - Breakdown Anticipation",
     "sentiment": "BEARISH",
     "setup": {
-      "currentPrice": "25361",
-      "instrument_key": "NSE_FO|47762",
+      "currentPrice": "24933",
+      "instrument_key": "NSE_FO|60475",
       "strategy": "Put Buying",
-      "strike": "Nifty 25300 PUT BUY",
-      "expiry": "2025-09-23"
+      "strike": "Nifty 24950 PUT BUY",
+      "expiry": "2025-09-30"
     },
     "tradePlan": {
-      "entry": "45",
-      "target": "68",
-      "stopLoss": "34",
+      "entry": "76",
+      "target": "110",
+      "stopLoss": "55",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty is showing bearish momentum on RSI and MACD. Buying the 25300 PUT offers a chance to capitalize on further downside movement. Price is testing support.",
-    "confidence": "70",
+    "logic": "Nifty is showing bearish momentum based on RSI and MACD. Current price is near support, and a breakdown is anticipated. Buying the 24950 PUT offers a good risk-reward ratio with a defined stop loss.",
+    "confidence": "75",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1758185413586_1",
-    "timestamp": "2025-09-18T08:50:13.586Z",
-    "marketTime": "14:20 IST",
+    "id": "fresh_1758791831842_1",
+    "timestamp": "2025-09-25T09:17:11.842Z",
+    "marketTime": "14:47 IST",
     "isFresh": true
   },
   {
     "isStrategy": "false",
-    "title": "BankNifty Bearish Trade - Momentum Breakdown",
+    "title": "BankNifty Bearish Trade - Put Buying Opportunity",
     "sentiment": "BEARISH",
     "setup": {
-      "currentPrice": "55590",
-      "instrument_key": "NSE_FO|54658",
+      "currentPrice": "55084",
+      "instrument_key": "NSE_FO|54660",
       "strategy": "Put Buying",
-      "strike": "BankNifty 55000 PUT BUY",
+      "strike": "BankNifty 55100 PUT BUY",
       "expiry": "2025-09-30"
     },
     "tradePlan": {
-      "entry": "140",
-      "target": "182",
-      "stopLoss": "105",
+      "entry": "174",
+      "target": "240",
+      "stopLoss": "125",
       "timeFrame": "Intraday"
     },
-    "logic": "BankNifty showing bearish signals on RSI and MACD with a 65% confidence, potentially breaking support at 55535.1. The 55000 PUT offers good potential.",
+    "logic": "BankNifty's technical indicators point towards bearish momentum. The RSI is in the bearish zone. Buying the 55100 PUT option allows us to capitalize on the expected downward movement. This strike is selected based on the anticipated breakdown of the current support and its affordable entry price.",
     "confidence": "70",
     "riskLevel": "MEDIUM",
-    "id": "fresh_1758185413586_2",
-    "timestamp": "2025-09-18T08:50:13.586Z",
-    "marketTime": "14:20 IST",
+    "id": "fresh_1758791831842_2",
+    "timestamp": "2025-09-25T09:17:11.842Z",
+    "marketTime": "14:47 IST",
     "isFresh": true
   },
   {
     "isStrategy": "true",
-    "title": "Nifty Range Bound Play - Iron Condor",
+    "title": "Nifty Neutral Strategy - Short Straddle",
     "sentiment": "NEUTRAL",
     "setup": {
-      "currentPrice": "25361",
-      "instrument_key": "NSE_FO|47752,NSE_FO|47778,NSE_FO|47777,NSE_FO|47754",
-      "strategy": "Iron Condor",
-      "strike": "Nifty 25050 PUT & Nifty 25500 PUT , Nifty 25500 CALL & Nifty 25100 PUT",
-      "expiry": "2025-09-23"
+      "currentPrice": "24933",
+      "instrument_key": "NSE_FO|60470,NSE_FO|60469",
+      "strategy": "Short Straddle",
+      "strike": "Nifty 24900 PUT & Nifty 24900 CALL SELL",
+      "expiry": "2025-09-30"
     },
     "tradePlan": {
-      "entry": "12,137,47,15",
-      "target": "5,100,25,8",
-      "stopLoss": "18,160,60,22",
+      "entry": "57 & 152",
+      "target": "35 & 120",
+      "stopLoss": "88 & 188",
       "timeFrame": "Intraday"
     },
-    "logic": "Nifty showing BEARISH sentiment, the Iron Condor strategy aims to profit from time decay while Nifty stays within a defined range. Selling OTM calls and puts while buying further OTM calls and puts to cap the risk.",
-    "confidence": "60",
-    "riskLevel": "MEDIUM",
-    "id": "fresh_1758185413586_3",
-    "timestamp": "2025-09-18T08:50:13.586Z",
-    "marketTime": "14:20 IST",
+    "logic": "Given the undefined options sentiment and current market indecision, a short straddle on Nifty can profit from time decay and range-bound movement. Selling both the 24900 PUT and CALL options allows us to collect premium if the market stays within a defined range.",
+    "confidence": "65",
+    "riskLevel": "HIGH",
+    "id": "fresh_1758791831842_3",
+    "timestamp": "2025-09-25T09:17:11.842Z",
+    "marketTime": "14:47 IST",
     "isFresh": true
   }
 ]

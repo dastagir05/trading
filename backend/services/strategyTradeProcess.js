@@ -222,6 +222,13 @@ class StrategyTradeProcessor {
       );
 
       for (const strategy of suggestedStrategies) {
+        for (const trade of strategy.trades){
+        if (trade?.setup?.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
+          this.arrSuggIK.push(trade.setup.instrument_key);
+          await this.setFreshValueOfIK()
+          console.log("sugg ik found ", trade.setup.instrument_key);
+      }
+    }
         await this.checkStrategyForActivation(strategy);
       }
     } catch (error) {
@@ -242,6 +249,13 @@ class StrategyTradeProcessor {
       );
 
       for (const strategy of activeStrategies) {
+        for (const trade of strategy.trades){
+          if (trade?.setup?.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
+            this.arrSuggIK.push(trade.setup.instrument_key);
+            await this.setFreshValueOfIK()
+            console.log("sugg ik found ", trade.setup.instrument_key);
+        }
+      }
         await this.checkActiveStrategyStatus(strategy);
       }
     } catch (error) {
@@ -494,7 +508,7 @@ class StrategyTradeProcessor {
      }
      if (entryPrice < stopLossPrice && currentPrice >= stopLossPrice){
       entryPrice,currentPrice = currentPrice,entryPrice
-      stopLoss = true
+      stopLossHit = true
    }
    if (entryPrice > stopLossPrice && currentPrice <= stopLossPrice){
       stopLossHit = true
@@ -542,7 +556,7 @@ class StrategyTradeProcessor {
 
   // Handle stop loss hit
   async handleStopLossHit(strategy, trade, currentPrice) {
-    const pnl = this.calculatePnL(
+    let pnl = this.calculatePnL(
       currentPrice,
       trade
     );
@@ -873,9 +887,22 @@ class StrategyTradeProcessor {
       __dirname,
       "../aiTradeSugg/setOptionData/marketData.json"
     );
+    console.log("strategy test1", trade,trade.setup);
+    if(trade.setup.instrument_key){
+      if(this.priceOfIK.length > 0){
+        console.log("i am sending cuMP for strategy")
+        let r1 =  this.priceOfIK.find(obj => (obj.instrument_key === trade.setup.instrument_key)? obj.last_price : null)
+        console.log("strategy trade",trade.setup.instrument_key,r1.last_price)
+        return r1.last_price 
+      } else {
+        console.log("Price of IK arr is 0")
+      }
+    }
+
     try {
       const rawData = await fs.readFile(filePath, "utf8");
       const marketData = JSON.parse(rawData);
+      console.log("not getting data through trade.setup.instrumentik 905")
 
       if (name === "Nifty") {
         const activeOP = marketData.nifty.optionChain;

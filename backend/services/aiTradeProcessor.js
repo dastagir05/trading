@@ -14,8 +14,8 @@ class AiTradeProcessor {
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
-    this.combineIK = []
-    this.priceOfIK = []; //allsuggactive ik with their price 
+    this.combineIK = [];
+    this.priceOfIK = []; //allsuggactive ik with their price
   }
 
   // Initialize the cron jobs
@@ -85,20 +85,19 @@ class AiTradeProcessor {
         $or: [
           { status: "active" },
           { status: "pending" },
-          { status: "suggested"}
+          { status: "suggested" },
         ],
         isValid: true,
-        createdAt: { $gt: new Date("2025-09-16T10:19:00.191Z") }
+        createdAt: { $gt: new Date("2025-09-16T10:19:00.191Z") },
       });
-      
 
       console.log(`Found ${activeTrades.length} active trades to monitor`);
       for (const trade of activeTrades) {
         let now = new Date();
-        let expiryDate = new Date(trade.setup.expiry + "T09:55:00")
+        let expiryDate = new Date(trade.setup.expiry + "T03:35:00");
         if (trade.isStrategy === true) {
           continue;
-        } else if (now > expiryDate){
+        } else if (now > expiryDate) {
           await trade.updateStatus(
             "active_expired",
             "Active trade expired based on timeframe"
@@ -111,8 +110,8 @@ class AiTradeProcessor {
           await this.checkTargetStopLoss(trade);
         }
       }
-    }catch {
-      console.log("err in uupdateExpire")
+    } catch {
+      console.log("err in uupdateExpire");
     }
   }
 
@@ -150,22 +149,23 @@ class AiTradeProcessor {
 
   async setFreshValueOfIK() {
     this.combineIK = this.arrSuggIK.concat(
-      this.arractiveIK.filter(x => !this.arrSuggIK.includes(x))
+      this.arractiveIK.filter((x) => !this.arrSuggIK.includes(x))
     );
-  
+
     const Ik = await getArrayLTP(this.combineIK);
     console.log("IK setFresh", Ik, this.combineIK);
-  
+
     // merge latest prices instead of overwrite
-    const priceMap = new Map(this.priceOfIK.map(item => [item.instrument_key, item]));
-  
+    const priceMap = new Map(
+      this.priceOfIK.map((item) => [item.instrument_key, item])
+    );
+
     for (const item of Ik) {
       priceMap.set(item.instrument_key, item);
     }
-  
+
     this.priceOfIK = Array.from(priceMap.values());
   }
-  
 
   // Generate fresh trade suggestions
   async generateFreshSuggestions() {
@@ -208,10 +208,13 @@ class AiTradeProcessor {
 
       for (const trade of suggestedTrades) {
         if (trade.setup.strike.split(" ").length < 5) {
-          if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
-              this.arrSuggIK.push(trade.setup.instrument_key);
-              await this.setFreshValueOfIK()
-              console.log("sugg ik found ", trade.setup.instrument_key);
+          if (
+            trade.setup.instrument_key &&
+            !this.combineIK.includes(trade.setup.instrument_key)
+          ) {
+            this.arrSuggIK.push(trade.setup.instrument_key);
+            await this.setFreshValueOfIK();
+            console.log("sugg ik found ", trade.setup.instrument_key);
           }
           await this.checkSuggestedTradeForActivation(trade);
         } else {
@@ -242,11 +245,14 @@ class AiTradeProcessor {
         if (trade.isStrategy === true) {
           continue;
         } else {
-          if (trade.setup.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
-            this.arractiveIK.push(trade.setup.instrument_key)
+          if (
+            trade.setup.instrument_key &&
+            !this.combineIK.includes(trade.setup.instrument_key)
+          ) {
+            this.arractiveIK.push(trade.setup.instrument_key);
             console.log("act ik found ", trade.setup.instrument_key);
-            await this.setFreshValueOfIK()
-        }
+            await this.setFreshValueOfIK();
+          }
           await this.checkActiveTradeStatus(trade);
         }
       }
@@ -315,7 +321,7 @@ class AiTradeProcessor {
       await this.checkTargetStopLoss(trade);
     } catch (error) {
       console.error(
-        `❌ Error checking active trade status for ${trade.aiTradeId}:`,
+        `❌ Error checking active trade status for ${trade.aiTradeId} ${trade.setup.instrument_key}:`,
         error
       );
     }
@@ -325,7 +331,7 @@ class AiTradeProcessor {
   async checkEntryConditions(trade) {
     try {
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
+      const currentPrice = await this.getCurrentMarketPrice(words, trade);
       const suggestedEntry = this.parsePrice(trade.tradePlan.entry);
       const suggestedTarget = this.parsePrice(trade.tradePlan.target);
 
@@ -366,7 +372,7 @@ class AiTradeProcessor {
       // Get current market price for entry
       console.log("active trades", trade);
       let words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
+      const currentPrice = await this.getCurrentMarketPrice(words, trade);
 
       // Update trade status and record entry details
       await trade.updateStatus(
@@ -403,12 +409,12 @@ class AiTradeProcessor {
     try {
       // console.log("cTS", trade)
       let words = trade.setup.strike.split(" ");
-      let currentPrice = await this.getCurrentMarketPrice(words,trade);
+      let currentPrice = await this.getCurrentMarketPrice(words, trade);
       let entryPrice =
         trade.entryPrice || this.parsePrice(trade.tradePlan.entry);
       let targetPrice = this.parsePrice(trade.tradePlan.target);
       let stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
-      let ogEntryPrice = this.parsePrice(trade.tradePlan.entry)
+      let ogEntryPrice = this.parsePrice(trade.tradePlan.entry);
       if (!currentPrice || !entryPrice || !targetPrice || !stopLossPrice) {
         console.log(`Missing price data for ${trade.setup.symbol}`);
         return;
@@ -448,24 +454,23 @@ class AiTradeProcessor {
         (trade.sentiment === "bearish" && currentPrice <= targetPrice) 
       )
       */
-     let targetHitTrue = false
-     if (ogEntryPrice > targetPrice && currentPrice <= targetPrice){
-        entryPrice,currentPrice = currentPrice,entryPrice
-        targetHitTrue = true
-     }
-     if (ogEntryPrice < targetPrice && currentPrice >= targetPrice){
-        targetHitTrue = true
-     }
+      let targetHitTrue = false;
+      if (ogEntryPrice > targetPrice && currentPrice <= targetPrice) {
+        entryPrice, (currentPrice = currentPrice), entryPrice;
+        targetHitTrue = true;
+      }
+      if (ogEntryPrice < targetPrice && currentPrice >= targetPrice) {
+        targetHitTrue = true;
+      }
 
       if (targetHitTrue) {
-      // if (currentPrice >= targetPrice && ogEntryPrice <= targetPrice) {
+        // if (currentPrice >= targetPrice && ogEntryPrice <= targetPrice) {
         const pnl = this.calculatePnL(
           entryPrice,
           currentPrice,
           trade.sentiment
         );
-        if (ogEntryPrice >= targetPrice){
-            
+        if (ogEntryPrice >= targetPrice) {
         }
         await trade.updateStatus("target_hit", "Target price achieved");
         await trade.addNote(
@@ -485,16 +490,16 @@ class AiTradeProcessor {
         );
       }
 
-      let stopLossTrue = false
-      if (ogEntryPrice < stopLossPrice && currentPrice >= stopLossPrice){
-         entryPrice,currentPrice = currentPrice,entryPrice
-         stopLossTrue = true
+      let stopLossTrue = false;
+      if (ogEntryPrice < stopLossPrice && currentPrice >= stopLossPrice) {
+        entryPrice, (currentPrice = currentPrice), entryPrice;
+        stopLossTrue = true;
       }
-      if (ogEntryPrice > stopLossPrice && currentPrice <= stopLossPrice){
-         stopLossTrue = true
+      if (ogEntryPrice > stopLossPrice && currentPrice <= stopLossPrice) {
+        stopLossTrue = true;
       }
- 
-       if (stopLossTrue) {
+
+      if (stopLossTrue) {
         const pnl = this.calculatePnL(
           entryPrice,
           currentPrice,
@@ -564,16 +569,19 @@ class AiTradeProcessor {
   }
 
   // Get current market price (placeholder - integrate with your market data provider)
-  async getCurrentMarketPrice(words,trade) {
-
-    if(trade.setup.instrument_key){
-      if(this.priceOfIK.length > 0){
-        console.log("i am sending cuMP")
-        let r1 =  this.priceOfIK.find(obj => (obj.instrument_key === trade.setup.instrument_key)? obj.last_price : null)
-        console.log("r1",trade.setup.instrument_key,r1.last_price)
-        return r1.last_price 
+  async getCurrentMarketPrice(words, trade) {
+    if (trade.setup.instrument_key) {
+      if (this.priceOfIK.length > 0) {
+        console.log("i am sending cuMP");
+        let r1 = this.priceOfIK.find((obj) =>
+          obj.instrument_key === trade.setup.instrument_key
+            ? obj.last_price
+            : null
+        );
+        console.log("r1", trade.setup.instrument_key, r1.last_price);
+        return r1.last_price;
       } else {
-        console.log("Price of IK arr is 0")
+        console.log("Price of IK arr is 0");
       }
     }
 
@@ -660,6 +668,7 @@ class AiTradeProcessor {
     } catch (error) {
       console.error("❌ Error processing AI trade suggestions:", error);
     } finally {
+
       this.isProcessing = false;
     }
   }
@@ -677,7 +686,18 @@ class AiTradeProcessor {
         }
         return;
       }
-
+      const timestampIST = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      }).format(new Date());
+      
+      
       // Create new AI trade with 'suggested' status
       console.log("creating new suggestion to AiTrade", suggestion.isStrategy);
       const aiTrade = new AiTrade({
@@ -696,7 +716,7 @@ class AiTradeProcessor {
         logic: suggestion.logic,
         confidence: suggestion.confidence,
         riskLevel: suggestion.riskLevel,
-        suggestedAt: new Date(suggestion.timestamp),
+        suggestedAt: timestampIST,
         status: "suggested", // Explicitly set status
         tags: this.generateTags(suggestion),
       });
