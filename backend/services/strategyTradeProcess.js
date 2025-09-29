@@ -4,13 +4,15 @@ const StrategyTrade = require("../models/strategyTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
 const getArrayLTP = require("./getLtp");
+const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
 
 class StrategyTradeProcessor {
   constructor() {
-    this.tradeSuggestionsPath = path.join(
-      __dirname,
-      "../aiTradeSugg/tradeSuggestions.json"
-    );
+    // this.tradeSuggestionsPath = path.join(
+    //   __dirname,
+    //   "../aiTradeSugg/tradeSuggestions.json"
+    // );
+    this.tradeSuggestionsPath = tradeSuggJSON;
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey

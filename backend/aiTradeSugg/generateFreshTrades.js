@@ -3,11 +3,11 @@ const fs = require("fs");
 const path = require("path");
 const { GoogleGenAI } = require("@google/genai");
 const tradePrompt = require("./tradePrompt");
-const setOptData = require("./setOptionData/setOptData");
+// const setOptData = require("./setOptionData/setOptData");
 const AiTrade = require("../models/aiTrade.model");
 const connectDB = require("../config/db");
 const TradingAnalysisEngine = require("./TradingSignal");
-
+const { setOptData, MarketData } = require("./setOptionData/setOptData");
 connectDB();
 
 async function generateFreshTradeSuggestions() {
@@ -15,7 +15,13 @@ async function generateFreshTradeSuggestions() {
     console.log("🔄 Starting fresh trade suggestion generation...");
 
     // Step 1: Update Market Data First
-    const marketData = await updateMarketData();
+    console.log("📊 Fetching fresh market data...");
+    await setOptData.fetchAndSaveOC();
+
+    // Wait for file to be written
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    console.log("MarketData in fresh", MarketData.timestamp);
+    const marketData = MarketData;
 
     // Step 2: Check Market Hours
     const marketStatus = checkMarketHours();
@@ -53,23 +59,23 @@ async function generateFreshTradeSuggestions() {
 }
 
 // Step 1: Update Market Data
-async function updateMarketData() {
-  console.log("📊 Fetching fresh market data...");
-  await setOptData.fetchAndSaveOC();
+// async function updateMarketData() {
+//   console.log("📊 Fetching fresh market data...");
+//   await setOptData.fetchAndSaveOC();
 
-  // Wait for file to be written
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+//   // Wait for file to be written
+//   await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  const marketDataPath = path.join(__dirname, "setOptionData/marketData.json");
-  if (!fs.existsSync(marketDataPath)) {
-    throw new Error("Market data file not found. Please run setOptData first.");
-  }
+//   const marketDataPath = path.join(__dirname, "setOptionData/marketData.json");
+//   if (!fs.existsSync(marketDataPath)) {
+//     throw new Error("Market data file not found. Please run setOptData first.");
+//   }
+//   // without read file direct provide market data
+//   const marketData = JSON.parse(fs.readFileSync(marketDataPath, "utf8"));
+//   console.log("✅ Fresh market data loaded");
 
-  const marketData = JSON.parse(fs.readFileSync(marketDataPath, "utf8"));
-  console.log("✅ Fresh market data loaded");
-
-  return marketData;
-}
+//   return marketData;
+// }
 
 // Step 2: Check Market Hours
 function checkMarketHours() {
@@ -206,20 +212,22 @@ function processAIResponse(aiResponse, marketStatus) {
 }
 
 // Step 6: Save and Store Trades
+let tradeSuggJSON;
 async function saveAndStoreTrades(validatedTrades) {
   // Save to JSON file
-  const filePath = path.join(__dirname, "tradeSuggestions.json");
-  try {
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify(validatedTrades, null, 2),
-      "utf8"
-    );
-    console.log("✅ Fresh trade suggestions saved to", filePath);
-  } catch (err) {
-    console.error("❌ Error saving file:", err);
-    throw err;
-  }
+  // const filePath = path.join(__dirname, "tradeSuggestions.json");
+  // try {
+  //   fs.writeFileSync(
+  //     filePath,
+  //     JSON.stringify(validatedTrades, null, 2),
+  //     "utf8"
+  //   );
+  //   console.log("✅ Fresh trade suggestions saved to", filePath);
+  // } catch (err) {
+  //   console.error("❌ Error saving file:", err);
+  //   throw err;
+  // }
+  tradeSuggJSON = JSON.stringify(validatedTrades, null, 2);
   const timestampIST = new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
     day: "2-digit",
@@ -297,7 +305,7 @@ function generateTags(trade) {
   return tags;
 }
 
-module.exports = { generateFreshTradeSuggestions };
+module.exports = { generateFreshTradeSuggestions, tradeSuggJSON };
 
 // Run if called directly
 if (require.main === module) {

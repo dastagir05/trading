@@ -3,12 +3,10 @@ const fs = require("fs");
 const path = require("path");
 
 // Load environment variables from the parent directory (backend/)
-require("dotenv").config({ path: path.join(__dirname, "../../../.env") });
+// require("dotenv").config({ path: path.join(__dirname, "../../../.env") }); //optional
 
 const UPSTOX_API_URL = "https://api.upstox.com/v2/option";
-const ACCESS_TOKEN =
-  process.env.ACCESS_TOKEN ||
-  "eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIzWkNYUkciLCJqdGkiOiI2ODljNjM0ZDE2NjVkZTJhNmQ4MGIzNTYiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaXNQbHVzUGxhbiI6ZmFsc2UsImlhdCI6MTc1NTA3OTUwMSwiaXNzIjoidWRhcGktZ2F0ZXdheS1zZXJ2aWNlIiwiZXhwIjoxNzU1MTIyNDAwfQ.tnmGMM0wfgPMnX5YM0sLTU_d7_BrsDBuJKcX3yQ_7e4";
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const getNearestExpiryDate = async (instrumentKey) => {
   const res = await axios.get(`${UPSTOX_API_URL}/contract`, {
@@ -96,6 +94,7 @@ const fetchOptionChain = async (instrumentKey, expiryDate) => {
   return filtered;
 };
 
+let MarketData;
 const fetchAndSaveOC = async () => {
   try {
     // Nifty
@@ -115,26 +114,43 @@ const fetchAndSaveOC = async () => {
     );
 
     // Save to file - use absolute path relative to backend directory
-    const filePath = path.join(__dirname, "marketData.json");
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify(
-        {
-          timestamp: new Date().toISOString(),
-          nifty: {
-            currentPrice: niftyPrice,
-            expiry: niftyExpiry,
-            optionChain: niftyOC,
-          },
-          bankNifty: {
-            currentPrice: bankNiftyPrice,
-            expiry: bankNiftyExpiry,
-            optionChain: bankNiftyOC,
-          },
+    // const filePath = path.join(__dirname, "marketData.json");
+    // fs.writeFileSync(
+    //   filePath,
+    //   JSON.stringify(
+    //     {
+    //       timestamp: new Date().toISOString(),
+    //       nifty: {
+    //         currentPrice: niftyPrice,
+    //         expiry: niftyExpiry,
+    //         optionChain: niftyOC,
+    //       },
+    //       bankNifty: {
+    //         currentPrice: bankNiftyPrice,
+    //         expiry: bankNiftyExpiry,
+    //         optionChain: bankNiftyOC,
+    //       },
+    //     },
+    //     null,
+    //     2
+    //   )
+    // );
+    MarketData = JSON.stringify(
+      {
+        timestamp: new Date().toISOString(),
+        nifty: {
+          currentPrice: niftyPrice,
+          expiry: niftyExpiry,
+          optionChain: niftyOC,
         },
-        null,
-        2
-      )
+        bankNifty: {
+          currentPrice: bankNiftyPrice,
+          expiry: bankNiftyExpiry,
+          optionChain: bankNiftyOC,
+        },
+      },
+      null,
+      2
     );
 
     console.log("✅ Saved market data to marketData.json");
@@ -144,83 +160,9 @@ const fetchAndSaveOC = async () => {
 };
 
 // Export the function for use in other modules
-module.exports = { fetchAndSaveOC };
+module.exports = { fetchAndSaveOC, MarketData };
 
 // Only run if called directly
 if (require.main === module) {
   fetchAndSaveOC();
 }
-
-// const getLatestExpiryDate = async (instrumentKey) => {
-//     try {
-//         console.log(`Fetching all option contracts to find the latest expiry for ${instrumentKey}...`);
-
-//         const allOptionContracts = await axios.get(`${UPSTOX_API_URL}/contract`, {
-//             headers: {
-//                 Authorization: `Bearer ${ACCESS_TOKEN}`,
-//                 Accept: "application/json",
-//             },
-//             params: {
-//                 instrument_key: instrumentKey,
-//             },
-//         });
-
-//         const expirations = new Set();
-//         if (allOptionContracts.data && allOptionContracts.data.data) {
-//             allOptionContracts.data.data.forEach(contract => {
-//                 expirations.add(contract.expiry);
-//             });
-//         }
-
-//         const sortedExpiries = Array.from(expirations).sort();
-//         const latestExpiry = sortedExpiries[sortedExpiries.length - 1];
-
-//         if (!latestExpiry) {
-//             throw new Error("Could not determine the latest expiry date.");
-//         }
-
-//         console.log(`Latest expiry date found: ${latestExpiry}`);
-//         return latestExpiry;
-
-//     } catch (err) {
-//         console.error("Error fetching all option contracts:", err.message);
-//         throw err;
-//     }
-// };
-
-// const fetchAndSaveOptionChain = async (instrumentKey, filename) => {
-//     if (!ACCESS_TOKEN) {
-//         console.error("ACCESS_TOKEN is not set. Please set the environment variable.");
-//         return;
-//     }
-
-//     try {
-//         // Step 1: Get the latest expiry date dynamically.
-//         const latestExpiryDate = await getLatestExpiryDate(instrumentKey);
-
-//         // Step 2: Fetch the option chain using the latest expiry date.
-//         console.log(`Fetching option chain for Bank Nifty with expiry date: ${latestExpiryDate}`);
-//         const optChainResponse = await axios.get(`${UPSTOX_API_URL}/chain`, {
-//             headers: {
-//                 Authorization: `Bearer ${ACCESS_TOKEN}`,
-//                 Accept: "application/json",
-//             },
-//             params: {
-//                 instrument_key: instrumentKey,
-//                 expiry_date: latestExpiryDate,
-//             },
-//         });
-
-//         // Step 3: Save the data to a JSON file.
-//         const fileName = filename;
-//         const dataToSave = optChainResponse.data;
-//         const jsonContent = JSON.stringify(dataToSave, null, 2);
-//         fs.writeFileSync(fileName, jsonContent, 'utf8');
-
-//         console.log(`Successfully saved option chain data to ${fileName}`);
-//     } catch (err) {
-//         console.error("Error fetching or saving data:", err.message);
-//     }
-// };
-
-// Execute the main function.

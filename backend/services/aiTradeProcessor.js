@@ -4,13 +4,16 @@ const fs = require("fs").promises;
 const path = require("path");
 const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
 const { getArrayLTP } = require("./getLtp");
+const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
+const Report = require("../models/dailyReport.model");
 
 class AiTradeProcessor {
   constructor() {
-    this.tradeSuggestionsPath = path.join(
-      __dirname,
-      "../aiTradeSugg/tradeSuggestions.json"
-    );
+    // this.tradeSuggestionsPath = path.join(
+    //   __dirname,
+    //   "../aiTradeSugg/tradeSuggestions.json"
+    // );
+    this.tradeSuggestionsPath = tradeSuggJSON;
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
@@ -675,8 +678,7 @@ class AiTradeProcessor {
         createdAt: { $gte: today, $lt: tomorrow },
       });
 
-      console.log("📊 Daily AI Trade Report:");
-      console.log(`Total suggestions: ${totalTrades}`);
+      // Format report text
       let reportText = `📊 Daily AI Trade Report - ${new Date().toLocaleString(
         "en-IN",
         { timeZone: "Asia/Kolkata" }
@@ -689,11 +691,23 @@ class AiTradeProcessor {
         }%, P&L: ₹${stat.totalPnL?.toFixed(2) || "0"}\n`;
       });
 
-      // write to file (overwrite each day)
-      await fs.appendFile("ai-daily-report.txt", reportText, "utf-8");
-      console.log("Report saved ✅");
+      // ✅ Save to DB
+      const report = new Report({
+        totalSuggestions: totalTrades,
+        stats: dailyStats.map((s) => ({
+          status: s._id,
+          count: s.count,
+          avgConfidence: s.totalConfidence,
+          totalPnL: s.totalPnL,
+        })),
+        rawText: reportText,
+      });
+
+      await report.save();
+
+      console.log("Report saved to DB ✅");
     } catch (error) {
-      console.error("❌ Error generating daily report:", error);
+      console.error("Error generating report:", error);
     }
   }
 
