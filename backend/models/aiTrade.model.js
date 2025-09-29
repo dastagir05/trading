@@ -84,8 +84,7 @@ const AiTradeSchema = new Schema(
 
     // Timestamps
     suggestedAt: {
-      type: Date,
-      default: Date.now,
+      type: String,
     },
     activatedAt: Date,
     completedAt: Date,
@@ -103,7 +102,7 @@ const AiTradeSchema = new Schema(
     // Notes and updates
     notes: [
       {
-        timestamp: Date,
+        timestamp: String,
         message: String,
         type: {
           type: String,
@@ -183,8 +182,6 @@ AiTradeSchema.methods.addNote = function (message, type = "info") {
     second: "2-digit",
     hour12: false,
   }).format(new Date());
-
-  console.log(timestampIST); // e.g. "28/09/2025, 14:50:33"
 
   this.notes.push({
     timestamp: timestampIST,

@@ -3,7 +3,7 @@ const AiTrade = require("../models/aiTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
 const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
-const getArrayLTP = require("./getLtp");
+const { getArrayLTP } = require("./getLtp");
 
 class AiTradeProcessor {
   constructor() {
@@ -22,9 +22,9 @@ class AiTradeProcessor {
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "20,47 9-14 * * 1-5",
+      "20,46 9-14 * * 1-5",
       () => {
-        this.generateFreshSuggestions();
+        // this.generateFreshSuggestions();
       },
       {
         timezone: "Asia/Kolkata",
@@ -44,9 +44,9 @@ class AiTradeProcessor {
     cron.schedule(
       "*/1 9-15 * * 1-5",
       async () => {
-        console.log("Monitoring suggested trades for activation");
-        await setOptData.fetchAndSaveOC();
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // console.log("Monitoring suggested trades for activation");
+        // await setOptData.fetchAndSaveOC();
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
         this.monitorSuggestedTrades();
       },
       {
@@ -91,7 +91,7 @@ class AiTradeProcessor {
         createdAt: { $gt: new Date("2025-09-16T10:19:00.191Z") },
       });
 
-      console.log(`Found ${activeTrades.length} active trades to monitor`);
+      console.log(`Found ${activeTrades.length} trades to monitor for expiry`);
       for (const trade of activeTrades) {
         let now = new Date();
         let expiryDate = new Date(trade.setup.expiry + "T03:35:00");
@@ -153,7 +153,7 @@ class AiTradeProcessor {
     );
 
     const Ik = await getArrayLTP(this.combineIK);
-    console.log("IK setFresh", Ik, this.combineIK);
+    // console.log("IK setFresh", Ik, this.combineIK);
 
     // merge latest prices instead of overwrite
     const priceMap = new Map(
@@ -237,7 +237,19 @@ class AiTradeProcessor {
         isValid: true,
       });
 
-      console.log(`Found ${activeTrades.length} active trades to monitor`);
+      console.log(
+        `Found ${activeTrades.length} active trades and streategy to monitor`
+      );
+
+      const activeTradesAndStreategy = await AiTrade.find({
+        status: "active",
+        isValid: true,
+        isStrategy: false,
+      });
+
+      console.log(
+        `Found ${activeTradesAndStreategy.length} active trades to monitor`
+      );
       // if (trade.setup.strike.split(" ").length < 4) {
       //   await this.checkSuggestedTradeForActivation(trade);
       // }
@@ -267,7 +279,7 @@ class AiTradeProcessor {
       const now = new Date();
 
       // Check if trade has expired before activation
-      if (trade.expiryDate && now > trade.expiryDate && false) {
+      if (trade.expiryDate && now > trade.expiryDate) {
         await trade.updateStatus(
           "expired",
           "Trade suggestion expired before activation"
@@ -572,67 +584,25 @@ class AiTradeProcessor {
   async getCurrentMarketPrice(words, trade) {
     if (trade.setup.instrument_key) {
       if (this.priceOfIK.length > 0) {
-        console.log("i am sending cuMP");
         let r1 = this.priceOfIK.find((obj) =>
           obj.instrument_key === trade.setup.instrument_key
             ? obj.last_price
             : null
         );
-        console.log("r1", trade.setup.instrument_key, r1.last_price);
+        console.log(
+          "in single trade ltp",
+          trade.setup.instrument_key,
+          r1.last_price
+        );
         return r1.last_price;
       } else {
-        console.log("Price of IK arr is 0");
+        console.log(
+          "Price is Missing (getCurrentMarketPrice)",
+          trade.setup.instrument_key,
+          trade.status
+        );
       }
     }
-
-    // console.log("words", words); //expected Nifty 25000 CALL/PUT
-    // const [name, strikePrice, side] = words;
-    // const filePath = path.join(
-    //   __dirname,
-    //   "../aiTradeSugg/setOptionData/marketData.json"
-    // );
-    // const rawData = await fs.readFile(filePath, "utf8"); // 👈 async version
-    // const marketData = JSON.parse(rawData);
-
-    // try {
-    //   console.log(
-    //     `Getting current price for ${name} ${strikePrice} ${side} ...`
-    //   );
-
-    //   if (name === "Nifty") {
-    //     let activeOP = marketData.nifty.optionChain;
-    //     // console.log("nifty price at procc", marketData.nifty.currentPrice)
-    //     for (const stpr of activeOP) {
-    //       if (stpr.strike_price == strikePrice) {
-    //         if (side === "CALL") {
-    //           return stpr.call?.ltp; // return ltp if exists
-    //         } else {
-    //           return stpr.put?.ltp;
-    //         }
-    //       }
-    //     }
-    //   } else {
-    //     let activeOP = marketData.bankNifty.optionChain;
-    //     for (const stpr of activeOP) {
-    //       if (stpr.strike_price == strikePrice) {
-    //         if (side === "CALL") {
-    //           return stpr.call?.ltp; // return ltp if exists
-    //         } else {
-    //           return stpr.put?.ltp;
-    //         }
-    //       }
-    //     }
-    //   }
-
-    //   // if not found, return random variation
-    //   const basePrice = 100;
-    //   const randomVariation = (Math.random() - 0.5) * 10;
-    //   console.log("rnvarr", randomVariation);
-    //   return basePrice + randomVariation;
-    // } catch (error) {
-    //   console.error(`Error getting current price for ${strikePrice}:`, error);
-    //   return null;
-    // }
   }
 
   // Parse price string to number
@@ -643,113 +613,6 @@ class AiTradeProcessor {
     return isNaN(price) ? null : price;
   }
 
-  // Process new trade suggestions from JSON file (legacy method)
-  async processNewSuggestions() {
-    if (this.isProcessing) {
-      console.log("⏳ AI Trade processing already in progress, skipping...");
-      return;
-    }
-
-    try {
-      this.isProcessing = true;
-      console.log("🔄 Processing new AI trade suggestions...");
-
-      const suggestionsData = await fs.readFile(
-        this.tradeSuggestionsPath,
-        "utf8"
-      );
-      const suggestions = JSON.parse(suggestionsData);
-
-      for (const suggestion of suggestions) {
-        await this.processSuggestion(suggestion);
-      }
-
-      console.log("✅ AI trade suggestions processed successfully");
-    } catch (error) {
-      console.error("❌ Error processing AI trade suggestions:", error);
-    } finally {
-
-      this.isProcessing = false;
-    }
-  }
-
-  // Process individual trade suggestion
-  async processSuggestion(suggestion) {
-    try {
-      // Check if this suggestion already exists
-      const existingTrade = await AiTrade.findOne({ aiTradeId: suggestion.id });
-
-      if (existingTrade) {
-        // Update existing trade if it's still in suggested state
-        if (existingTrade.status === "suggested") {
-          await this.updateSuggestion(existingTrade, suggestion);
-        }
-        return;
-      }
-      const timestampIST = new Intl.DateTimeFormat("en-IN", {
-        timeZone: "Asia/Kolkata",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      }).format(new Date());
-      
-      
-      // Create new AI trade with 'suggested' status
-      console.log("creating new suggestion to AiTrade", suggestion.isStrategy);
-      const aiTrade = new AiTrade({
-        aiTradeId: suggestion.id,
-        title: suggestion.title,
-        sentiment: suggestion.sentiment,
-        setup: {
-          currentPrice: suggestion.setup.currentPrice,
-          strategy: suggestion.setup.strategy,
-          strike: suggestion.setup.strike,
-          expiry: suggestion.setup.expiry,
-          symbol: this.extractSymbol(suggestion.setup.strike),
-        },
-        isStrategy: suggestion.isStrategy === "true",
-        tradePlan: suggestion.tradePlan,
-        logic: suggestion.logic,
-        confidence: suggestion.confidence,
-        riskLevel: suggestion.riskLevel,
-        suggestedAt: timestampIST,
-        status: "suggested", // Explicitly set status
-        tags: this.generateTags(suggestion),
-      });
-
-      await aiTrade.save();
-      console.log(`📝 New AI trade suggestion created: ${suggestion.title}`);
-
-      // Add initial note
-      await aiTrade.addNote("AI trade suggestion created", "info");
-    } catch (error) {
-      console.error(`❌ Error processing suggestion ${suggestion.id}:`, error);
-    }
-  }
-
-  // Update existing suggestion
-  async updateSuggestion(existingTrade, suggestion) {
-    try {
-      // Update relevant fields
-      existingTrade.setup.currentPrice = suggestion.setup.currentPrice;
-      existingTrade.confidence = suggestion.confidence;
-      existingTrade.riskLevel = suggestion.riskLevel;
-      existingTrade.tradePlan = suggestion.tradePlan;
-
-      await existingTrade.save();
-      await existingTrade.addNote("Trade suggestion updated", "info");
-
-      console.log(`🔄 Updated AI trade suggestion: ${suggestion.title}`);
-    } catch (error) {
-      console.error(`❌ Error updating suggestion ${suggestion.id}:`, error);
-    }
-  }
-
-  // Daily cleanup and reporting
   async dailyCleanup() {
     try {
       console.log("🧹 Starting daily AI trade cleanup...");

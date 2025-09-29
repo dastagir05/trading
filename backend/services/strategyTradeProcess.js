@@ -14,14 +14,14 @@ class StrategyTradeProcessor {
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
-    this.combineIK = []
+    this.combineIK = [];
     this.priceOfIK = [];
   }
 
   init() {
     // convert aitradeS to strategy trades every 30 minutes during market hours
     cron.schedule(
-      "21,48 9-14 * * 1-5",
+      "21,54 9-14 * * 1-5",
       () => {
         this.processAiTradesToStrategies();
       },
@@ -56,11 +56,12 @@ class StrategyTradeProcessor {
     console.log("🤖 Strategy Trade Processor initialized with cron jobs");
   }
 
-  async setFreshValueOfIK(){
-  
-    this.combineIK = this.arrSuggIK.concat(this.arractiveIK.filter(x => !this.arrSuggIK.includes(x)));
-    const Ik = await getArrayLTP(this.combineIK)
-    console.log("IK setFFresh", Ik,this.combineIK)
+  async setFreshValueOfIK() {
+    this.combineIK = this.arrSuggIK.concat(
+      this.arractiveIK.filter((x) => !this.arrSuggIK.includes(x))
+    );
+    const Ik = await getArrayLTP(this.combineIK);
+    console.log("IK setFFresh", Ik, this.combineIK);
     this.priceOfIK = Ik;
   }
 
@@ -83,7 +84,7 @@ class StrategyTradeProcessor {
         status: "suggested",
       }).sort({ createdAt: -1 });
 
-      console.log(`Found ${aiTrades.length} AI strategy trades to process`);
+      console.log(`🔍Found ${aiTrades.length} AI strategy trades to process`);
 
       for (const aiTrade of aiTrades) {
         await this.convertAiTradeToStrategy(aiTrade);
@@ -125,7 +126,9 @@ class StrategyTradeProcessor {
       // Parse individual instruments from strike
       const instruments = this.parseMultiInstrumentStrike(aiTrade.setup.strike);
       // Parse entry, target, and stopLoss values
-      const instrument_keys = this.parseMultipleValues(aiTrade.setup.instrument_key)
+      const instrument_keys = this.parseMultipleValues(
+        aiTrade.setup.instrument_key
+      );
       const entryValues = this.parseMultipleValues(aiTrade.tradePlan.entry);
       const targetValues = this.parseMultipleValues(aiTrade.tradePlan.target);
       const stopLossValues = this.parseMultipleValues(
@@ -140,7 +143,7 @@ class StrategyTradeProcessor {
         stopLossValues
       );
       console.log(`Found ${instruments.length} instruments`);
-      console.log(`Instrument keys: ${instrument_keys}`)
+      console.log(`Instrument keys: ${instrument_keys}`);
       console.log(`Entry values: ${entryValues}`);
       console.log(`Target values: ${targetValues}`);
       console.log(`StopLoss values: ${stopLossValues}`);
@@ -166,9 +169,10 @@ class StrategyTradeProcessor {
           sentiment: aiTrade.sentiment,
 
           setup: {
-            instrument_key: instrument_keys[index] ||
-            instrument_keys[0] ||
-            aiTrade.setup.instrument_key,
+            instrument_key:
+              instrument_keys[index] ||
+              instrument_keys[0] ||
+              aiTrade.setup.instrument_key,
             currentPrice: instrument.currentPrice || aiTrade.setup.currentPrice,
             strategy: aiTrade.setup.strategy,
             strike: instrument.strike,
@@ -207,7 +211,7 @@ class StrategyTradeProcessor {
     } catch (error) {
       console.error(`❌ Error converting AI trade to strategy:`, error);
     }
-  } 
+  }
 
   // Monitor suggested strategy trades for activation
   async monitorSuggestedStrategyTrades() {
@@ -222,13 +226,16 @@ class StrategyTradeProcessor {
       );
 
       for (const strategy of suggestedStrategies) {
-        for (const trade of strategy.trades){
-        if (trade?.setup?.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
-          this.arrSuggIK.push(trade.setup.instrument_key);
-          await this.setFreshValueOfIK()
-          console.log("sugg ik found ", trade.setup.instrument_key);
-      }
-    }
+        for (const trade of strategy.trades) {
+          if (
+            trade?.setup?.instrument_key &&
+            !this.combineIK.includes(trade.setup.instrument_key)
+          ) {
+            this.arrSuggIK.push(trade.setup.instrument_key);
+            await this.setFreshValueOfIK();
+            console.log("sugg ik found ", trade.setup.instrument_key);
+          }
+        }
         await this.checkStrategyForActivation(strategy);
       }
     } catch (error) {
@@ -240,7 +247,7 @@ class StrategyTradeProcessor {
   async monitorActiveStrategyTrades() {
     try {
       const activeStrategies = await StrategyTrade.find({
-        status: { $in: ["partial_active", "fully_active"] },
+        status: { $in: ["partial_active", "fully_active", "active"] },
         isValid: true,
       });
 
@@ -249,13 +256,16 @@ class StrategyTradeProcessor {
       );
 
       for (const strategy of activeStrategies) {
-        for (const trade of strategy.trades){
-          if (trade?.setup?.instrument_key && !this.combineIK.includes(trade.setup.instrument_key)){
+        for (const trade of strategy.trades) {
+          if (
+            trade?.setup?.instrument_key &&
+            !this.combineIK.includes(trade.setup.instrument_key)
+          ) {
             this.arrSuggIK.push(trade.setup.instrument_key);
-            await this.setFreshValueOfIK()
+            await this.setFreshValueOfIK();
             console.log("sugg ik found ", trade.setup.instrument_key);
+          }
         }
-      }
         await this.checkActiveStrategyStatus(strategy);
       }
     } catch (error) {
@@ -280,7 +290,7 @@ class StrategyTradeProcessor {
             exitReason: "Trade expired before activation",
           });
         }
-        strategy.status = "expired"
+        strategy.status = "expired";
         // Update parent AiTrade status
         await this.updateAiTradeStatus(strategy.strategyId, "expired");
         return;
@@ -340,7 +350,7 @@ class StrategyTradeProcessor {
   async checkTradeEntryConditions(trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
+      const currentPrice = await this.getCurrentMarketPrice(words, trade);
       const suggestedEntry = this.parsePrice(trade.tradePlan.entry);
 
       if (!currentPrice || !suggestedEntry) {
@@ -374,7 +384,7 @@ class StrategyTradeProcessor {
   async activateStrategyTrade(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
+      const currentPrice = await this.getCurrentMarketPrice(words, trade);
 
       if (!currentPrice) {
         console.log(
@@ -434,12 +444,9 @@ class StrategyTradeProcessor {
   async handleExpiredTrade(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      const currentPrice = await this.getCurrentMarketPrice(words,trade);
+      const currentPrice = await this.getCurrentMarketPrice(words, trade);
 
-      const pnl = this.calculatePnL(
-        currentPrice,
-        trade,
-      );
+      const pnl = this.calculatePnL(currentPrice, trade);
 
       await strategy.updateTrade(trade.tradeId, {
         status: "expired",
@@ -464,21 +471,21 @@ class StrategyTradeProcessor {
   async checkTradeTargetStopLoss(strategy, trade) {
     try {
       const words = trade.setup.strike.split(" ");
-      let currentPrice = await this.getCurrentMarketPrice(words,trade);
+      let currentPrice = await this.getCurrentMarketPrice(words, trade);
       let targetPrice = this.parsePrice(trade.tradePlan.target);
       let stopLossPrice = this.parsePrice(trade.tradePlan.stopLoss);
-      let entryPrice = this.parsePrice(trade.tradePlan.entry)
+      let entryPrice = this.parsePrice(trade.tradePlan.entry);
 
       if (!currentPrice || !targetPrice || !stopLossPrice) {
         console.log(`Missing price data for ${trade.setup.strike}`);
         return;
       }
 
-      let tradeType ;
-      if (trade.tradePlan.entry > trade.tradePlan.target){
-        tradeType = "BUY"
-      }else {
-        tradeType = "SELL"
+      let tradeType;
+      if (trade.tradePlan.entry > trade.tradePlan.target) {
+        tradeType = "BUY";
+      } else {
+        tradeType = "SELL";
       }
       // UPDATED logic for BUY vs SELL strategies
       let targetHit = false;
@@ -499,20 +506,20 @@ class StrategyTradeProcessor {
       //     `🔍 BUY Trade Check (${trade.sentiment}) - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
       //   );
       // }
-      if (entryPrice > targetPrice && currentPrice <= targetPrice){
-        entryPrice,currentPrice = currentPrice,entryPrice
-        targetHit = true
-     }
-     if (entryPrice < targetPrice && currentPrice >= targetPrice){
-        targetHit = true
-     }
-     if (entryPrice < stopLossPrice && currentPrice >= stopLossPrice){
-      entryPrice,currentPrice = currentPrice,entryPrice
-      stopLossHit = true
-   }
-   if (entryPrice > stopLossPrice && currentPrice <= stopLossPrice){
-      stopLossHit = true
-   }
+      if (entryPrice > targetPrice && currentPrice <= targetPrice) {
+        entryPrice, (currentPrice = currentPrice), entryPrice;
+        targetHit = true;
+      }
+      if (entryPrice < targetPrice && currentPrice >= targetPrice) {
+        targetHit = true;
+      }
+      if (entryPrice < stopLossPrice && currentPrice >= stopLossPrice) {
+        entryPrice, (currentPrice = currentPrice), entryPrice;
+        stopLossHit = true;
+      }
+      if (entryPrice > stopLossPrice && currentPrice <= stopLossPrice) {
+        stopLossHit = true;
+      }
       // Handle conditions
       if (targetHit) {
         await this.handleTargetHit(strategy, trade, currentPrice);
@@ -526,10 +533,7 @@ class StrategyTradeProcessor {
 
   // Handle target hit
   async handleTargetHit(strategy, trade, currentPrice) {
-    const pnl = this.calculatePnL(
-      currentPrice,
-      trade,
-    );
+    const pnl = this.calculatePnL(currentPrice, trade);
 
     await strategy.updateTrade(trade.tradeId, {
       status: "target_hit",
@@ -542,7 +546,9 @@ class StrategyTradeProcessor {
     this.calculateTradeCharges(currentPrice, trade);
 
     await strategy.addNote(
-      `Trade ${trade.tradeId} target hit at ₹${currentPrice}. P&L: ₹${pnl.toFixed(2)}`,
+      `Trade ${
+        trade.tradeId
+      } target hit at ₹${currentPrice}. P&L: ₹${pnl.toFixed(2)}`,
       "success"
     );
 
@@ -556,12 +562,9 @@ class StrategyTradeProcessor {
 
   // Handle stop loss hit
   async handleStopLossHit(strategy, trade, currentPrice) {
-    let pnl = this.calculatePnL(
-      currentPrice,
-      trade
-    );
-    if (pnl > 0){
-      pnl = -pnl
+    let pnl = this.calculatePnL(currentPrice, trade);
+    if (pnl > 0) {
+      pnl = -pnl;
     }
 
     await strategy.updateTrade(trade.tradeId, {
@@ -608,7 +611,7 @@ class StrategyTradeProcessor {
       for (const trade of otherActiveTrades) {
         try {
           const words = trade.setup.strike.split(" ");
-          const currentPrice = await this.getCurrentMarketPrice(words,trade);
+          const currentPrice = await this.getCurrentMarketPrice(words, trade);
 
           if (!currentPrice) {
             console.log(
@@ -617,10 +620,7 @@ class StrategyTradeProcessor {
             continue;
           }
 
-          const pnl = this.calculatePnL(
-            currentPrice,
-            trade,
-          );
+          const pnl = this.calculatePnL(currentPrice, trade);
 
           await strategy.updateTrade(trade.tradeId, {
             status: "strategy_exit",
@@ -717,10 +717,10 @@ class StrategyTradeProcessor {
 
   // UPDATED: Calculate P&L based on trade type (BUY/SELL)
   calculatePnL(exitPrice, trade) {
-    if (trade.tradePlan.entry < trade.tradePlan){
-      return exitPrice - trade.entryPrice
-    }else {
-      return trade.entryPrice - exitPrice
+    if (trade.tradePlan.entry < trade.tradePlan) {
+      return exitPrice - trade.entryPrice;
+    } else {
+      return trade.entryPrice - exitPrice;
     }
 
     // if (tradeType === "SELL") {
@@ -881,53 +881,65 @@ class StrategyTradeProcessor {
     }
   }
 
-  async getCurrentMarketPrice(words,trade) {
-    const [name, strikePrice, side] = words;
-    const filePath = path.join(
-      __dirname,
-      "../aiTradeSugg/setOptionData/marketData.json"
-    );
-    console.log("strategy test1", trade,trade.setup);
-    if(trade.setup.instrument_key){
-      if(this.priceOfIK.length > 0){
-        console.log("i am sending cuMP for strategy")
-        let r1 =  this.priceOfIK.find(obj => (obj.instrument_key === trade.setup.instrument_key)? obj.last_price : null)
-        console.log("strategy trade",trade.setup.instrument_key,r1.last_price)
-        return r1.last_price 
+  async getCurrentMarketPrice(words, trade) {
+    // const [name, strikePrice, side] = words;
+    // const filePath = path.join(
+    //   __dirname,
+    //   "../aiTradeSugg/setOptionData/marketData.json"
+    // );
+
+    if (trade.setup.instrument_key) {
+      if (this.priceOfIK.length > 0) {
+        console.log("i am sending cuMP for strategy");
+        let r1 = this.priceOfIK.find((obj) =>
+          obj.instrument_key === trade.setup.instrument_key
+            ? obj.last_price
+            : null
+        );
+        console.log(
+          "strategy trade",
+          trade.setup.instrument_key,
+          r1.last_price
+        );
+        return r1.last_price;
       } else {
-        console.log("Price of IK arr is 0")
+        console.log(
+          "Price is Missing (getCurrentMarketPrice)",
+          trade.setup.instrument_key,
+          trade.status
+        );
       }
     }
 
-    try {
-      const rawData = await fs.readFile(filePath, "utf8");
-      const marketData = JSON.parse(rawData);
-      console.log("not getting data through trade.setup.instrumentik 905")
+    // try {
+    //   const rawData = await fs.readFile(filePath, "utf8");
+    //   const marketData = JSON.parse(rawData);
+    //   console.log("not getting data through trade.setup.instrumentik 905");
 
-      if (name === "Nifty") {
-        const activeOP = marketData.nifty.optionChain;
-        for (const stpr of activeOP) {
-          if (stpr.strike_price == strikePrice) {
-            return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
-          }
-        }
-      } else {
-        const activeOP = marketData.bankNifty.optionChain;
-        for (const stpr of activeOP) {
-          if (stpr.strike_price == strikePrice) {
-            return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
-          }
-        }
-      }
+    //   if (name === "Nifty") {
+    //     const activeOP = marketData.nifty.optionChain;
+    //     for (const stpr of activeOP) {
+    //       if (stpr.strike_price == strikePrice) {
+    //         return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
+    //       }
+    //     }
+    //   } else {
+    //     const activeOP = marketData.bankNifty.optionChain;
+    //     for (const stpr of activeOP) {
+    //       if (stpr.strike_price == strikePrice) {
+    //         return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
+    //       }
+    //     }
+    //   }
 
-      // Fallback to random price if not found
-      const basePrice = 100;
-      const randomVariation = (Math.random() - 0.5) * 10;
-      return basePrice + randomVariation;
-    } catch (error) {
-      console.error(`Error getting current price for ${strikePrice}:`, error);
-      return null;
-    }
+    //   // Fallback to random price if not found
+    //   const basePrice = 100;
+    //   const randomVariation = (Math.random() - 0.5) * 10;
+    //   return basePrice + randomVariation;
+    // } catch (error) {
+    //   console.error(`Error getting current price for ${strikePrice}:`, error);
+    //   return null;
+    // }
   }
 }
 

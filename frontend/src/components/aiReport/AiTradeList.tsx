@@ -1,12 +1,12 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import axios from "axios"
-import { 
-  Search, 
-  Filter, 
-  SortAsc, 
-  Eye, 
-  Edit, 
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Search,
+  Filter,
+  SortAsc,
+  Eye,
+  Edit,
   MoreHorizontal,
   TrendingUp,
   TrendingDown,
@@ -18,14 +18,14 @@ import {
   Calendar,
   DollarSign,
   Target,
-  Shield
-} from 'lucide-react';
+  Shield,
+} from "lucide-react";
 
 interface AiTrade {
   _id: string;
   aiTradeId: string;
   title: string;
-  sentiment: 'bullish' | 'bearish' | 'neutral';
+  sentiment: "bullish" | "bearish" | "neutral";
   setup: {
     currentPrice: number;
     strategy: string;
@@ -42,8 +42,14 @@ interface AiTrade {
   };
   logic: string;
   confidence: number;
-  riskLevel: 'low' | 'medium' | 'high';
-  status: 'suggested' | 'active' | 'target_hit' | 'stoploss_hit' | 'expired' | 'cancelled';
+  riskLevel: "low" | "medium" | "high";
+  status:
+    | "suggested"
+    | "active"
+    | "target_hit"
+    | "stoploss_hit"
+    | "expired"
+    | "cancelled";
   entryPrice?: number;
   entryTime?: Date;
   quantity?: number;
@@ -51,9 +57,10 @@ interface AiTrade {
   exitTime?: Date;
   pnl?: number;
   percentPnL?: number;
-  suggestedAt: Date;
+  suggestedAt: Date | string;
+  createdAt: Date;
   activatedAt?: Date;
-  completedAt?: Date;
+  completedAt: Date;
   tags: string[];
 }
 
@@ -61,12 +68,12 @@ const AiTradeList: React.FC = () => {
   const [trades, setTrades] = useState<AiTrade[]>([]);
   const [filteredTrades, setFilteredTrades] = useState<AiTrade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [sentimentFilter, setSentimentFilter] = useState<string>('all');
-  const [riskFilter, setRiskFilter] = useState<string>('all');
-  const [sortBy, setSortBy] = useState<string>('suggestedAt');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [sentimentFilter, setSentimentFilter] = useState<string>("all");
+  const [riskFilter, setRiskFilter] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   useEffect(() => {
     fetchTrades();
@@ -74,48 +81,63 @@ const AiTradeList: React.FC = () => {
 
   useEffect(() => {
     filterAndSortTrades();
-  }, [trades, searchTerm, statusFilter, sentimentFilter, riskFilter, sortBy, sortOrder]);
+  }, [
+    trades,
+    searchTerm,
+    statusFilter,
+    sentimentFilter,
+    riskFilter,
+    sortBy,
+    sortOrder,
+  ]);
 
   const fetchTrades = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades?status=all`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/ai-trades?status=all`
+      );
       setTrades(res.data.data);
+      console.log("Fetched trades:", res.data.data.length);
     } catch (error) {
-      console.error('Failed to fetch AI trades:', error);
+      console.error("Failed to fetch AI trades:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const filterAndSortTrades = () => {
-    let filtered = trades.filter(trade => {
-      const matchesSearch = trade.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          trade.setup.symbol.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesStatus = statusFilter === 'all' || trade.status === statusFilter;
-      const matchesSentiment = sentimentFilter === 'all' || trade.sentiment === sentimentFilter;
-      const matchesRisk = riskFilter === 'all' || trade.riskLevel === riskFilter;
-      
+    let filtered = trades.filter((trade) => {
+      const matchesSearch =
+        trade.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trade.setup.symbol.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesStatus =
+        statusFilter === "all" || trade.status === statusFilter;
+      const matchesSentiment =
+        sentimentFilter === "all" || trade.sentiment === sentimentFilter;
+      const matchesRisk =
+        riskFilter === "all" || trade.riskLevel === riskFilter;
+
       return matchesSearch && matchesStatus && matchesSentiment && matchesRisk;
     });
 
     // Sort trades
     filtered.sort((a, b) => {
       let aValue: any, bValue: any;
-      
+
       switch (sortBy) {
-        case 'suggestedAt':
-          aValue = new Date(a.suggestedAt);
-          bValue = new Date(b.suggestedAt);
+        case "createdAt":
+          aValue = new Date(a.createdAt);
+          bValue = new Date(b.createdAt);
           break;
-        case 'confidence':
+        case "confidence":
           aValue = a.confidence;
           bValue = b.confidence;
           break;
-        case 'pnl':
+        case "pnl":
           aValue = a.pnl || 0;
           bValue = b.pnl || 0;
           break;
-        case 'title':
+        case "title":
           aValue = a.title;
           bValue = b.title;
           break;
@@ -124,7 +146,7 @@ const AiTradeList: React.FC = () => {
           bValue = b[sortBy as keyof AiTrade];
       }
 
-      if (sortOrder === 'asc') {
+      if (sortOrder === "asc") {
         return aValue > bValue ? 1 : -1;
       } else {
         return aValue < bValue ? 1 : -1;
@@ -136,43 +158,65 @@ const AiTradeList: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'suggested': return <Clock className="w-4 h-4 text-gray-500" />;
-      case 'active': return <TrendingUp className="w-4 h-4 text-blue-500" />;
-      case 'target_hit': return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'stoploss_hit': return <XCircle className="w-4 h-4 text-red-500" />;
-      case 'expired': return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
-      case 'cancelled': return <XCircle className="w-4 h-4 text-gray-500" />;
-      default: return <Minus className="w-4 h-4 text-gray-500" />;
+      case "suggested":
+        return <Clock className="w-4 h-4 text-gray-500" />;
+      case "active":
+        return <TrendingUp className="w-4 h-4 text-blue-500" />;
+      case "target_hit":
+        return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case "stoploss_hit":
+        return <XCircle className="w-4 h-4 text-red-500" />;
+      case "expired":
+        return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
+      case "cancelled":
+        return <XCircle className="w-4 h-4 text-gray-500" />;
+      default:
+        return <Minus className="w-4 h-4 text-gray-500" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'suggested': return 'bg-gray-100 text-gray-700';
-      case 'active': return 'bg-blue-100 text-blue-700';
-      case 'target_hit': return 'bg-green-100 text-green-700';
-      case 'stoploss_hit': return 'bg-red-100 text-red-700';
-      case 'expired': return 'bg-yellow-100 text-yellow-700';
-      case 'cancelled': return 'bg-gray-100 text-gray-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "suggested":
+        return "bg-gray-100 text-gray-700";
+      case "active":
+        return "bg-blue-100 text-blue-700";
+      case "target_hit":
+        return "bg-green-100 text-green-700";
+      case "stoploss_hit":
+        return "bg-red-100 text-red-700";
+      case "expired":
+        return "bg-yellow-100 text-yellow-700";
+      case "cancelled":
+        return "bg-gray-100 text-gray-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
-      case 'bullish': return <TrendingUp className="w-4 h-4 text-green-500" />;
-      case 'bearish': return <TrendingDown className="w-4 h-4 text-red-500" />;
-      case 'neutral': return <Minus className="w-4 h-4 text-gray-500" />;
-      default: return <Minus className="w-4 h-4 text-gray-500" />;
+      case "bullish":
+        return <TrendingUp className="w-4 h-4 text-green-500" />;
+      case "bearish":
+        return <TrendingDown className="w-4 h-4 text-red-500" />;
+      case "neutral":
+        return <Minus className="w-4 h-4 text-gray-500" />;
+      default:
+        return <Minus className="w-4 h-4 text-gray-500" />;
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'low': return 'bg-green-100 text-green-700';
-      case 'medium': return 'bg-yellow-100 text-yellow-700';
-      case 'high': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "low":
+        return "bg-green-100 text-green-700";
+      case "medium":
+        return "bg-yellow-100 text-yellow-700";
+      case "high":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -190,7 +234,9 @@ const AiTradeList: React.FC = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
           <h2 className="text-xl font-semibold text-gray-900">All AI Trades</h2>
-          <p className="text-gray-600">Manage and monitor all AI-generated trade suggestions</p>
+          <p className="text-gray-600">
+            Manage and monitor all AI-generated trade suggestions
+          </p>
         </div>
         <div className="flex items-center space-x-2">
           <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
@@ -259,7 +305,7 @@ const AiTradeList: React.FC = () => {
             onChange={(e) => setSortBy(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
-            <option value="suggestedAt">Date</option>
+            <option value="createdAt">Date</option>
             <option value="confidence">Confidence</option>
             <option value="pnl">P&L</option>
             <option value="title">Title</option>
@@ -269,11 +315,13 @@ const AiTradeList: React.FC = () => {
         {/* Sort Order Toggle */}
         <div className="mt-4 flex items-center space-x-2">
           <button
-            onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
             className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
           >
-            <SortAsc className={`w-4 h-4 ${sortOrder === 'asc' ? 'rotate-180' : ''}`} />
-            <span>{sortOrder === 'asc' ? 'Ascending' : 'Descending'}</span>
+            <SortAsc
+              className={`w-4 h-4 ${sortOrder === "asc" ? "rotate-180" : ""}`}
+            />
+            <span>{sortOrder === "asc" ? "Ascending" : "Descending"}</span>
           </button>
         </div>
       </div>
@@ -325,7 +373,11 @@ const AiTradeList: React.FC = () => {
                           {trade.setup.symbol} • {trade.aiTradeId}
                         </p>
                         <div className="flex items-center space-x-2 mt-1">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(trade.riskLevel)}`}>
+                          <span
+                            className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(
+                              trade.riskLevel
+                            )}`}
+                          >
                             {trade.riskLevel}
                           </span>
                           <span className="text-xs text-gray-500">
@@ -335,46 +387,77 @@ const AiTradeList: React.FC = () => {
                       </div>
                     </div>
                   </td>
-                  
+
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
-                      <p><strong>Strategy:</strong> {trade.setup.strategy}</p>
-                      <p><strong>Current:</strong> ₹{trade.setup.currentPrice}</p>
-                      <p><strong>Strike:</strong> {trade.setup.strike}</p>
-                      <p><strong>Expiry:</strong> {new Date(trade.setup.expiry).toLocaleDateString()}</p>
+                      <p>
+                        <strong>Strategy:</strong> {trade.setup.strategy}
+                      </p>
+                      <p>
+                        <strong>Current:</strong> ₹{trade.setup.currentPrice}
+                      </p>
+                      <p>
+                        <strong>Strike:</strong> {trade.setup.strike}
+                      </p>
+                      <p>
+                        <strong>Expiry:</strong>{" "}
+                        {new Date(trade.setup.expiry).toLocaleDateString()}
+                      </p>
                     </div>
                   </td>
-                  
+
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
-                      <p><strong>Entry:</strong> {trade.tradePlan.entry}</p>
-                      <p><strong>Target:</strong> {trade.tradePlan.target}</p>
-                      <p><strong>Stop Loss:</strong> {trade.tradePlan.stopLoss}</p>
+                      <p>
+                        <strong>Entry:</strong> {trade.tradePlan.entry}
+                      </p>
+                      <p>
+                        <strong>Target:</strong> {trade.tradePlan.target}
+                      </p>
+                      <p>
+                        <strong>Stop Loss:</strong> {trade.tradePlan.stopLoss}
+                      </p>
                       {/* <p><strong>Time Frame:</strong> {trade.tradePlan.timeFrame}</p> */}
-                      <p><strong>Exit Price:</strong> {trade?.exitPrice || "-"}</p>
+                      <p>
+                        <strong>Exit Price:</strong> {trade?.exitPrice || "-"}
+                      </p>
                     </div>
                   </td>
-                  
+
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-2">
                       {getStatusIcon(trade.status)}
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(trade.status)}`}>
-                        {trade.status.replace('_', ' ')}
+                      <span
+                        className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                          trade.status
+                        )}`}
+                      >
+                        {trade.status.replace("_", " ")}
                       </span>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                      {new Date(trade.suggestedAt).toLocaleDateString()}
+                      {new Date(trade.createdAt).toLocaleDateString()}
                     </p>
                   </td>
-                  
+
                   <td className="px-6 py-4">
                     {trade.pnl !== undefined ? (
                       <div className="text-sm">
-                        <p className={`font-medium ${trade.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        <p
+                          className={`font-medium ${
+                            trade.pnl >= 0 ? "text-green-600" : "text-red-600"
+                          }`}
+                        >
                           ₹{trade.pnl.toLocaleString()}
                         </p>
                         {trade.percentPnL && (
-                          <p className={`text-xs ${trade.percentPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          <p
+                            className={`text-xs ${
+                              trade.percentPnL >= 0
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }`}
+                          >
                             {trade.percentPnL}%
                           </p>
                         )}
@@ -383,7 +466,7 @@ const AiTradeList: React.FC = () => {
                       <span className="text-sm text-gray-500">-</span>
                     )}
                   </td>
-                  
+
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-2">
                       <button className="p-1 text-gray-400 hover:text-gray-600">
@@ -410,8 +493,12 @@ const AiTradeList: React.FC = () => {
           <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
             <Search className="w-8 h-8 text-gray-400" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No trades found</h3>
-          <p className="text-gray-500">Try adjusting your filters or search terms.</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            No trades found
+          </h3>
+          <p className="text-gray-500">
+            Try adjusting your filters or search terms.
+          </p>
         </div>
       )}
     </div>

@@ -185,10 +185,20 @@ function processAIResponse(aiResponse, marketStatus) {
 
   console.log("cleanText,GfreshTrade", cleanText, aiResponse);
   const trades = JSON.parse(cleanText);
+  const timestampIST = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(new Date());
 
   return trades.map((trade, index) => ({
     ...trade,
-    id: `fresh_${Date.now()}_${index + 1}`,
+    id: `fresh_${timestampIST}_${index + 1}`,
     timestamp: new Date().toISOString(),
     marketTime: marketStatus.time + " on " + marketStatus.date,
     isFresh: true,

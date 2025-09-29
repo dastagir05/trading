@@ -34,6 +34,16 @@ exports.createTrade = async (req, res) => {
 
   try {
     const marginUsed = quantity * entryPrice;
+    const timestampIST = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }).format(new Date());
     const trade = await Trades.create({
       userId,
       symbol,
@@ -53,7 +63,7 @@ exports.createTrade = async (req, res) => {
       notes: [
         {
           timestamp: Date.now(),
-          message: `Trade Created- Entry at ₹${entryPrice}, Quantity: ${quantity}, Side: ${side}`,
+          message: `Trade Created- Entry at ₹${entryPrice}, Quantity: ${quantity}, Side: ${side}, at ${timestampIST}`,
           type: "success",
         },
       ],

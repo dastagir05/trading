@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "generate-fresh-trades": "node scripts/generateFreshTrades.js",
+    "generate-fresh-trades": "node aiTradeSugg/generateFreshTrades.js",
     "generate-trades": "node aiTradeSugg/generateTrades.js",
     "fetch-market-data": "node aiTradeSugg/setOptionData/setOptData.js",
     "test-db": "node scripts/testDbConnection.js",

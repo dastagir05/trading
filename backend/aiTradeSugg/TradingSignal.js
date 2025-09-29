@@ -1,5 +1,5 @@
-const { RSI, MACD, EMA} = require("technicalindicators")
-const axios = require("axios")
+const { RSI, MACD, EMA } = require("technicalindicators");
+const axios = require("axios");
 
 class TradingAnalysisEngine {
   constructor() {
@@ -42,9 +42,15 @@ class TradingAnalysisEngine {
   // Your existing OHLC function (cleaned up)
   async getOHCL(instrumentkey) {
     try {
-      const { unit, interval } = { unit: "minutes", interval: "5" };
+      const { unit, interval } = { unit: "minutes", interval: "15" };
       const toDate = new Date().toISOString().split("T")[0];
-      const fromDate = "2025-08-24";
+
+      const today = new Date(); // 2025-09-28T14:00:00.000Z
+      const past = new Date(today); // clone becz past and today will both point to the same object — so today also changes.This creates a new Date object with the same value as today, so you can modify it safely.
+
+      if (unit === "minutes" && interval <= "15")
+        past.setDate(today.getDate() - 10); // 4*6*15 = 240
+      const fromDate = past.toISOString().split("T")[0];
 
       const yesterday = `https://api.upstox.com/v3/historical-candle/${instrumentkey}/${unit}/${interval}/${toDate}/${fromDate}`;
       const url = `https://api.upstox.com/v3/historical-candle/intraday/${instrumentkey}/${unit}/${interval}`;
@@ -208,13 +214,16 @@ class TradingAnalysisEngine {
   }
 
   getOptionsContext(optionsData, instrumentKey, spotPrice) {
-    console.log("s", instrumentKey)
-    if (!optionsData[instrumentKey] || !optionsData[instrumentKey].optionChain) {
+    console.log("s", instrumentKey);
+    if (
+      !optionsData[instrumentKey] ||
+      !optionsData[instrumentKey].optionChain
+    ) {
       return { error: "Invalid data for " + instrumentKey };
     }
-  
+
     const chain = optionsData[instrumentKey].optionChain;
-    console.log("opchain length", chain.length())
+    console.log("opchain length", chain.length());
     const calls = chain
       .filter((opt) => opt.call !== null)
       .map((opt) => ({
@@ -222,7 +231,7 @@ class TradingAnalysisEngine {
         ...opt.call,
         option_type: "CE",
       }));
-  
+
     const puts = chain
       .filter((opt) => opt.put !== null)
       .map((opt) => ({
@@ -230,11 +239,12 @@ class TradingAnalysisEngine {
         ...opt.put,
         option_type: "PE",
       }));
-  
+
     const totalCallOI = calls.reduce((sum, call) => sum + (call.oi || 0), 0);
     const totalPutOI = puts.reduce((sum, put) => sum + (put.oi || 0), 0);
-  
-    const putCallRatio = totalCallOI > 0 ? (totalPutOI / totalCallOI).toFixed(2) : "NA";
+
+    const putCallRatio =
+      totalCallOI > 0 ? (totalPutOI / totalCallOI).toFixed(2) : "NA";
 
     let sentimentSignal;
     if (putCallRatio > 1.2) sentimentSignal = "FEARFUL";

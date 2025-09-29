@@ -1,12 +1,11 @@
 const Trades = require("../../models/trade.model");
 const User = require("../../models/user.model");
-const getLTP = require("../../services/getLtp");
+const { getLTP } = require("../../services/getLtp");
 const updateTradeAfterTrade = require("../../utils/updateTradeAfterComTrade");
 const updateUserAfterTrade = require("../../utils/updateUserAfterComTrade");
 const inprocessEntries = async () => {
-
   const trades = await Trades.find({ status: "inprocess" });
-  console.log("inprocess trade start");
+  console.log("👀 inprocess trade start");
   for (const trade of trades) {
     const ltp = await getLTP(trade.instrumentKey);
     console.log("ltp inc", ltp);
@@ -18,8 +17,8 @@ const inprocessEntries = async () => {
 
     if (
       trade.target &&
-      ((trade.side === "buy" && ltp == trade.target) ||
-        (trade.side === "sell" && ltp == trade.target))
+      ((trade.side === "buy" && ltp >= trade.target) ||
+        (trade.side === "sell" && ltp <= trade.target))
     ) {
       shouldExit = true;
       exitReason = "target achieve";
@@ -28,8 +27,8 @@ const inprocessEntries = async () => {
     if (
       !shouldExit &&
       trade.stoploss &&
-      ((trade.side === "buy" && ltp == trade.stoploss) ||
-        (trade.side === "sell" && ltp == trade.stoploss))
+      ((trade.side === "buy" && ltp <= trade.stoploss) ||
+        (trade.side === "sell" && ltp >= trade.stoploss))
     ) {
       shouldExit = true;
       exitReason = "stoploss hit";
@@ -43,8 +42,8 @@ const inprocessEntries = async () => {
       continue;
     }
 
-    await updateTradeAfterTrade({trade, status: exitReason});
-    updateUserAfterTrade({ user, trade})
+    await updateTradeAfterTrade({ trade, status: exitReason, exitPrice: ltp });
+    updateUserAfterTrade({ user, trade });
 
     if (!user.frequencySymbols) {
       user.frequencySymbols = {};

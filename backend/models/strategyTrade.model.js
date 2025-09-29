@@ -17,7 +17,7 @@ const StrategyTradeSchema = new Schema(
       required: true,
     },
     logic: String,
-    instrument_keys:String,
+    instrument_keys: String,
 
     // Individual trades within the strategy
     trades: [
@@ -53,7 +53,7 @@ const StrategyTradeSchema = new Schema(
             "expired",
             "cancelled",
             "strategy_exit",
-            "complete"
+            "complete",
           ],
           default: "pending",
         },
@@ -136,8 +136,7 @@ const StrategyTradeSchema = new Schema(
 
     // Strategy timestamps
     suggestedAt: {
-      type: Date,
-      default: Date.now,
+      type: String,
     },
     activatedAt: Date, // When first trade becomes active
     completedAt: Date, // When all trades are completed
@@ -151,7 +150,7 @@ const StrategyTradeSchema = new Schema(
     // Strategy notes (keep strategy-level notes)
     notes: [
       {
-        timestamp: { type: Date, default: Date.now },
+        timestamp: { type: String, default: new Date().toISOString() },
         message: String,
         type: {
           type: String,

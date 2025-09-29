@@ -12,7 +12,7 @@ const pendingEntries = async () => {
     status: "pending",
     // enteredPrice: null,
   });
-  console.log("pending trade start");
+  console.log("💪 pending trade start");
 
   for (const trade of trades) {
     const ltp = await getLTP(trade.instrumentKey);
@@ -35,9 +35,19 @@ const pendingEntries = async () => {
       // trade.enteredPrice = ltp;
       trade.entryTime = new Date();
       trade.status = "inprocess";
+      const timestampIST = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }).format(new Date());
       trade.notes.push({
         timestamp: Date.now(),
-        message: "Trade activated ",
+        message: `Trade activated ${timestampIST} at LTP ${ltp}`,
         type: "success",
       });
       user.totalMoney -= trade.marginUsed;

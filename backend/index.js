@@ -25,6 +25,8 @@ connectDB();
 // Initialize AI Trade Processor with cron jobs
 aiTradeProcessor.init();
 strategyProcessor.init();
+
+// Start the auto trade execution process
 autoTradeExecute();
 initializeSocketServer(server);
 

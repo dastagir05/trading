@@ -11,7 +11,7 @@ export async function GET(
     const instrumentkey = decodeURIComponent(context.params.instrumentkey);
     const unit = context.params.unit;
     const interval = context.params.interval;
-    console.log("ikks", instrumentkey)
+    console.log("ikks", instrumentkey);
 
     if (!unit || !interval) {
       return NextResponse.json(
@@ -31,7 +31,20 @@ export async function GET(
     }
 
     const toDate = new Date().toISOString().split("T")[0];
-    const fromDate = "2025-09-04";
+    const today = new Date(); // 2025-09-28T14:00:00.000Z
+    const past = new Date(today); // clone becz past and today will both point to the same object — so today also changes.This creates a new Date object with the same value as today, so you can modify it safely.
+
+    if (unit === "minutes" && interval <= "15")
+      past.setDate(today.getDate() - 10); // 4*6*15 = 240
+    else if (unit === "minutes" && interval > "15")
+      past.setDate(today.getDate() - 20); // 2*6*30 = 204
+    else if (unit === "hours") past.setDate(today.getDate() - 60); // 45
+    else if (unit === "days") past.setDate(today.getDate() - 200); // 200
+    else if (unit === "weeks") past.setDate(today.getDate() - 7 * 32); // 224
+    else if (unit === "months") past.setMonth(today.getMonth() - 12 * 12); // 144
+    past.setDate(today.getDate() - 28); // hour
+
+    const fromDate = past.toISOString().split("T")[0];
 
     const yesterday = `https://api.upstox.com/v3/historical-candle/${instrumentkey}/${unit}/${interval}/${toDate}/${fromDate}`;
     const url = `https://api.upstox.com/v3/historical-candle/intraday/${instrumentkey}/${unit}/${interval}`;

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSocket } from "../SocketContext";
 import { ActiveTrade } from "../aiReport/AiTradeMonitor";
-import { Trade } from "../SocketContext";
 import PurchaseButton from "../chart/PurchaseButton";
+import { useRouter } from "next/navigation";
 
 export interface TradeSugg {
   aiTradeId: string;
@@ -29,15 +29,21 @@ export interface TradeSugg {
   riskLevel: "low" | "medium" | "high";
   timestamp: string;
 }
+type ChartParams = {
+  instrumentKey: string;
+  name: string;
+  expiry: string;
+  lotSize: string;
+};
 
 const AITradeCard = () => {
   // send whole moncksuggdata in para so we can map
   const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
-  const [showCreateStrategy, setShowCreateStrategy] = useState(false);
   const [mockSuggestions, setMockSuggestions] = useState<TradeSugg[]>();
   const [suggestedTrades, setSuggestedTrades] = useState<ActiveTrade[]>([]);
 
   const { trades } = useSocket();
+  const router = useRouter();
 
   useEffect(() => {
     const suggested = trades.filter((t) => t.status === "suggested");
@@ -48,6 +54,11 @@ const AITradeCard = () => {
   const tradePriceMap = new Map(
     suggestedTrades.map((t) => [t.aiTradeId, t.currentPrice])
   );
+
+  const gotoChart = (params: ChartParams) => {
+    const query = new URLSearchParams(params).toString();
+    router.push(`/chart?${query}`);
+  };
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -207,22 +218,12 @@ const AITradeCard = () => {
                   </div>
 
                   <div className="mt-4 pt-4 border-t border-gray-200">
-                    <div className="text-xs text-gray-500 space-y-1">
-                      <div>
+                    <div className="text-xs text-gray-500 space-y-1 flex ">
+                      <div className="inline-block text-sm">
                         CurrentPrice:{" "}
                         {suggestedTrades.find(
                           (t) => t.aiTradeId === strategy.aiTradeId
                         )?.currentPrice ?? strategy.setup.currentPrice}
-                      </div>
-                      <div>
-                        Updated:{" "}
-                        {strategy.suggestedAt
-                          ? typeof strategy.suggestedAt === "string"
-                            ? strategy.suggestedAt
-                            : strategy.suggestedAt instanceof Date
-                            ? strategy.suggestedAt.toLocaleString()
-                            : ""
-                          : ""}
                       </div>
 
                       <PurchaseButton
@@ -236,7 +237,21 @@ const AITradeCard = () => {
                             : undefined
                         }
                         lotSize={strategy.quantity || undefined}
+                        FromSuggestion={true}
                       />
+                      <button
+                        onClick={() =>
+                          gotoChart({
+                            instrumentKey: strategy.setup.instrument_key,
+                            name: strategy.setup.strike,
+                            expiry: strategy.setup.expiry,
+                            lotSize: strategy.quantity?.toString() || "",
+                          })
+                        }
+                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
+                      >
+                        Go to Chart
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -244,137 +259,6 @@ const AITradeCard = () => {
           </div>
         </div>
       </div>
-
-      {/* Strategy Details */}
-      {selectedStrategy && (
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Strategy Details
-            </h3>
-          </div>
-
-          <div className="p-6">
-            {(() => {
-              const strategy = mockSuggestions?.find(
-                (s) => s.aiTradeId === selectedStrategy
-              );
-              if (!strategy) return null;
-
-              return (
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">
-                      {strategy.title} Details
-                    </h4>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-4 bg-gray-50 rounded-lg">
-                          <h5 className="font-medium text-gray-900 mb-2">
-                            Setup
-                          </h5>
-                          <div className="space-y-2 text-sm">
-                            <div>
-                              <span className="text-gray-600">
-                                Current Price:
-                              </span>{" "}
-                              ₹{strategy.setup.currentPrice.toLocaleString()}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Strategy:</span>{" "}
-                              {strategy.setup.strategy}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Strike:</span>{" "}
-                              {strategy.setup.strike}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Expiry:</span>{" "}
-                              {strategy.setup.expiry}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="p-4 bg-gray-50 rounded-lg">
-                          <h5 className="font-medium text-gray-900 mb-2">
-                            Trade Plan
-                          </h5>
-                          <div className="space-y-2 text-sm">
-                            <div>
-                              <span className="text-gray-600">Entry:</span>{" "}
-                              {strategy.tradePlan.entry}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Target:</span>{" "}
-                              {strategy.tradePlan.target}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Stop Loss:</span>{" "}
-                              {strategy.tradePlan.stopLoss}
-                            </div>
-                            <div>
-                              <span className="text-gray-600">Time Frame:</span>{" "}
-                              {strategy.tradePlan.timeFrame}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="p-4 bg-blue-50 rounded-lg">
-                        <h5 className="font-medium text-gray-900 mb-2">
-                          Logic & Analysis
-                        </h5>
-                        <p className="text-sm text-gray-700">
-                          {strategy.logic}
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {strategy.confidence}%
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Confidence
-                          </div>
-                        </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div
-                            className={`text-2xl font-bold ${getRiskLevelColor(
-                              strategy.riskLevel
-                            )}`}
-                          >
-                            {strategy.riskLevel.charAt(0).toUpperCase() +
-                              strategy.riskLevel.slice(1)}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Risk Level
-                          </div>
-                        </div>
-                        <div className="text-center p-3 bg-gray-50 rounded-lg">
-                          <div className="text-sm text-gray-600">
-                            {strategy.timestamp}
-                          </div>
-                          <div className="text-sm text-gray-600">Updated</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <button className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
-                      Execute Strategy
-                    </button>
-                    <button className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                      Save to Watchlist
-                    </button>
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -22,7 +22,7 @@ export type Trade = {
   netpnl: number | undefined | null;
   exitPrice: number | undefined | null;
   exitTime: Date | string | null;
-  charges: Charges;
+  charges: Charges | undefined;
   entryTime: Date | string | null;
   stoploss: number | undefined | null;
   target: number | undefined | null;

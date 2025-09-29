@@ -27,9 +27,17 @@ import {
   ShoppingCart,
   Briefcase,
   Eye,
-
 } from "lucide-react";
 import TradeCard from "./TradeCard";
+
+interface LtpItem {
+  cp: number;
+  instrument_key: string;
+  last_price: number;
+}
+
+const ltpData: LtpItem[] = []; // make sure it's typed as array
+
 // Helper function to get company icon
 const getCompanyIcon = (symbol: string) => {
   const iconMap: { [key: string]: JSX.Element } = {
@@ -104,7 +112,7 @@ const TradeTable = () => {
   const [sideFilter, setSideFilter] = useState("all");
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTrade, setSelectedTrade] = useState<Trade>();
-  const [ltpData, setLtpData] = useState<{[key: string]: number}>({});
+  const [ltpData, setLtpData] = useState<LtpItem[] | LtpItem>([]);
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -155,65 +163,82 @@ const TradeTable = () => {
   };
   useEffect(() => {
     if (!trades || trades.length === 0) return;
-  
+
     let cancelled = false;
-  
+
     const isMarketOpen = () => {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const day = now.getDay(); // 0 = Sunday
-  
+
       const isWeekday = day >= 1 && day <= 5;
       const afterOpen = hours > 9 || (hours === 9 && minutes >= 15);
       const beforeClose = hours < 15 || (hours === 15 && minutes <= 30);
-  
-      console.log("return", isWeekday && afterOpen && beforeClose)
+
+      console.log("return", isWeekday && afterOpen && beforeClose);
       return isWeekday && afterOpen && beforeClose;
     };
 
     const fetchLtpData = async () => {
-      const inprocessTrades: Trade[] = trades.filter(t => t.status === "inprocess");
-      const allKeys = inprocessTrades.map(t => t.instrumentKey);
+      const inprocessTrades: Trade[] = trades.filter(
+        (t) => t.status === "inprocess"
+      );
+      const allKeys = inprocessTrades.map((t) => t.instrumentKey);
       const uniqueKeys = [...new Set(allKeys)];
       if (uniqueKeys.length === 0) return;
 
       try {
-        const query = uniqueKeys.map(k => encodeURIComponent(k)).join(",");
+        const query = uniqueKeys.map((k) => encodeURIComponent(k)).join(",");
         const res = await fetch(`/api/getLTP/${query}`);
         const data = await res.json(); // { [key]: ltp }
-  
+        console.log("LTP data:", data);
         if (!cancelled) {
-          setLtpData(prev => ({ ...prev, ...data }));
+          setLtpData((prev) => ({ ...prev, ...data }));
         }
       } catch (err) {
         console.error("LTP fetch failed:", err);
       }
     };
-  
+
     const poll = async () => {
       await fetchLtpData();
-  
+
       if (!cancelled && isMarketOpen()) {
         setTimeout(poll, 10000); // Repeat only if market open
       }
     };
-  
+
     poll(); // Start polling or one-time fetch
-  
+
     return () => {
       cancelled = true;
     };
   }, [trades]);
-  
+
   // Calculate PnL using cached LTP data
   const getPnL = (instrumentKey: string, entryPrice: number) => {
-    console.log("myltpp",ltpData)
-    const ltp = ltpData[instrumentKey];
-    console.log("let",ltp)
-    // return ltpData ? ltpData.last_price - entryPrice : 0;
-    return ltp ? ltp - entryPrice : ltpData.last_price - entryPrice;
+    console.log("letdata", ltpData);
+
+    const ltpArray = Object.values(ltpData); // now it's an array
+    const ltpObj = ltpArray.find(
+      (item) => item.instrument_key === instrumentKey
+    );
+
+    if (ltpObj) {
+      return ltpObj.last_price - entryPrice;
+    } else if (
+      !Array.isArray(ltpData) &&
+      ltpData &&
+      typeof ltpData === "object" &&
+      "last_price" in ltpData
+    ) {
+      return (ltpData as LtpItem).last_price - entryPrice;
+    }
+
+    return 0;
   };
+
   return (
     <>
       {/* Filters and Search */}
@@ -292,12 +317,15 @@ const TradeTable = () => {
                 filteredTrades.map((trade) => {
                   const statusStyle = getStatusStyle(trade.status);
                   const dateTime = formatDate(trade.createdAt);
-                  
+
                   return (
                     <tr
                       key={trade._id}
                       className="hover:bg-gray-50 transition-colors"
-                      onClick={() => {setOpenDialog(true); setSelectedTrade(trade)}}
+                      onClick={() => {
+                        setOpenDialog(true);
+                        setSelectedTrade(trade);
+                      }}
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -338,14 +366,22 @@ const TradeTable = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         ₹{trade.entryPrice.toLocaleString()}
                       </td>
-                      <td className={`px-6 py-4 whitespace-nowrap text-sm text-gray-90 ${trade.pnl && trade.pnl > 0 ? "text-green-500" : "text-red-500"}`}>
-                        ₹{
-                          trade.pnl !== undefined && trade.pnl !== null
-                            ? trade.pnl
-                            : trade.status === "pending"
-                              ? "-"
-                              : getPnL(trade.instrumentKey, trade.entryPrice).toFixed(2)
-                        }
+                      <td
+                        className={`px-6 py-4 whitespace-nowrap text-sm text-gray-90 ${
+                          trade.pnl && trade.pnl > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        ₹
+                        {trade.pnl !== undefined && trade.pnl !== null
+                          ? trade.pnl
+                          : trade.status === "pending"
+                          ? "-"
+                          : getPnL(
+                              trade.instrumentKey,
+                              trade.entryPrice
+                            ).toFixed(2)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div
@@ -363,21 +399,24 @@ const TradeTable = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div className="flex items-center space-x-2">
-                          <button className="text-green-600 hover:text-green-700"
-                          onClick= {() => {setOpenDialog(true); setSelectedTrade(trade)}}
-                          
+                          <button
+                            className="text-green-600 hover:text-green-700"
+                            onClick={() => {
+                              setOpenDialog(true);
+                              setSelectedTrade(trade);
+                            }}
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           {trade.status === "inprocess" && (
-                          <button
-                            className="text-gray-400 hover:text-gray-600 ml-2"
-                            onClick={() =>
-                              deleteTrades(trade.userId, trade._id)
-                            }
-                          >
-                            Close
-                          </button>
+                            <button
+                              className="text-gray-400 hover:text-gray-600 ml-2"
+                              onClick={() =>
+                                deleteTrades(trade.userId, trade._id)
+                              }
+                            >
+                              Close
+                            </button>
                           )}
                         </div>
                       </td>
@@ -404,7 +443,13 @@ const TradeTable = () => {
           </div>
         )}
       </div>
-      {selectedTrade && <TradeCard trade={selectedTrade} openDialog={openDialog} closeDialog={() => setOpenDialog(false)} />}
+      {selectedTrade && (
+        <TradeCard
+          trade={selectedTrade}
+          openDialog={openDialog}
+          closeDialog={() => setOpenDialog(false)}
+        />
+      )}
     </>
   );
 };

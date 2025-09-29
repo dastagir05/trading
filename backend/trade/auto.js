@@ -38,7 +38,7 @@ function autoTradeExecute() {
 }
 
 const AiTrade = require("../models/aiTrade.model");
-const getArrayLTP = require("../services/getLtp"); // your function
+const { getArrayLTP } = require("../services/getLtp"); // your function
 
 function initializeSocketServer(server) {
   const io = new Server(server, {

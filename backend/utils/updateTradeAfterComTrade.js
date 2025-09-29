@@ -1,8 +1,10 @@
-const getLTP = require("../services/getLtp");
+const { getLTP } = require("../services/getLtp");
 
-async function updateTradeAfterTrade({ trade, status }) {
+async function updateTradeAfterTrade({ trade, status, exitPrice }) {
   const now = new Date();
-  const last_price = await getLTP(trade.instrumentKey);
+  // const last_price = await getLTP(trade.instrumentKey);
+
+  const last_price = exitPrice ? exitPrice : await getLTP(trade.instrumentKey);
   if (!last_price) throw new Error("LTP fetch failed");
   const brokerage = 40;
   const stt = last_price * trade.quantity * 0.001;
@@ -33,9 +35,19 @@ async function updateTradeAfterTrade({ trade, status }) {
   trade.pnl = parseFloat(grossPnl.toFixed(2));
   trade.netpnl = parseFloat(netPnl.toFixed(2));
   trade.percentPnL = percentPnL;
+  const timestampIST = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(new Date());
   trade.notes.push({
     timestamp: now.getTime(),
-    message: `Trade completed - Exit at ₹${last_price}, PnL: ₹${netPnl} (${percentPnL}%)`,
+    message: `Trade completed - Exit at ₹${last_price}, PnL: ₹${netPnl} (${percentPnL}% on ${timestampIST})`,
     type: netPnl >= 0 ? "success" : "error",
   });
 }

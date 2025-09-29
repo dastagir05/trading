@@ -31,10 +31,17 @@ type Props = {
   Symbol: string;
   InstrumentKey: string;
   lotSize: number | undefined;
-  Expiry : Date | undefined;
+  Expiry: Date | undefined;
+  FromSuggestion?: boolean;
 };
 type Side = "buy" | "sell";
-const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
+const PurchaseButton = ({
+  Symbol,
+  InstrumentKey,
+  lotSize,
+  Expiry,
+  FromSuggestion,
+}: Props) => {
   const [showDialog, setShowDialog] = useState(false);
   const [SelectSide, setSelectSide] = useState<Side>("buy");
   const { data: session, status } = useSession();
@@ -102,7 +109,7 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
       stoploss: undefined,
       target: undefined,
       entryTime: undefined,
-      description:undefined,
+      description: undefined,
       capCategory: undefined,
       lotSize: undefined,
       entryPrice: SelectSide === "buy" ? buy : sell,
@@ -116,7 +123,7 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
   }, [showDialog]);
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
-    console.log("bs",buy,sell)
+    console.log("bs", buy, sell);
     e.preventDefault();
     setIsLoading(true);
     setInvalidStoplossErr("");
@@ -177,10 +184,10 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
         }
       }
 
-      if (form.lotSize !== undefined && payload.quantity){
-        payload.quantity *= form.lotSize
+      if (form.lotSize !== undefined && payload.quantity) {
+        payload.quantity *= form.lotSize;
       }
-      console.log("payloas", payload)
+      console.log("payloas", payload);
 
       //handle capCaptegory
     }
@@ -215,26 +222,37 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
   return (
     <div className="relative">
       {/* The btn */}
-      <div className="space-x-2">
+      {FromSuggestion ? (
         <button
           onClick={() => {
             setShowDialog(true), setSelectSide("buy");
           }}
-          className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
+          className="mx-1 px-4 py-2 bg-gradient-to-r from-green-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
         >
-          Buy {formatPrice(buy)}{" "}
+          Execute {formatPrice(buy)}{" "}
         </button>
-        <button
-          onClick={() => {
-            setShowDialog(true), setSelectSide("sell");
-          }}
-          className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
-        >
-          Sell {formatPrice(sell)}{" "}
-        </button>
-      </div>
+      ) : (
+        <div className="space-x-2">
+          <button
+            onClick={() => {
+              setShowDialog(true), setSelectSide("buy");
+            }}
+            className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
+          >
+            Buy {formatPrice(buy)}{" "}
+          </button>
+          <button
+            onClick={() => {
+              setShowDialog(true), setSelectSide("sell");
+            }}
+            className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
+          >
+            Sell {formatPrice(sell)}{" "}
+          </button>
+        </div>
+      )}
 
-      {showDialog && !marketStatus &&(
+      {showDialog && !marketStatus && (
         <>
           <div className="fixed inset-0 text-black bg-white/10 backdrop-blur-xs flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded shadow-xl w-[90%] max-w-xs">
@@ -348,40 +366,39 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
                     const selected = e.target.value;
                     let validityTime = new Date();
 
-                    if (form.instrumentKey.startsWith("NSE_FO")){
-                      switch(selected){
-                      case "intraday":
-                        validityTime.setHours(15, 30, 0, 0); // Set to today at 3:30 PM IST
-                        break;
-                      case "tomorrow":
-                        validityTime.setDate(validityTime.getDate() + 1);
-                        break;
-                      case "1week":
-                        validityTime.setDate(validityTime.getDate() + 7);
-                        break;
-                      case "1month":
-                        Expiry?.toLocaleDateString();
-                        break;
+                    if (form.instrumentKey.startsWith("NSE_FO")) {
+                      switch (selected) {
+                        case "intraday":
+                          validityTime.setHours(15, 30, 0, 0); // Set to today at 3:30 PM IST
+                          break;
+                        case "tomorrow":
+                          validityTime.setDate(validityTime.getDate() + 1);
+                          break;
+                        case "1week":
+                          validityTime.setDate(validityTime.getDate() + 7);
+                          break;
+                        case "1month":
+                          Expiry?.toLocaleDateString();
+                          break;
+                      }
+                    } else {
+                      switch (selected) {
+                        case "intraday":
+                          validityTime.setHours(15, 30, 0, 0); // Set to today at 3:30 PM IST
+                          break;
+                        case "tomorrow":
+                          validityTime.setDate(validityTime.getDate() + 1);
+                          break;
+                        case "1week":
+                          validityTime.setDate(validityTime.getDate() + 7);
+                          break;
+                        case "1month":
+                          validityTime.setMonth(validityTime.getMonth() + 1);
+                          break;
+                        default:
+                          validityTime.setHours(15, 30, 0, 0);
+                      }
                     }
-                   } else {
-
-                    switch (selected) {
-                      case "intraday":
-                        validityTime.setHours(15, 30, 0, 0); // Set to today at 3:30 PM IST
-                        break;
-                      case "tomorrow":
-                        validityTime.setDate(validityTime.getDate() + 1);
-                        break;
-                      case "1week":
-                        validityTime.setDate(validityTime.getDate() + 7);
-                        break;
-                      case "1month":
-                        validityTime.setMonth(validityTime.getMonth() + 1);
-                        break;
-                      default:
-                        validityTime.setHours(15, 30, 0, 0);
-                    }
-                  }
 
                     setForm({ ...form, validity: selected, validityTime });
                   }}
@@ -439,7 +456,7 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
                   </span>
                 </div>
               </div>
-              
+
               {/* Description */}
               <div className="mb-4">
                 <label className="block font-medium mb-1">Description</label>
@@ -447,10 +464,11 @@ const PurchaseButton = ({ Symbol, InstrumentKey, lotSize, Expiry }: Props) => {
                   type="text"
                   placeholder="Enter a short trade description..."
                   value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, description: e.target.value })
+                  }
                   className="border p-2 w-full rounded"
                   maxLength={150} // limit to 150 chars
-                  
                 />
               </div>
 
