@@ -3,7 +3,7 @@ const { getLTP } = require("../services/getLtp");
 async function updateTradeAfterTrade({ trade, status, exitPrice }) {
   const now = new Date();
   // const last_price = await getLTP(trade.instrumentKey);
-
+  console.log("exitPrice in updateTradeAfterComTrade", exitPrice);
   const last_price = exitPrice ? exitPrice : await getLTP(trade.instrumentKey);
   if (!last_price) throw new Error("LTP fetch failed");
   const brokerage = 40;

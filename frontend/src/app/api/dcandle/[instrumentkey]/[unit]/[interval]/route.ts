@@ -21,14 +21,14 @@ export async function GET(
     }
 
     //   return NextResponse.json(candleData);
-    const accessToken = process.env.ACCESS_TOKEN;
-    console.log("Access Token: ddddddd");
-    if (!accessToken) {
-      return NextResponse.json(
-        { error: "Missing ACCESS_TOKEN" },
-        { status: 401 }
-      );
-    }
+    // const accessToken = process.env.ACCESS_TOKEN;
+    // console.log("Access Token: ddddddd");
+    // if (!accessToken) {
+    //   return NextResponse.json(
+    //     { error: "Missing ACCESS_TOKEN" },
+    //     { status: 401 }
+    //   );
+    // }
 
     const toDate = new Date().toISOString().split("T")[0];
     const today = new Date(); // 2025-09-28T14:00:00.000Z

@@ -1,14 +1,11 @@
-require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const { GoogleGenAI } = require("@google/genai");
 const tradePrompt = require("./tradePrompt");
 // const setOptData = require("./setOptionData/setOptData");
 const AiTrade = require("../models/aiTrade.model");
-const connectDB = require("../config/db");
 const TradingAnalysisEngine = require("./TradingSignal");
 const { setOptData, MarketData } = require("./setOptionData/setOptData");
-connectDB();
 
 async function generateFreshTradeSuggestions() {
   try {
@@ -21,10 +18,14 @@ async function generateFreshTradeSuggestions() {
     // Wait for file to be written
     await new Promise((resolve) => setTimeout(resolve, 5000));
     console.log("MarketData in fresh", MarketData.timestamp);
-    const marketData = MarketData;
+    const marketData = MarketData ? JSON.parse(MarketData) : null;
+    if (!marketData) {
+      throw new Error("Market data not found. Please run setOptData first.");
+    }
 
     // Step 2: Check Market Hours
     const marketStatus = checkMarketHours();
+    console.log("Market status:", marketStatus);
     console.log(
       "check that acc current market going not yesterday's",
       marketData.timestamp
@@ -120,27 +121,6 @@ function checkMarketHours() {
   };
 }
 
-console.log(checkMarketHours());
-
-// function checkMarketHours() {
-//   const now = new Date();
-//   const hour = now.getHours();
-//   const minute = now.getMinutes();
-//   const currentTime = hour * 100 + minute;
-
-//   const isMarketOpen = currentTime >= 915 && currentTime <= 1530;
-//   const dateString = now.toLocaleDateString("en-IN", { day: "2-digit", month: "2-digit", year: "numeric" });
-//   const timeString = `${hour}:${minute.toString().padStart(2, "0")} IST`;
-
-//   return {
-//     isOpen: isMarketOpen,
-//     time: timeString,
-//     message: isMarketOpen
-//       ? "✅ Market is open. Generating live trade suggestions..."
-//       : "⚠️ Market is closed. Generating suggestions for next market session...",
-//   };
-// }
-
 // Step 3: Generate Enhanced Prompt with Technical Analysis
 async function generateEnhancedPrompt(marketData) {
   console.log("📈 Generating technical analysis...");
@@ -167,8 +147,7 @@ async function generateEnhancedPrompt(marketData) {
 
 // Step 4: Get AI Response
 async function getAIResponse(promptText) {
-  const apiKey =
-    process.env.GEMINI_API_KEY || "AIzaSyCoL4mZUg_oGWHvBa-jI4e0v2g0utr-vU0";
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY not set");
 
   const ai = new GoogleGenAI({ apiKey });
@@ -215,18 +194,18 @@ function processAIResponse(aiResponse, marketStatus) {
 let tradeSuggJSON;
 async function saveAndStoreTrades(validatedTrades) {
   // Save to JSON file
-  // const filePath = path.join(__dirname, "tradeSuggestions.json");
-  // try {
-  //   fs.writeFileSync(
-  //     filePath,
-  //     JSON.stringify(validatedTrades, null, 2),
-  //     "utf8"
-  //   );
-  //   console.log("✅ Fresh trade suggestions saved to", filePath);
-  // } catch (err) {
-  //   console.error("❌ Error saving file:", err);
-  //   throw err;
-  // }
+  const filePath = path.join(__dirname, "tradeSuggestions.json");
+  try {
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify(validatedTrades, null, 2),
+      "utf8"
+    );
+    console.log("✅ Fresh trade suggestions saved to", filePath);
+  } catch (err) {
+    console.error("❌ Error saving file:", err);
+    throw err;
+  }
   tradeSuggJSON = JSON.stringify(validatedTrades, null, 2);
   const timestampIST = new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -287,12 +266,12 @@ function extractSymbol(strike) {
   return strike;
 }
 
-function generateInstrumentKey(strike) {
-  if (!strike) return "Unknown";
-  if (strike.includes("NIFTY")) return "NSE_INDEX|Nifty 50";
-  if (strike.includes("BANKNIFTY")) return "NSE_INDEX|Nifty Bank";
-  return "Unknown";
-}
+// function generateInstrumentKey(strike) {
+//   if (!strike) return "Unknown";
+//   if (strike.includes("NIFTY")) return "NSE_INDEX|Nifty 50";
+//   if (strike.includes("BANKNIFTY")) return "NSE_INDEX|Nifty Bank";
+//   return "Unknown";
+// }
 
 function generateTags(trade) {
   const tags = [];

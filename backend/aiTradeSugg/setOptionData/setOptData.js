@@ -1,14 +1,13 @@
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
-
-// Load environment variables from the parent directory (backend/)
-// require("dotenv").config({ path: path.join(__dirname, "../../../.env") }); //optional
+const { getUpstoxToken } = require("../../utils/getToken");
 
 const UPSTOX_API_URL = "https://api.upstox.com/v2/option";
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const getNearestExpiryDate = async (instrumentKey) => {
+  const ACCESS_TOKEN = await getUpstoxToken();
+  if (!ACCESS_TOKEN) throw new Error("Access token not available gned");
   const res = await axios.get(`${UPSTOX_API_URL}/contract`, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -23,6 +22,8 @@ const getNearestExpiryDate = async (instrumentKey) => {
 };
 
 const getIndexPrice = async (instrumentKey) => {
+  const ACCESS_TOKEN = await getUpstoxToken();
+  if (!ACCESS_TOKEN) throw new Error("Access token not available gip");
   const res = await axios.get(`https://api.upstox.com/v3/market-quote/ltp`, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -40,6 +41,8 @@ const getIndexPrice = async (instrumentKey) => {
 };
 
 const fetchOptionChain = async (instrumentKey, expiryDate) => {
+  const ACCESS_TOKEN = await getUpstoxToken();
+  if (!ACCESS_TOKEN) throw new Error("Access token not available foc");
   const res = await axios.get(`${UPSTOX_API_URL}/chain`, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,

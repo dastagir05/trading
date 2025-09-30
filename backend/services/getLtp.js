@@ -1,13 +1,13 @@
 const axios = require("axios");
-const { getMarketStatus } = require("./marketStatus");
-const accessToken = process.env.ACCESS_TOKEN;
+const { getUpstoxToken } = require("../utils/getToken");
 
 //test when market open
 const getLTP = async (instrumentKey) => {
-  // if (!getMarketStatus()) {
-  //   console.log("Market closed — skip entry/exit job");
-  //   return;
-  // }
+  const accessToken = await getUpstoxToken();
+  if (!accessToken) {
+    console.error("No access token available for LTP fetch");
+    return null;
+  }
   try {
     const res = await axios.get("https://api.upstox.com/v3/market-quote/ltp", {
       headers: {
@@ -31,6 +31,11 @@ const getLTP = async (instrumentKey) => {
 };
 
 const getArrayLTP = async (instrumentKey) => {
+  const accessToken = await getUpstoxToken();
+  if (!accessToken) {
+    console.error("No access token available for arrLTP fetch");
+    return null;
+  }
   try {
     // Normalize: always make it an array
     let keys = instrumentKey;
@@ -46,6 +51,7 @@ const getArrayLTP = async (instrumentKey) => {
     }
 
     // console.log("Normalized keys:", keys);
+    console.log("access Token in getLTP", accessToken.substring(0, 5), keys);
 
     const res = await axios.get("https://api.upstox.com/v3/market-quote/ltp", {
       headers: {
@@ -60,13 +66,14 @@ const getArrayLTP = async (instrumentKey) => {
     const quoteMap = res.data.data;
 
     // If only one key → return just one object
-    // if (keys.length === 1) {
-    //   const first = Object.values(quoteMap)[0];
-    //   return {
-    //     last_price: first.last_price ?? 0,
-    //     cp: first.cp ?? 0,
-    //   };
-    // }
+    if (keys.length === 1) {
+      const first = Object.values(quoteMap)[0];
+      return {
+        instrument_key: first.instrument_token,
+        last_price: first.last_price ?? 0,
+        cp: first.cp ?? 0,
+      };
+    }
 
     // Otherwise → return array of results
     return Object.values(quoteMap).map((q) => ({

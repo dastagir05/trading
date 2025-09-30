@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const AiTrade = require("../models/aiTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
-const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
+// const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
 const { getArrayLTP } = require("./getLtp");
 const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
 const Report = require("../models/dailyReport.model");
@@ -13,7 +13,7 @@ class AiTradeProcessor {
     //   __dirname,
     //   "../aiTradeSugg/tradeSuggestions.json"
     // );
-    this.tradeSuggestionsPath = tradeSuggJSON;
+    // this.tradeSuggestionsPath = tradeSuggJSON;
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
@@ -27,7 +27,7 @@ class AiTradeProcessor {
     cron.schedule(
       "20,46 9-14 * * 1-5",
       () => {
-        // this.generateFreshSuggestions();
+        this.generateFreshSuggestions();
       },
       {
         timezone: "Asia/Kolkata",
@@ -36,6 +36,7 @@ class AiTradeProcessor {
     cron.schedule(
       "25 15 * * 1-5",
       () => {
+        console.log("updateExpireTrades call");
         this.updateExpireTrades();
       },
       {
@@ -50,6 +51,7 @@ class AiTradeProcessor {
         // console.log("Monitoring suggested trades for activation");
         // await setOptData.fetchAndSaveOC();
         // await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("Monitoring suggested trades for activation");
         this.monitorSuggestedTrades();
       },
       {
@@ -80,7 +82,7 @@ class AiTradeProcessor {
       }
     );
 
-    console.log("🤖 AI Trade Processor initialized with cron jobs");
+    // console.log("🤖 AI Trade Processor initialized with cron jobs");
   }
   async updateExpireTrades() {
     try {

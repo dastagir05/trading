@@ -1,50 +1,31 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-// const { getMarketStatus } = require("./marketStatus");
-const accessToken = process.env.ACCESS_TOKEN;
 
-//test when market open
 export async function GET(
   _req: NextRequest,
   { params }: { params: { instrumentkey: string } }
 ) {
   try {
     const raw = params.instrumentkey;
-    const keys = raw.split(",");
-    console.log("dattt", raw, keys)
-    const res = await axios.get("https://api.upstox.com/v3/market-quote/ltp", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-      },
-      params: {
-        instrument_key: keys.join(","),
-      },
-    });
-
-    const quoteMap = res.data.data as Record<string, any>;
-
-    // Return just one if original input was a single instrument
-    console.log("raw", raw);
-    if (!Array.isArray(raw) && !raw.includes(",")) {
-      const first = Object.values(quoteMap)[0] as any;
-      if (first.last_price === 0){
-        first.last_price = first.cp
-      }
-      console.log("fir wtt", first)
-      return NextResponse.json({
-        last_price: first.last_price,
-        cp: first.cp ?? 0,
-      });
+    if (!raw) {
+      return NextResponse.json(
+        { error: "Missing instrument key(s)" },
+        { status: 400 }
+      );
     }
+    // send this instrument key to backend backend will give you ltp in response
 
-    const result = Object.values(quoteMap).map((q: any) => ({
-      instrument_key: q.instrument_token, // original NSE_EQ|… or NSE_INDEX|…
-      last_price: q.last_price ?? 0,
-      cp: q.cp ?? 0, // cp is present only for indices
-    }));
+    const keys = raw.split(",");
+    console.log("sending key to backend", raw, keys);
 
-    return NextResponse.json(result);
+    const response = await axios.get(
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URL
+      }/api/utils/getLtp/${encodeURIComponent(keys.join(","))}`
+    );
+    const data = response.data.ltp;
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching LTP:", error);
     return NextResponse.json(

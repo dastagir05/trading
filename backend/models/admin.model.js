@@ -28,6 +28,9 @@ const adminSchema = new Schema(
       unique: true,
     },
 
+    upstoxToken: String,
+    tokenExpiry: Date,
+
     // 👤 ADMIN PROFILE
     adminId: {
       type: String,

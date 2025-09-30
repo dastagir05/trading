@@ -12,7 +12,7 @@ class StrategyTradeProcessor {
     //   __dirname,
     //   "../aiTradeSugg/tradeSuggestions.json"
     // );
-    this.tradeSuggestionsPath = tradeSuggJSON;
+    // this.tradeSuggestionsPath = tradeSuggJSON;
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
@@ -55,7 +55,7 @@ class StrategyTradeProcessor {
       }
     );
 
-    console.log("🤖 Strategy Trade Processor initialized with cron jobs");
+    // console.log("🤖 Strategy Trade Processor initialized with cron jobs");
   }
 
   async setFreshValueOfIK() {

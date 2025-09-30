@@ -78,7 +78,7 @@ function initializeSocketServer(server) {
       const instrumentKeys = trades.map((t) => t.setup.instrument_key);
       const prices = await getArrayLTP(instrumentKeys);
 
-      const priceMap = new Map(prices.map((p) => [p.instrument_key, p]));
+      const priceMap = new Map(prices?.map((p) => [p.instrument_key, p]));
 
       const enriched = trades.map((t) => {
         const price = priceMap.get(t.setup.instrument_key);

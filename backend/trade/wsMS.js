@@ -1,11 +1,11 @@
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 const WebSocket = require("ws").WebSocket;
 const protobuf = require("protobufjs");
 const axios = require("axios");
+const { getUpstoxToken } = require("../utils/getToken");
 
 let protobufRoot = null;
-const accessToken = process.env.ACCESS_TOKEN;
 
 const subscriptions = new Map();
 
@@ -26,6 +26,11 @@ const decodeProtobuf = (buffer) => {
 };
 
 const getMarketFeedUrl = async () => {
+  const accessToken = await getUpstoxToken();
+  if (!accessToken) {
+    console.error("No access token available for MarketFeedUrl fetch");
+    return null;
+  }
   try {
     const url = "https://api.upstox.com/v3/feed/market-data-feed/authorize";
     const headers = {
