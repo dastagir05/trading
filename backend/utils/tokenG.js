@@ -4,8 +4,13 @@ const Admin = require("../models/admin.model");
 const { setCachedToken } = require("./getToken");
 exports.getCode = async (req, res) => {
   const code = req.query.code;
+  if (!code) {
+    const upstoxAuthURL = `https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}`;
+    res.redirect(upstoxAuthURL);
+    return;
+  }
 
-  if (!code) return res.status(400).send("Authorization code not found");
+  // if (!code) return res.status(400).send("Authorization code not found");
 
   const params = new URLSearchParams();
   params.append("code", code);
@@ -53,7 +58,7 @@ exports.getCode = async (req, res) => {
       tomorrow
     );
 
-    res.redirect("/dashboard");
+    res.redirect(`${process.env.FRONTEND_URL}/myTrades`);
   } catch (err) {
     console.error("Token Fetch Error:", err);
     res.status(500).send("Failed to get token");

@@ -3,7 +3,7 @@ const AiTrade = require("../models/aiTrade.model");
 const StrategyTrade = require("../models/strategyTrade.model");
 const fs = require("fs").promises;
 const path = require("path");
-const getArrayLTP = require("./getLtp");
+const { getArrayLTP } = require("./getLtp");
 const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
 
 class StrategyTradeProcessor {
@@ -23,7 +23,7 @@ class StrategyTradeProcessor {
   init() {
     // convert aitradeS to strategy trades every 30 minutes during market hours
     cron.schedule(
-      "21,54 9-14 * * 1-5",
+      "21,51 9-14 * * 1-5",
       () => {
         this.processAiTradesToStrategies();
       },
@@ -884,20 +884,23 @@ class StrategyTradeProcessor {
   }
 
   async getCurrentMarketPrice(words, trade) {
-    // const [name, strikePrice, side] = words;
-    // const filePath = path.join(
-    //   __dirname,
-    //   "../aiTradeSugg/setOptionData/marketData.json"
-    // );
-
     if (trade.setup.instrument_key) {
-      if (this.priceOfIK.length > 0) {
-        console.log("i am sending cuMP for strategy");
-        let r1 = this.priceOfIK.find((obj) =>
-          obj.instrument_key === trade.setup.instrument_key
-            ? obj.last_price
-            : null
+      if (!this.priceOfIK || this.priceOfIK.length === 0) {
+        console.log(
+          "❌Price data not available yet",
+          trade.setup.instrument_key
         );
+        return null;
+      }
+      const arr = Array.isArray(this.priceOfIK)
+        ? this.priceOfIK
+        : [this.priceOfIK];
+
+      let r1 = arr.find(
+        (obj) => obj.instrument_key === trade.setup.instrument_key
+      );
+
+      if (r1) {
         console.log(
           "strategy trade",
           trade.setup.instrument_key,
@@ -905,43 +908,9 @@ class StrategyTradeProcessor {
         );
         return r1.last_price;
       } else {
-        console.log(
-          "Price is Missing (getCurrentMarketPrice)",
-          trade.setup.instrument_key,
-          trade.status
-        );
+        console.log("Price not found for", trade.setup.instrument_key);
       }
     }
-
-    // try {
-    //   const rawData = await fs.readFile(filePath, "utf8");
-    //   const marketData = JSON.parse(rawData);
-    //   console.log("not getting data through trade.setup.instrumentik 905");
-
-    //   if (name === "Nifty") {
-    //     const activeOP = marketData.nifty.optionChain;
-    //     for (const stpr of activeOP) {
-    //       if (stpr.strike_price == strikePrice) {
-    //         return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
-    //       }
-    //     }
-    //   } else {
-    //     const activeOP = marketData.bankNifty.optionChain;
-    //     for (const stpr of activeOP) {
-    //       if (stpr.strike_price == strikePrice) {
-    //         return side === "CALL" ? stpr.call?.ltp : stpr.put?.ltp;
-    //       }
-    //     }
-    //   }
-
-    //   // Fallback to random price if not found
-    //   const basePrice = 100;
-    //   const randomVariation = (Math.random() - 0.5) * 10;
-    //   return basePrice + randomVariation;
-    // } catch (error) {
-    //   console.error(`Error getting current price for ${strikePrice}:`, error);
-    //   return null;
-    // }
   }
 }
 

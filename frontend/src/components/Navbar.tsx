@@ -21,7 +21,7 @@ const Navbar = () => {
                 <span className="text-xl font-bold text-black">Nivesh Now</span>
               </div>
             </h1>
-            <nav className="flex space-x-8 text-md text-gray-500 font-semibold">
+            <nav className="hidden md:flex space-x-8 text-md text-gray-500 font-semibold">
               <Link href="/more">Stock</Link>
               <Link href="/more">F&O</Link>
               <Link href="/more">Mutual Funds</Link>
@@ -29,7 +29,7 @@ const Navbar = () => {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 border border-gray-200 rounded-lg px-4 py-2">
+            <div className="hidden md:flex items-center space-x-2 border border-gray-200 rounded-lg px-4 py-2">
               <Search size={"16px"} strke-width={"1px"} />
               <input type="text" placeholder="Search Nifty..." />
               <p className="text-sm text-gray-500">Ctrl+K</p>

@@ -5,7 +5,7 @@ const tradePrompt = require("./tradePrompt");
 // const setOptData = require("./setOptionData/setOptData");
 const AiTrade = require("../models/aiTrade.model");
 const TradingAnalysisEngine = require("./TradingSignal");
-const { setOptData, MarketData } = require("./setOptionData/setOptData");
+const { fetchAndSaveOC } = require("./setOptionData/setOptData");
 
 async function generateFreshTradeSuggestions() {
   try {
@@ -13,11 +13,11 @@ async function generateFreshTradeSuggestions() {
 
     // Step 1: Update Market Data First
     console.log("📊 Fetching fresh market data...");
-    await setOptData.fetchAndSaveOC();
+    const MarketData = await fetchAndSaveOC();
 
     // Wait for file to be written
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    console.log("MarketData in fresh", MarketData.timestamp);
+    // // await new Promise((resolve) => setTimeout(resolve, 5000));
+    // console.log("MarketData timestamp ", MarketData.timestamp);
     const marketData = MarketData ? JSON.parse(MarketData) : null;
     if (!marketData) {
       throw new Error("Market data not found. Please run setOptData first.");
@@ -30,7 +30,6 @@ async function generateFreshTradeSuggestions() {
       "check that acc current market going not yesterday's",
       marketData.timestamp
     );
-    console.log(marketStatus.message);
 
     // Step 3: Generate Enhanced AI Prompt with Technical Analysis
     console.log("🤖 Generating enhanced AI trade suggestions...");
@@ -168,7 +167,7 @@ function processAIResponse(aiResponse, marketStatus) {
     .replace(/```/g, "")
     .trim();
 
-  console.log("cleanText,GfreshTrade", cleanText, aiResponse);
+  // console.log("cleanText,GfreshTrade", cleanText, aiResponse);
   const trades = JSON.parse(cleanText);
   const timestampIST = new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",

@@ -5,6 +5,9 @@ const path = require("path");
 // const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
 const { getArrayLTP } = require("./getLtp");
 const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
+const {
+  generateFreshTradeSuggestions,
+} = require("../aiTradeSugg/generateFreshTrades");
 const Report = require("../models/dailyReport.model");
 
 class AiTradeProcessor {
@@ -25,7 +28,7 @@ class AiTradeProcessor {
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "20,46 9-14 * * 1-5",
+      "20,50 9-14 * * 1-5",
       () => {
         this.generateFreshSuggestions();
       },
@@ -165,10 +168,11 @@ class AiTradeProcessor {
       this.priceOfIK.map((item) => [item.instrument_key, item])
     );
 
-    for (const item of Ik) {
+    const arr = Array.isArray(Ik) ? Ik : [Ik];
+
+    for (const item of arr) {
       priceMap.set(item.instrument_key, item);
     }
-
     this.priceOfIK = Array.from(priceMap.values());
   }
 
@@ -183,12 +187,6 @@ class AiTradeProcessor {
       this.isProcessing = true;
       console.log("🔄 Generating fresh AI trade suggestions...");
 
-      // Import the fresh trade generator
-      const {
-        generateFreshTradeSuggestions,
-      } = require("../aiTradeSugg/generateFreshTrades");
-
-      // Generate fresh suggestions
       const freshTrades = await generateFreshTradeSuggestions();
 
       console.log(`✅ Generated ${freshTrades.length} fresh trade suggestions`);
@@ -222,11 +220,6 @@ class AiTradeProcessor {
             console.log("sugg ik found ", trade.setup.instrument_key);
           }
           await this.checkSuggestedTradeForActivation(trade);
-        } else {
-          console.log(
-            "two trade strike have more then 3 letter",
-            trade.setup.strike
-          );
         }
       }
     } catch (error) {
@@ -413,7 +406,9 @@ class AiTradeProcessor {
         "success"
       );
 
-      console.log(`🚀 AI trade activated: ${trade.title} at ₹${currentPrice}`);
+      console.log(
+        `🚀 AI trade activated: ${trade.setup.strike} (${trade.tradeType}) at ₹${currentPrice}`
+      );
       return true;
     } catch (error) {
       console.error(`❌ Error activating trade ${trade.aiTradeId}:`, error);

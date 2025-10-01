@@ -42,7 +42,7 @@ export async function GET(
     else if (unit === "days") past.setDate(today.getDate() - 200); // 200
     else if (unit === "weeks") past.setDate(today.getDate() - 7 * 32); // 224
     else if (unit === "months") past.setMonth(today.getMonth() - 12 * 12); // 144
-    past.setDate(today.getDate() - 28); // hour
+    // past.setDate(today.getDate() - 28); // hour
 
     const fromDate = past.toISOString().split("T")[0];
 

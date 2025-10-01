@@ -73,7 +73,7 @@ const TradingCards: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="hidden lg:flex items-center space-x-3">
             <button
               onClick={() => setAutoRefresh(!autoRefresh)}
               className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${

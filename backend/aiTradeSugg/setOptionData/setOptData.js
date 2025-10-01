@@ -116,28 +116,28 @@ const fetchAndSaveOC = async () => {
       bankNiftyExpiry
     );
 
-    // Save to file - use absolute path relative to backend directory
-    // const filePath = path.join(__dirname, "marketData.json");
-    // fs.writeFileSync(
-    //   filePath,
-    //   JSON.stringify(
-    //     {
-    //       timestamp: new Date().toISOString(),
-    //       nifty: {
-    //         currentPrice: niftyPrice,
-    //         expiry: niftyExpiry,
-    //         optionChain: niftyOC,
-    //       },
-    //       bankNifty: {
-    //         currentPrice: bankNiftyPrice,
-    //         expiry: bankNiftyExpiry,
-    //         optionChain: bankNiftyOC,
-    //       },
-    //     },
-    //     null,
-    //     2
-    //   )
-    // );
+    // Save to file - use this to see responce
+    const filePath = path.join(__dirname, "marketData.json");
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify(
+        {
+          timestamp: new Date().toISOString(),
+          nifty: {
+            currentPrice: niftyPrice,
+            expiry: niftyExpiry,
+            optionChain: niftyOC,
+          },
+          bankNifty: {
+            currentPrice: bankNiftyPrice,
+            expiry: bankNiftyExpiry,
+            optionChain: bankNiftyOC,
+          },
+        },
+        null,
+        2
+      )
+    );
     MarketData = JSON.stringify(
       {
         timestamp: new Date().toISOString(),
@@ -155,15 +155,15 @@ const fetchAndSaveOC = async () => {
       null,
       2
     );
-
     console.log("✅ Saved market data to marketData.json");
+    return MarketData;
   } catch (err) {
     console.error("❌ Error fetching data:", err.message);
   }
 };
 
 // Export the function for use in other modules
-module.exports = { fetchAndSaveOC, MarketData };
+module.exports = { fetchAndSaveOC };
 
 // Only run if called directly
 if (require.main === module) {
