@@ -14,17 +14,17 @@ import {
   X,
 } from "lucide-react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import { Trade } from "@/types/trade";
 import { User } from "@/types/user";
 // Mock user data - this will come from your database
 import { useSession } from "next-auth/react";
 import ProfileHeader from "./ProfileHeader";
 import Overview from "./Overview";
+import { UserData } from "@/types/profileuser";
 
 const Profile = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState("overview");
   const [user, setUser] = useState<User>();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,57 +41,59 @@ const Profile = () => {
     };
   };
 
-  const userData = {
-    profile: {
-      name: user?.name,
-      email: user?.email,
-      phone: "+91 98765 43210",
-      address: "Mumbai, Maharashtra, India",
-      joinDate: user?.createdAt
-        ? formatDate(user.createdAt)
-        : { date: "", time: "" },
-      kycStatus: "Verified",
-      profilePicture: user?.image, // Will be replaced with actual image URL from DB
-      provider: user?.provider,
-      lastLogin: user?.lastLogin,
-      panNumber: "ABCDE1234F",
-      bankAccount: "HDFC Bank - ****5678",
-      tradingExperience: "2 Years",
-    },
-    trading: {
-      totalMoney: user?.totalMoney,
-      totalInvested: 485000,
-      currentValue: 542750,
-      realisePL: user?.realisedPL || 0,
-      unralisePL: user?.unrealisedPL || 0,
-      pnl: user?.pnl || 0,
-      avgPnL: user?.avgPnL || 0,
-      totalEstCharge: user?.totalEstCharge || 0,
-      totalGains: user?.totalProfit || 0,
-      gainsPercentage: 11.91,
-      totalLoses: user?.totalLoss || 0,
-      availableFunds: user?.totalMoney || 0,
-      totalTrades: user?.totalTrades,
-      totalCompleteTrade: user?.totalCompletedTrades,
-      successfulTrades: 124,
-      successRate: user?.winRate,
-      avgHoldingPeriod: "45 days",
-      riskProfile: "Moderate",
-      favoriteStocks: user?.favouriteSymbols || [],
-      monthlyTradingVolume: 125000,
-    },
-    statistics: {
-      bestPerformingStock: user?.bestTrade,
-      worstPerformingStock: user?.worstTrade,
-      totalDividendEarned: 12500,
-      taxSaved: 8500,
-      portfolioDiversification: {
-        largeCap: 60,
-        midCap: 25,
-        smallCap: 15,
+  const userData: UserData = useMemo(
+    () => ({
+      profile: {
+        name: user?.name || "",
+        email: user?.email || "",
+        phone: "+91 98765 43210",
+        address: "Mumbai, Maharashtra, India",
+        joinDate: user?.createdAt
+          ? formatDate(user.createdAt)
+          : { date: "", time: "" },
+        kycStatus: "Verified",
+        profilePicture: user?.image || "",
+        provider: user?.provider || "",
+        lastLogin: user?.lastLogin
+          ? typeof user.lastLogin === "string"
+            ? user.lastLogin
+            : new Date(user.lastLogin).toLocaleString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit",
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+          : "",
+        panNumber: "ABCDE1234F",
+        bankAccount: "HDFC Bank - ****5678",
+        tradingExperience: "2 Years",
       },
-    },
-  };
+      trading: {
+        totalMoney: user?.totalMoney || 0,
+        totalInvested: 485000,
+        currentValue: 542750,
+        realisePL: user?.realisedPL || 0,
+        unralisePL: user?.unrealisedPL || 0,
+        pnl: user?.pnl || 0,
+        avgPnL: user?.avgPnL || 0,
+        totalEstCharge: user?.totalEstCharge || 0,
+        totalGains: user?.totalProfit || 0,
+        gainsPercentage: 11.91,
+        totalLoses: user?.totalLoss || 0,
+        availableFunds: user?.totalMoney || 0,
+        totalTrades: user?.totalTrades || 0,
+        totalCompleteTrade: user?.totalCompletedTrades || 0,
+        successfulTrades: 124,
+        successRate: user?.winRate || 0,
+        avgHoldingPeriod: "45 days",
+        riskProfile: "Moderate",
+        favoriteStocks: user?.favouriteSymbols || [],
+        monthlyTradingVolume: 125000,
+      },
+    }),
+    [user]
+  );
 
   const tabs = [
     {
@@ -137,7 +139,7 @@ const Profile = () => {
         <div className="md:hidden mb-4">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-full bg-white rounded-lg shadow-sm p-4 flex items-center justify-between"
+            className="w-full bg-white rounded-lg text-black shadow-sm p-4 flex items-center justify-between"
           >
             <div className="flex items-center space-x-2">
               {tabs.find((tab) => tab.id === activeTab)?.icon}
@@ -228,9 +230,6 @@ const Profile = () => {
                     Tax Saved (80C)
                   </span>
                   <FileText className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                </div>
-                <div className="text-xl sm:text-2xl font-bold text-gray-900">
-                  ₹{userData.statistics.taxSaved.toLocaleString()}
                 </div>
               </div>
               <div className="p-4 border border-gray-200 rounded-lg sm:col-span-2 lg:col-span-1">

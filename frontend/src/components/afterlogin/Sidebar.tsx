@@ -10,8 +10,6 @@ import {
   Activity,
   Settings,
   User,
-  Database,
-  Sparkles,
   BarChart2,
   Shield,
   Menu,
@@ -20,7 +18,7 @@ import {
 import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
-  const [activeTab, setActiveTab] = useState("aisuggestion");
+  const [activeTab, setActiveTab] = useState("mytrades");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
 
@@ -138,33 +136,35 @@ const Sidebar = () => {
                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 border border-transparent"
                 }`}
               >
-                <div className="flex items-center space-x-3">
-                  <div
-                    className={`transition-colors ${
-                      activeTab === item.id
-                        ? item.special
-                          ? "text-purple-600"
-                          : "text-green-600"
-                        : "text-gray-400 group-hover:text-gray-600"
-                    }`}
-                  >
-                    {item.icon}
+                <div>
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className={`transition-colors ${
+                        activeTab === item.id
+                          ? item.special
+                            ? "text-purple-600"
+                            : "text-green-600"
+                          : "text-gray-400 group-hover:text-gray-600"
+                      }`}
+                    >
+                      {item.icon}
+                    </div>
+                    <span className="font-medium">{item.label}</span>
                   </div>
-                  <span className="font-medium">{item.label}</span>
-                </div>
 
-                {/* Special badge for AI Suggestions */}
-                {item.badge && (
-                  <span
-                    className={`px-2 py-1 text-xs font-medium rounded-full ${
-                      activeTab === item.id
-                        ? "bg-purple-100 text-purple-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
+                  {/* Special badge for AI Suggestions */}
+                  {item.badge && (
+                    <span
+                      className={`px-2 py-1 ml-7 text-xs font-light rounded-full ${
+                        activeTab === item.id
+                          ? "bg-purple-100 text-purple-700"
+                          : "hidden bg-gray-100 text-gray-600"
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
               </Link>
             ))}
           </nav>

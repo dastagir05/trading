@@ -1,11 +1,10 @@
 "use client";
-import React, { useState, useEffect, JSX, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   CheckCircle,
   Download,
   RefreshCw,
   IndianRupee,
-  BarChart3,
   TrendingUp,
   TrendingDown,
 } from "lucide-react";
@@ -13,7 +12,6 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { User } from "../../types/user";
-import { Trade } from "@/types/trade";
 import TradeTable from "./TradeTable";
 
 const MyTradesPage: React.FC = () => {
@@ -108,7 +106,7 @@ const MyTradesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Mobile Header - Compact */}
-      <div className="lg:hidden sticky top-0 z-10 bg-white shadow-md">
+      <div className="lg:hidden  sticky top-0 z-10 bg-white shadow-md">
         <div className="px-4 py-4">
           <div className="pl-7 flex items-center justify-between mb-3">
             <div>
@@ -118,13 +116,11 @@ const MyTradesPage: React.FC = () => {
             <div className="flex gap-2">
               <button
                 onClick={handleRefresh}
-                className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="p-2 bg-gray-100 text-black rounded-lg hover:bg-gray-200 transition-colors"
                 aria-label="Refresh"
               >
                 <RefreshCw
-                  className={`w-4 h-4 text-gray-700 ${
-                    loading ? "animate-spin" : ""
-                  }`}
+                  className={`w-4 h-4  ${loading ? "animate-spin" : ""}`}
                 />
               </button>
               <button
@@ -153,7 +149,7 @@ const MyTradesPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <button
                 onClick={handleRefresh}
-                className="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex text-black items-center px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <RefreshCw
                   className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`}
@@ -202,13 +198,13 @@ const MyTradesPage: React.FC = () => {
           </div>
 
           {/* Desktop Stats Grid */}
-          <div className="hidden lg:grid grid-cols-4 gap-6 mb-8">
+          <div className="hidden lg:grid  grid-cols-4 gap-6 mb-8">
             {stats
               .filter((stat) => stat.showAlways || stat.value !== 0)
               .map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl shadow-sm p-6 border flex justify-between items-center border-gray-100 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-xl text-black shadow-sm p-6 border flex justify-between items-center border-gray-100 hover:shadow-md transition-shadow"
                 >
                   <div>
                     <p className="text-sm text-gray-600 mb-1">{stat.label}</p>

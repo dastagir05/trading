@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect, JSX } from "react";
-import { User } from "../../types/user";
 import { Trade } from "@/types/trade";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -9,27 +8,22 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
-  Filter,
   Search,
   ArrowUpRight,
   ArrowDownRight,
-  IndianRupee,
   Building2,
-  Factory,
   Landmark,
   Cpu,
   Car,
   Fuel,
   Pill,
   Smartphone,
-  Wifi,
   Home,
   ShoppingCart,
   Briefcase,
   Eye,
   TrendingUp,
   TrendingDown,
-  MoreVertical,
 } from "lucide-react";
 import TradeCard from "./TradeCard";
 
@@ -38,8 +32,6 @@ interface LtpItem {
   instrument_key: string;
   last_price: number;
 }
-
-const ltpData: LtpItem[] = [];
 
 // Helper function to get company icon
 const getCompanyIcon = (symbol: string) => {
@@ -120,8 +112,7 @@ const TradeTable = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTrade, setSelectedTrade] = useState<Trade>();
   const [ltpData, setLtpData] = useState<LtpItem[] | LtpItem>([]);
-  const [showFilters, setShowFilters] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (!session?.user?._id) return;
@@ -245,7 +236,7 @@ const TradeTable = () => {
   return (
     <>
       {/* Filters and Search - Desktop */}
-      <div className="hidden lg:block bg-white rounded-lg shadow-sm p-4 mb-8">
+      <div className="hidden lg:block bg-white text-black rounded-lg shadow-sm p-4 mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
           <div className="flex items-center space-x-4">
             <div className="relative">
@@ -255,7 +246,7 @@ const TradeTable = () => {
                 placeholder="Search by symbol..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent w-64"
+                className="pl-10 pr-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent w-64"
               />
             </div>
           </div>
@@ -287,15 +278,15 @@ const TradeTable = () => {
       </div>
 
       {/* Mobile Filters */}
-      <div className="lg:hidden mb-4 space-y-3">
+      <div className="lg:hidden text-black mb-4 space-y-3">
         <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Search className="w-4 h-4  absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search stocks..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full pl-9 text-black pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           />
         </div>
 

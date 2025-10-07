@@ -4,15 +4,11 @@ import {
   BarChart3,
   TrendingUp,
   TrendingDown,
-  Calendar,
   Download,
-  Filter,
   PieChart,
   LineChart,
   Target,
   Shield,
-  DollarSign,
-  Activity,
   Clock,
   CheckCircle,
   XCircle,
@@ -63,7 +59,6 @@ const AiTradeReports: React.FC = () => {
   const [report, setReport] = useState<PerformanceReport | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState("30d");
-  const [selectedMetric, setSelectedMetric] = useState("pnl");
 
   useEffect(() => {
     fetchPerformanceReport();

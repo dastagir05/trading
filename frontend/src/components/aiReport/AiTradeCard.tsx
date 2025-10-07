@@ -22,7 +22,7 @@ const AiTradeCard = ({ trade, openDialog, closeDialog }: AiTradeCardProps) => {
   if (!openDialog) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 text-black flex items-center justify-center z-50">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-white/10 backdrop-blur-sm"

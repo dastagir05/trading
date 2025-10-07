@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import React from "react";
 import { useState, useEffect } from "react";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import axios from "axios";
 import { io } from "socket.io-client";
 
@@ -44,7 +44,7 @@ const PurchaseButton = ({
 }: Props) => {
   const [showDialog, setShowDialog] = useState(false);
   const [SelectSide, setSelectSide] = useState<Side>("buy");
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [buy, setBuy] = useState(0);
   const [sell, setSell] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -197,7 +197,7 @@ const PurchaseButton = ({
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trade/createTrade`,
         payload
       );
@@ -225,7 +225,8 @@ const PurchaseButton = ({
       {FromSuggestion ? (
         <button
           onClick={() => {
-            setShowDialog(true), setSelectSide("buy");
+            setShowDialog(true);
+            setSelectSide("buy");
           }}
           className="mx-1 px-4 py-2 bg-gradient-to-r from-green-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
         >
@@ -235,7 +236,8 @@ const PurchaseButton = ({
         <div className="space-x-2">
           <button
             onClick={() => {
-              setShowDialog(true), setSelectSide("buy");
+              setShowDialog(true);
+              setSelectSide("buy");
             }}
             className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
           >
@@ -243,7 +245,8 @@ const PurchaseButton = ({
           </button>
           <button
             onClick={() => {
-              setShowDialog(true), setSelectSide("sell");
+              setShowDialog(true);
+              setSelectSide("sell");
             }}
             className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md transform hover:scale-105"
           >
@@ -364,7 +367,7 @@ const PurchaseButton = ({
                   value={form.validity}
                   onChange={(e) => {
                     const selected = e.target.value;
-                    let validityTime = new Date();
+                    const validityTime = new Date();
 
                     if (form.instrumentKey.startsWith("NSE_FO")) {
                       switch (selected) {

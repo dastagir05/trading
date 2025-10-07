@@ -14,8 +14,8 @@ const adminRoutes = require("./routes/admin.route");
 const utilsRoutes = require("./routes/utils.route");
 const aiTradeProcessor = require("./services/aiTradeProcessor");
 const strategyProcessor = require("./services/strategyTradeProcess");
-const AiSuggesstion = require("./aiTradeSugg/tradeSuggestions.json");
 const { getCode } = require("./utils/tokenG");
+const getMarketStatus = require("./services/marketStatus");
 
 const app = express();
 const PORT = 5000;
@@ -23,12 +23,18 @@ const server = http.createServer(app);
 
 connectDB();
 
-// Initialize AI Trade Processor with cron jobs
-aiTradeProcessor.init();
-strategyProcessor.init();
+(async () => {
+  if (await getMarketStatus()) {
+    console.log("Market is open, running strategy...");
+    aiTradeProcessor.init();
+    strategyProcessor.init();
+    autoTradeExecute();
+  } else {
+    console.log("Market is closed, skipping job");
+  }
+})();
 
-// Start the auto trade execution process
-autoTradeExecute();
+// Start the socket server
 initializeSocketServer(server);
 
 app.use(cors());

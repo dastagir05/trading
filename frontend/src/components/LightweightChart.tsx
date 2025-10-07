@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { createChart, LineSeries, type IChartApi } from "lightweight-charts";
+import { createChart, LineSeries } from "lightweight-charts";
 
 const LightweightChart = () => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<IChartApi | null>(null);
 
   useEffect(() => {
     if (!chartContainerRef.current) return;

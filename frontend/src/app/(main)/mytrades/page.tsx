@@ -1,11 +1,21 @@
+"use client";
+import MyTradesPage from "@/components/myTrades/MyTrades";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-import MyTradesPage from "@/components/myTrades/BoltMyTrades";
 export default function MyTrades() {
+  const { status } = useSession();
+  const router = useRouter();
 
-  // const [realProfile, setRealProfile] = useState(false);
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/");
+    }
+  }, [status]);
 
   return (
-     <>
+    <>
       <MyTradesPage />
     </>
   );

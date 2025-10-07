@@ -1,16 +1,8 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { 
-  User, 
-  Mail, 
-  Shield, 
-  Calendar, 
-  Activity, 
-  Settings, 
-
-} from 'lucide-react';
-import adminApiService, { type AdminProfile } from '@/services/adminApi';
+import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { User, Mail, Shield, Activity, Settings } from "lucide-react";
+import adminApiService, { type AdminProfile } from "@/services/adminApi";
 
 const AdminProfile: React.FC = () => {
   const { data: session } = useSession();
@@ -27,16 +19,18 @@ const AdminProfile: React.FC = () => {
   const fetchProfile = async () => {
     try {
       setIsLoading(true);
-      console.log("AdminActivity page adminProfile fetch",session?.user?._id);
-      const result = await adminApiService.getAdminProfile(session?.user?._id || '');
+      console.log("AdminActivity page adminProfile fetch", session?.user?._id);
+      const result = await adminApiService.getAdminProfile(
+        session?.user?._id || ""
+      );
       if (result.success) {
         setProfile(result.admin);
       } else {
-        setError('Failed to fetch profile');
+        setError("Failed to fetch profile");
       }
     } catch (err) {
-      setError('Error loading profile');
-      console.error('Profile fetch error:', err);
+      setError("Error loading profile");
+      console.error("Profile fetch error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +49,7 @@ const AdminProfile: React.FC = () => {
       <div className="text-center py-8">
         <div className="text-red-600 mb-4">
           <User className="w-12 h-12 mx-auto mb-2" />
-          <p>{error || 'Profile not found'}</p>
+          <p>{error || "Profile not found"}</p>
         </div>
         <button
           onClick={fetchProfile}
@@ -69,24 +63,24 @@ const AdminProfile: React.FC = () => {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'super_admin':
-        return 'text-red-600 bg-red-100';
-      case 'admin':
-        return 'text-blue-600 bg-blue-100';
-      case 'moderator':
-        return 'text-green-600 bg-green-100';
+      case "super_admin":
+        return "text-red-600 bg-red-100";
+      case "admin":
+        return "text-blue-600 bg-blue-100";
+      case "moderator":
+        return "text-green-600 bg-green-100";
       default:
-        return 'text-gray-600 bg-gray-100';
+        return "text-gray-600 bg-gray-100";
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -108,15 +102,21 @@ const AdminProfile: React.FC = () => {
               </div>
             )}
           </div>
-          
+
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-3 mb-2">
-              <h1 className="text-2xl font-bold text-gray-900">{profile.name}</h1>
-              <span className={`px-3 py-1 text-sm font-medium rounded-full ${getRoleColor(profile.role)}`}>
-                {profile.role.replace('_', ' ').toUpperCase()}
+              <h1 className="text-2xl font-bold text-gray-900">
+                {profile.name}
+              </h1>
+              <span
+                className={`px-3 py-1 text-sm font-medium rounded-full ${getRoleColor(
+                  profile.role
+                )}`}
+              >
+                {profile.role.replace("_", " ").toUpperCase()}
               </span>
             </div>
-            
+
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-1">
                 <Mail className="w-4 h-4" />
@@ -140,7 +140,9 @@ const AdminProfile: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Logins</p>
-              <p className="text-2xl font-bold text-gray-900">{profile.totalLogins}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {profile.totalLogins}
+              </p>
             </div>
           </div>
         </div>
@@ -151,8 +153,12 @@ const AdminProfile: React.FC = () => {
               <Settings className="w-8 h-8 text-green-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Actions Performed</p>
-              <p className="text-2xl font-bold text-gray-900">{profile.actionsPerformed}</p>
+              <p className="text-sm font-medium text-gray-600">
+                Actions Performed
+              </p>
+              <p className="text-2xl font-bold text-gray-900">
+                {profile.actionsPerformed}
+              </p>
             </div>
           </div>
         </div>
@@ -164,7 +170,9 @@ const AdminProfile: React.FC = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Users Managed</p>
-              <p className="text-2xl font-bold text-gray-900">{profile.usersManaged}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {profile.usersManaged}
+              </p>
             </div>
           </div>
         </div>
@@ -175,8 +183,12 @@ const AdminProfile: React.FC = () => {
               <Shield className="w-8 h-8 text-orange-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">System Changes</p>
-              <p className="text-2xl font-bold text-gray-900">{profile.systemChanges}</p>
+              <p className="text-sm font-medium text-gray-600">
+                System Changes
+              </p>
+              <p className="text-2xl font-bold text-gray-900">
+                {profile.systemChanges}
+              </p>
             </div>
           </div>
         </div>
@@ -186,24 +198,30 @@ const AdminProfile: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Account Information */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Account Information
+          </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Account Status</span>
-              <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                profile.isActive ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'
-              }`}>
-                {profile.isActive ? 'Active' : 'Inactive'}
+              <span
+                className={`px-2 py-1 text-xs font-medium rounded-full ${
+                  profile.isActive
+                    ? "text-green-600 bg-green-100"
+                    : "text-red-600 bg-red-100"
+                }`}
+              >
+                {profile.isActive ? "Active" : "Inactive"}
               </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Last Login</span>
               <span className="text-sm text-gray-900">
-                {profile.lastLogin ? formatDate(profile.lastLogin) : 'Never'}
+                {profile.lastLogin ? formatDate(profile.lastLogin) : "Never"}
               </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Member Since</span>
               <span className="text-sm text-gray-900">
@@ -215,14 +233,16 @@ const AdminProfile: React.FC = () => {
 
         {/* Permissions */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Permissions</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Permissions
+          </h3>
           <div className="flex flex-wrap gap-2">
             {profile.permissions.map((permission, index) => (
               <span
                 key={index}
                 className="px-3 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full"
               >
-                {permission.replace('_', ' ')}
+                {permission.replace("_", " ")}
               </span>
             ))}
           </div>

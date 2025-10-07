@@ -3,9 +3,6 @@ import React from "react";
 import { TrendingUp } from "lucide-react";
 const Footer = () => {
   return (
-    // <footer className="bg-gray-900 text-gray-300">
-
-    // </footer>
     <footer className="bg-gray-900 text-gray-300 text-sm py-10 px-6 md:px-16 leading-relaxed ">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10">
         <div className="grid md:grid-cols-4 gap-8">
@@ -17,8 +14,8 @@ const Footer = () => {
               <span className="text-xl font-bold text-white">Nivesh Now</span>
             </div>
             <p className="text-gray-400">
-              India's most trusted trading platform with over 10 lakh satisfied
-              customers.
+              India&apos;s most trusted trading platform with over 10 lakh
+              satisfied customers.
             </p>
           </div>
 

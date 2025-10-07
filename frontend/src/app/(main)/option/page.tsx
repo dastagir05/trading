@@ -1,11 +1,21 @@
-
+"use client";
 import OptionsPage from "@/components/option/Option2";
-export default function Option() {
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-  // const [realProfile, setRealProfile] = useState(false);
+export default function Option() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/");
+    }
+  }, [status]);
 
   return (
-     <>
+    <>
       <OptionsPage />
     </>
   );

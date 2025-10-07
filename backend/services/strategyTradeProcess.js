@@ -888,7 +888,8 @@ class StrategyTradeProcessor {
       if (!this.priceOfIK || this.priceOfIK.length === 0) {
         console.log(
           "❌Price data not available yet",
-          trade.setup.instrument_key
+          trade.setup.instrument_key,
+          trade.setup.expiry
         );
         return null;
       }

@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 
 export default withAuth(
-  function middleware(req) {
+  function middleware() {
     // Add any additional middleware logic here if needed
   },
   {
@@ -13,11 +13,11 @@ export default withAuth(
           if (req.nextUrl.pathname === "/admin/login") {
             return true;
           }
-          
+
           // For other admin routes, check if user has admin email
           return token?.email === "pinjaridastageer@gmail.com";
         }
-        
+
         // For non-admin routes, allow access
         return true;
       },
@@ -26,5 +26,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*"]
+  matcher: ["/admin/:path*"],
 };

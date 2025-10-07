@@ -12,11 +12,6 @@ const Report = require("../models/dailyReport.model");
 
 class AiTradeProcessor {
   constructor() {
-    // this.tradeSuggestionsPath = path.join(
-    //   __dirname,
-    //   "../aiTradeSugg/tradeSuggestions.json"
-    // );
-    // this.tradeSuggestionsPath = tradeSuggJSON;
     this.isProcessing = false;
     this.arrSuggIK = []; //all suggested symbol
     this.arractiveIK = []; //all active instrukey
@@ -28,7 +23,7 @@ class AiTradeProcessor {
   init() {
     // Generate fresh trade suggestions every 30 minutes during market hours
     cron.schedule(
-      "20,50 9-14 * * 1-5",
+      "20,38 9-14 * * 1-5",
       () => {
         this.generateFreshSuggestions();
       },
@@ -275,9 +270,22 @@ class AiTradeProcessor {
   async checkSuggestedTradeForActivation(trade) {
     try {
       const now = new Date();
+      const todayMarketEndTime = new Date(trade.createdAt);
+      todayMarketEndTime.setHours(15); // 3 PM
+      todayMarketEndTime.setMinutes(30); // 3:30 PM
+      todayMarketEndTime.setSeconds(0);
+      todayMarketEndTime.setMilliseconds(0);
+      console.log(
+        "today market time with trade create at",
+        todayMarketEndTime,
+        trade.createdAt
+      );
 
       // Check if trade has expired before activation
-      if (trade.expiryDate && now > trade.expiryDate) {
+      if (
+        (trade.expiryDate && now > trade.expiryDate) ||
+        now > todayMarketEndTime
+      ) {
         await trade.updateStatus(
           "expired",
           "Trade suggestion expired before activation"

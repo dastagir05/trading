@@ -1,17 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  Activity,
-  Clock,
-  TrendingUp,
-  TrendingDown,
-  Target,
-  Shield,
-  AlertTriangle,
-  Play,
-  Pause,
-} from "lucide-react";
-import { io } from "socket.io-client";
+import { Activity, TrendingUp, TrendingDown, Play, Pause } from "lucide-react";
 import { useSocket } from "../SocketContext";
 
 interface Setup {
@@ -55,7 +44,6 @@ export interface ActiveTrade {
 const AiTradeMonitor: React.FC = () => {
   const [activeTrades, setActiveTrades] = useState<ActiveTrade[]>([]);
   const [isMonitoring, setIsMonitoring] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
   const { trades } = useSocket();
@@ -80,7 +68,6 @@ const AiTradeMonitor: React.FC = () => {
     const suggested = trades.filter((t) => t.status === "active");
     setActiveTrades(suggested);
     setIsLoading(false);
-    setLastUpdate(new Date());
     console.log(trades);
   }, [trades]);
   const toggleMonitoring = () => setIsMonitoring(!isMonitoring);
@@ -109,16 +96,6 @@ const AiTradeMonitor: React.FC = () => {
     }
   };
 
-  const calculateProgress = (
-    current: number,
-    entry: number,
-    target: number
-  ) => {
-    const totalRange = Math.abs(target - entry);
-    const currentRange = Math.abs(current - entry);
-    return Math.min((currentRange / totalRange) * 100, 100);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -140,7 +117,7 @@ const AiTradeMonitor: React.FC = () => {
     : 0;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-6">
+    <div className="bg-white  rounded-lg border border-gray-200 p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
@@ -209,10 +186,10 @@ const AiTradeMonitor: React.FC = () => {
             >
               {/* Header */}
               <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center text-black space-x-2">
                   {getSentimentIcon(trade.sentiment)}
                   <div>
-                    <h4 className="font-medium">{trade.title}</h4>
+                    <h4 className="font-medium ">{trade.title}</h4>
                     <p className="text-sm text-gray-500">{trade.symbol}</p>
                   </div>
                 </div>
@@ -229,7 +206,9 @@ const AiTradeMonitor: React.FC = () => {
               <div className="grid grid-cols-3 gap-4 mb-3">
                 <div>
                   <p className="text-xs text-gray-500">Entry</p>
-                  <p className="font-medium">{trade.entryPrice ?? "-"}</p>
+                  <p className="font-medium text-black">
+                    {trade.entryPrice ?? "-"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Current</p>
@@ -268,12 +247,12 @@ const AiTradeMonitor: React.FC = () => {
                 <div>
                   <p className="text-xs text-gray-500">SL</p>
                   <p className={`font-medium text-red-600`}>
-                    {trade.tradePlan?.stopLoss ?? "-"}%
+                    ₹{trade.tradePlan?.stopLoss ?? "-"}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500">Confidence</p>
-                  <p className="font-medium">{trade.confidence}%</p>
+                  <p className="font-medium text-black">{trade.confidence}%</p>
                 </div>
               </div>
 

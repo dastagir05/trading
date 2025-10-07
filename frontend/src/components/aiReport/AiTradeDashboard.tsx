@@ -1,20 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  Brain,
-  TrendingUp,
-  TrendingDown,
-  Clock,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
-  BarChart3,
-  Activity,
-  Calendar,
-  DollarSign,
-  Target,
-  Shield,
-} from "lucide-react";
+import { Brain, TrendingUp, Clock, BarChart3, Activity } from "lucide-react";
 import AiTradeList from "./AiTradeList";
 import AiTradeStats from "./AiTradeStats";
 import AiTradeMonitor from "./AiTradeMonitor";

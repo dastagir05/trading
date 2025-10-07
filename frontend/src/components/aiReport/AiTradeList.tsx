@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -15,10 +14,7 @@ import {
   CheckCircle,
   XCircle,
   AlertTriangle,
-  Calendar,
-  DollarSign,
-  Target,
-  Shield,
+  ChevronRight,
 } from "lucide-react";
 import AiTradeCard from "./AiTradeCard";
 
@@ -26,7 +22,7 @@ export interface AiTrade {
   _id: string;
   aiTradeId: string;
   title: string;
-  sentiment: "bullish" | "bearish" | "neutral";
+  sentiment: "bullish" | "bearish" | "neutral" | string;
   setup: {
     currentPrice: number;
     strategy: string;
@@ -77,6 +73,7 @@ const AiTradeList: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedTrade, setSelectedTrade] = useState<AiTrade>();
   const [openDialog, setOpenDialog] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     fetchTrades();
@@ -109,7 +106,7 @@ const AiTradeList: React.FC = () => {
   };
 
   const filterAndSortTrades = () => {
-    let filtered = trades.filter((trade) => {
+    const filtered = trades.filter((trade) => {
       const matchesSearch =
         trade.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         trade.setup.symbol.toLowerCase().includes(searchTerm.toLowerCase());
@@ -123,37 +120,35 @@ const AiTradeList: React.FC = () => {
       return matchesSearch && matchesStatus && matchesSentiment && matchesRisk;
     });
 
-    // Sort trades
     filtered.sort((a, b) => {
-      let aValue: any, bValue: any;
+      let comparison = 0;
 
       switch (sortBy) {
         case "createdAt":
-          aValue = new Date(a.createdAt);
-          bValue = new Date(b.createdAt);
+          comparison =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
           break;
         case "confidence":
-          aValue = a.confidence;
-          bValue = b.confidence;
+          comparison = (a.confidence ?? 0) - (b.confidence ?? 0);
           break;
         case "pnl":
-          aValue = a.pnl || 0;
-          bValue = b.pnl || 0;
+          comparison = (a.pnl ?? 0) - (b.pnl ?? 0);
           break;
         case "title":
-          aValue = a.title;
-          bValue = b.title;
+          comparison = a.title.localeCompare(b.title);
           break;
-        default:
-          aValue = a[sortBy as keyof AiTrade];
-          bValue = b[sortBy as keyof AiTrade];
+        default: {
+          const aVal = a[sortBy as keyof AiTrade];
+          const bVal = b[sortBy as keyof AiTrade];
+          if (typeof aVal === "string" && typeof bVal === "string") {
+            comparison = aVal.localeCompare(bVal);
+          } else if (typeof aVal === "number" && typeof bVal === "number") {
+            comparison = aVal - bVal;
+          }
+        }
       }
 
-      if (sortOrder === "asc") {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
+      return sortOrder === "asc" ? comparison : -comparison;
     });
 
     setFilteredTrades(filtered);
@@ -233,112 +228,126 @@ const AiTradeList: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">
               All AI Trades
             </h2>
-            <p className="text-gray-600">
+            <p className="text-sm text-gray-600">
               Manage and monitor all AI-generated trade suggestions
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+            <button className="px-3 py-2 md:px-4 md:py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
               Export Data
             </button>
           </div>
         </div>
 
-        {/* Filters and Search */}
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Search */}
-            <div className="relative">
+        {/* Search Bar - Always Visible */}
+        <div className="bg-white rounded-lg border border-gray-200 p-3 md:p-4">
+          <div className="flex items-center space-x-2 text-black">
+            <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search trades..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
               />
             </div>
-
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="md:hidden p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
             >
-              <option value="all">All Status</option>
-              <option value="suggested">Suggested</option>
-              <option value="active">Active</option>
-              <option value="target_hit">Target Hit</option>
-              <option value="stoploss_hit">Stop Loss Hit</option>
-              <option value="expired">Expired</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-
-            {/* Sentiment Filter */}
-            <select
-              value={sentimentFilter}
-              onChange={(e) => setSentimentFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            >
-              <option value="all">All Sentiment</option>
-              <option value="bullish">Bullish</option>
-              <option value="bearish">Bearish</option>
-              <option value="neutral">Neutral</option>
-            </select>
-
-            {/* Risk Filter */}
-            <select
-              value={riskFilter}
-              onChange={(e) => setRiskFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            >
-              <option value="all">All Risk</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-
-            {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            >
-              <option value="createdAt">Date</option>
-              <option value="confidence">Confidence</option>
-              <option value="pnl">P&L</option>
-              <option value="title">Title</option>
-            </select>
+              <Filter className="w-5 h-5 text-gray-600" />
+            </button>
           </div>
 
-          {/* Sort Order Toggle */}
-          <div className="mt-4 flex items-center space-x-2">
-            <button
-              onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-              className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
-            >
-              <SortAsc
-                className={`w-4 h-4 ${sortOrder === "asc" ? "rotate-180" : ""}`}
-              />
-              <span>{sortOrder === "asc" ? "Ascending" : "Descending"}</span>
-            </button>
+          {/* Filters - Collapsible on Mobile */}
+          <div className={`${showFilters ? "block" : "hidden"} md:block mt-4`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-black">
+              {/* Status Filter */}
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="all">All Status</option>
+                <option value="suggested">Suggested</option>
+                <option value="active">Active</option>
+                <option value="target_hit">Target Hit</option>
+                <option value="stoploss_hit">Stop Loss Hit</option>
+                <option value="expired">Expired</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+
+              {/* Sentiment Filter */}
+              <select
+                value={sentimentFilter}
+                onChange={(e) => setSentimentFilter(e.target.value)}
+                className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="all">All Sentiment</option>
+                <option value="bullish">Bullish</option>
+                <option value="bearish">Bearish</option>
+                <option value="neutral">Neutral</option>
+              </select>
+
+              {/* Risk Filter */}
+              <select
+                value={riskFilter}
+                onChange={(e) => setRiskFilter(e.target.value)}
+                className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="all">All Risk</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+
+              {/* Sort */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="createdAt">Date</option>
+                <option value="confidence">Confidence</option>
+                <option value="pnl">P&L</option>
+                <option value="title">Title</option>
+              </select>
+            </div>
+
+            {/* Sort Order Toggle */}
+            <div className="mt-3 flex items-center space-x-2">
+              <button
+                onClick={() =>
+                  setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+                }
+                className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+              >
+                <SortAsc
+                  className={`w-4 h-4 ${
+                    sortOrder === "asc" ? "rotate-180" : ""
+                  }`}
+                />
+                <span>{sortOrder === "asc" ? "Ascending" : "Descending"}</span>
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Results Count */}
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-gray-600 px-1">
           Showing {filteredTrades.length} of {trades.length} trades
         </div>
 
-        {/* Trades Table */}
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        {/* Desktop Table View */}
+        <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -371,7 +380,7 @@ const AiTradeList: React.FC = () => {
                       setSelectedTrade(trade as unknown as AiTrade);
                       setOpenDialog(true);
                     }}
-                    className="hover:bg-gray-50"
+                    className="hover:bg-gray-50 cursor-pointer"
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
@@ -430,7 +439,6 @@ const AiTradeList: React.FC = () => {
                         <p>
                           <strong>Stop Loss:</strong> {trade.tradePlan.stopLoss}
                         </p>
-                        {/* <p><strong>Time Frame:</strong> {trade.tradePlan.timeFrame}</p> */}
                         <p>
                           <strong>Exit Price:</strong> {trade?.exitPrice || "-"}
                         </p>
@@ -500,16 +508,107 @@ const AiTradeList: React.FC = () => {
           </div>
         </div>
 
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-3">
+          {filteredTrades.map((trade) => (
+            <div
+              key={trade._id}
+              onClick={() => {
+                setSelectedTrade(trade as unknown as AiTrade);
+                setOpenDialog(true);
+              }}
+              className="bg-white rounded-lg border border-gray-200 p-2 hover:shadow-md transition-shadow cursor-pointer"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center space-x-2 mb-1">
+                    {/* {getSentimentIcon(trade.sentiment)} */}
+                    <p className="text-sm font-semibold text-gray-900 truncate">
+                      {trade.setup.symbol.substring(0, 40)}
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-500 truncate">
+                    ID: {trade.aiTradeId}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Status</p>
+                  <div className="flex items-center space-x-1">
+                    {/* {getStatusIcon(trade.status)} */}
+                    <span
+                      className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                        trade.status
+                      )}`}
+                    >
+                      {trade.status.replace("_", " ")}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">P&L</p>
+                  {trade.pnl !== undefined ? (
+                    <div>
+                      <p
+                        className={`text-sm font-semibold ${
+                          trade.pnl >= 0 ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        ₹{trade.pnl.toLocaleString()}
+                      </p>
+                      {trade.percentPnL && (
+                        <p
+                          className={`text-xs ${
+                            trade.percentPnL >= 0
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }`}
+                        >
+                          ({trade.percentPnL}%)
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-500">-</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                <div className="flex items-center space-x-2">
+                  <span
+                    className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(
+                      trade.riskLevel
+                    )}`}
+                  >
+                    {trade.riskLevel}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {trade.confidence}%
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500">
+                  {new Date(trade.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Empty State */}
         {filteredTrades.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
             <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
               <Search className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
               No trades found
             </h3>
-            <p className="text-gray-500">
+            <p className="text-gray-500 text-sm">
               Try adjusting your filters or search terms.
             </p>
           </div>

@@ -1,16 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import popularStocks from "../../data/popular_stocks.json";
 import EQ_Stock from "../../data/EQ_Stock.json";
 import nse_indices from "../../data/nse_indices.json";
-import nse_fo from "../../data/nse_fo.json"
+import nse_fo from "../../data/nse_fo.json";
 import nse_fo_fut from "../../data/nse_fo_fut.json";
 
 type StockInfo = {
   name: string;
   trading_symbol: string;
   instrument_key: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 // type FOStockInfo = {
@@ -31,7 +30,8 @@ const SearchStockDialog = ({
 }: Props) => {
   const [query, setQuery] = useState("");
   const [filteredStocks, setFilteredStocks] = useState<StockInfo[]>([]);
-  const [filteredStocksByType ,setFilteredStocksByType] = useState<string>("all")
+  const [filteredStocksByType, setFilteredStocksByType] =
+    useState<string>("all");
 
   useEffect(() => {
     if (openDialog) {
@@ -62,7 +62,6 @@ const SearchStockDialog = ({
           (stock: StockInfo) =>
             stock.trading_symbol.toLowerCase().includes(lower) ||
             stock.name.toLowerCase().includes(lower)
-            
         )
       : [];
     const fromOPT = Array.isArray(nse_fo)
@@ -70,24 +69,23 @@ const SearchStockDialog = ({
           (stock: StockInfo) =>
             stock.trading_symbol.toLowerCase().includes(lower) ||
             stock.name.toLowerCase().includes(lower)
-            
         )
       : [];
-      let result ;
-      if(filteredStocksByType === "FUT"){
-        result = [...fromFO]
-      }else if(filteredStocksByType === "stock"){
-        result = [...fromEQ]
-      }else if(filteredStocksByType === "index"){
-        result =[...fromIndex]
-      }else if(filteredStocksByType === "OPT"){
-        result = [...fromOPT]
-      }else {
-        result = [...fromEQ, ...fromIndex, ...fromFO]; // Combine both
-      }
+    let result;
+    if (filteredStocksByType === "FUT") {
+      result = [...fromFO];
+    } else if (filteredStocksByType === "stock") {
+      result = [...fromEQ];
+    } else if (filteredStocksByType === "index") {
+      result = [...fromIndex];
+    } else if (filteredStocksByType === "OPT") {
+      result = [...fromOPT];
+    } else {
+      result = [...fromEQ, ...fromIndex, ...fromFO]; // Combine both
+    }
 
     setFilteredStocks(result);
-  }, [query,filteredStocksByType]);
+  }, [query, filteredStocksByType]);
 
   if (!openDialog) return null;
 
@@ -108,7 +106,9 @@ const SearchStockDialog = ({
               key={i}
               className="border-2 bg-gray-200 cursor-pointer px-2 py-1 inline-block mr-2 rounded"
               // You may want to implement filtering by type here in the future
-              onClick={() => {setFilteredStocksByType(type)}}
+              onClick={() => {
+                setFilteredStocksByType(type);
+              }}
             >
               {type}
             </li>

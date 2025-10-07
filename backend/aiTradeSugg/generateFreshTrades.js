@@ -195,11 +195,11 @@ async function saveAndStoreTrades(validatedTrades) {
   // Save to JSON file
   const filePath = path.join(__dirname, "tradeSuggestions.json");
   try {
-    fs.writeFileSync(
-      filePath,
-      JSON.stringify(validatedTrades, null, 2),
-      "utf8"
-    );
+    // fs.writeFileSync(
+    //   filePath,
+    //   JSON.stringify(validatedTrades, null, 2),
+    //   "utf8"
+    // );
     console.log("✅ Fresh trade suggestions saved to", filePath);
   } catch (err) {
     console.error("❌ Error saving file:", err);

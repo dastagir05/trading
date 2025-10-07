@@ -9,8 +9,9 @@ import {
   CheckCircle,
   Edit3,
 } from "lucide-react";
+import { UserData } from "@/types/profileuser";
 interface OverviewProps {
-  userData: any;
+  userData: UserData;
 }
 const ProfileHeader = ({ userData }: OverviewProps) => {
   return (
@@ -64,7 +65,7 @@ const ProfileHeader = ({ userData }: OverviewProps) => {
                     </div>
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-1" />
-                      Joined {userData.profile.joinDate.date}
+                      Joined {userData.profile.joinDate?.date}
                     </div>
                   </div>
                 </div>

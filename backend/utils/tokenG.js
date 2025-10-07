@@ -13,6 +13,7 @@ exports.getCode = async (req, res) => {
   // if (!code) return res.status(400).send("Authorization code not found");
 
   const params = new URLSearchParams();
+  console.log("Authorization Code:", code);
   params.append("code", code);
   params.append("client_id", process.env.CLIENT_ID);
   params.append("client_secret", process.env.CLIENT_SECRET);
@@ -58,7 +59,7 @@ exports.getCode = async (req, res) => {
       tomorrow
     );
 
-    res.redirect(`${process.env.FRONTEND_URL}/myTrades`);
+    res.redirect(`${process.env.FRONTEND_URL}/mytrades`);
   } catch (err) {
     console.error("Token Fetch Error:", err);
     res.status(500).send("Failed to get token");

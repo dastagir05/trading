@@ -1,32 +1,27 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { 
-  ArrowLeft, 
-  Edit, 
-  Save, 
-  X, 
-  TrendingUp, 
-  TrendingDown, 
+"use client";
+import React, { useState, useEffect } from "react";
+import {
+  ArrowLeft,
+  Edit,
+  Save,
+  X,
+  TrendingUp,
+  TrendingDown,
   Minus,
-  Target,
-  Shield,
   Clock,
   CheckCircle,
   XCircle,
   AlertTriangle,
   DollarSign,
-  Calendar,
   Activity,
-  MessageSquare,
   Plus,
-  Trash2
-} from 'lucide-react';
+} from "lucide-react";
 
 interface AiTradeDetail {
   _id: string;
   aiTradeId: string;
   title: string;
-  sentiment: 'bullish' | 'bearish' | 'neutral';
+  sentiment: "bullish" | "bearish" | "neutral";
   setup: {
     currentPrice: number;
     strategy: string;
@@ -43,8 +38,14 @@ interface AiTradeDetail {
   };
   logic: string;
   confidence: number;
-  riskLevel: 'low' | 'medium' | 'high';
-  status: 'suggested' | 'active' | 'target_hit' | 'stoploss_hit' | 'expired' | 'cancelled';
+  riskLevel: "low" | "medium" | "high";
+  status:
+    | "suggested"
+    | "active"
+    | "target_hit"
+    | "stoploss_hit"
+    | "expired"
+    | "cancelled";
   entryPrice?: number;
   entryTime?: Date;
   quantity?: number;
@@ -73,7 +74,7 @@ interface AiTradeDetail {
   notes: {
     timestamp: Date;
     message: string;
-    type: 'info' | 'warning' | 'error' | 'success';
+    type: "info" | "warning" | "error" | "success";
   }[];
 }
 
@@ -87,8 +88,10 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState<Partial<AiTradeDetail>>({});
-  const [newNote, setNewNote] = useState('');
-  const [noteType, setNoteType] = useState<'info' | 'warning' | 'error' | 'success'>('info');
+  const [newNote, setNewNote] = useState("");
+  const [noteType, setNoteType] = useState<
+    "info" | "warning" | "error" | "success"
+  >("info");
 
   useEffect(() => {
     fetchTradeDetail();
@@ -101,7 +104,7 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
       setTrade(data);
       setEditData(data);
     } catch (error) {
-      console.error('Failed to fetch trade detail:', error);
+      console.error("Failed to fetch trade detail:", error);
     } finally {
       setIsLoading(false);
     }
@@ -110,9 +113,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
   const handleSave = async () => {
     try {
       const response = await fetch(`/api/ai-trades/${tradeId}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(editData),
       });
@@ -124,7 +127,7 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
         setIsEditing(false);
       }
     } catch (error) {
-      console.error('Failed to update trade:', error);
+      console.error("Failed to update trade:", error);
     }
   };
 
@@ -133,9 +136,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
 
     try {
       const response = await fetch(`/api/ai-trades/${tradeId}/notes`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: newNote,
@@ -146,53 +149,75 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
       if (response.ok) {
         const updatedTrade = await response.json();
         setTrade(updatedTrade);
-        setNewNote('');
-        setNoteType('info');
+        setNewNote("");
+        setNoteType("info");
       }
     } catch (error) {
-      console.error('Failed to add note:', error);
+      console.error("Failed to add note:", error);
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'suggested': return <Clock className="w-5 h-5 text-gray-500" />;
-      case 'active': return <Activity className="w-5 h-5 text-blue-500" />;
-      case 'target_hit': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'stoploss_hit': return <XCircle className="w-5 h-5 text-red-500" />;
-      case 'expired': return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
-      case 'cancelled': return <XCircle className="w-5 h-5 text-gray-500" />;
-      default: return <Minus className="w-5 h-5 text-gray-500" />;
+      case "suggested":
+        return <Clock className="w-5 h-5 text-gray-500" />;
+      case "active":
+        return <Activity className="w-5 h-5 text-blue-500" />;
+      case "target_hit":
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case "stoploss_hit":
+        return <XCircle className="w-5 h-5 text-red-500" />;
+      case "expired":
+        return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
+      case "cancelled":
+        return <XCircle className="w-5 h-5 text-gray-500" />;
+      default:
+        return <Minus className="w-5 h-5 text-gray-500" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'suggested': return 'bg-gray-100 text-gray-700';
-      case 'active': return 'bg-blue-100 text-blue-700';
-      case 'target_hit': return 'bg-green-100 text-green-700';
-      case 'stoploss_hit': return 'bg-red-100 text-red-700';
-      case 'expired': return 'bg-yellow-100 text-yellow-700';
-      case 'cancelled': return 'bg-gray-100 text-gray-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "suggested":
+        return "bg-gray-100 text-gray-700";
+      case "active":
+        return "bg-blue-100 text-blue-700";
+      case "target_hit":
+        return "bg-green-100 text-green-700";
+      case "stoploss_hit":
+        return "bg-red-100 text-red-700";
+      case "expired":
+        return "bg-yellow-100 text-yellow-700";
+      case "cancelled":
+        return "bg-gray-100 text-gray-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
-      case 'bullish': return <TrendingUp className="w-5 h-5 text-green-500" />;
-      case 'bearish': return <TrendingDown className="w-5 h-5 text-red-500" />;
-      case 'neutral': return <Minus className="w-5 h-5 text-gray-500" />;
-      default: return <Minus className="w-5 h-5 text-gray-500" />;
+      case "bullish":
+        return <TrendingUp className="w-5 h-5 text-green-500" />;
+      case "bearish":
+        return <TrendingDown className="w-5 h-5 text-red-500" />;
+      case "neutral":
+        return <Minus className="w-5 h-5 text-gray-500" />;
+      default:
+        return <Minus className="w-5 h-5 text-gray-500" />;
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'low': return 'bg-green-100 text-green-700';
-      case 'medium': return 'bg-yellow-100 text-yellow-700';
-      case 'high': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "low":
+        return "bg-green-100 text-green-700";
+      case "medium":
+        return "bg-yellow-100 text-yellow-700";
+      case "high":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -207,7 +232,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
   if (!trade) {
     return (
       <div className="text-center py-12">
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Trade Not Found</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          Trade Not Found
+        </h3>
         <p className="text-gray-500">The requested trade could not be found.</p>
         <button
           onClick={onBack}
@@ -235,7 +262,7 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             <p className="text-gray-600">{trade.aiTradeId}</p>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           {isEditing ? (
             <>
@@ -276,27 +303,37 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             {getStatusIcon(trade.status)}
             <div>
               <h3 className="font-medium text-gray-900">Status</h3>
-              <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(trade.status)}`}>
-                {trade.status.replace('_', ' ')}
+              <span
+                className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                  trade.status
+                )}`}
+              >
+                {trade.status.replace("_", " ")}
               </span>
             </div>
           </div>
-          
+
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">Suggested:</span>
-              <span className="font-medium">{new Date(trade.suggestedAt).toLocaleDateString()}</span>
+              <span className="font-medium">
+                {new Date(trade.suggestedAt).toLocaleDateString()}
+              </span>
             </div>
             {trade.activatedAt && (
               <div className="flex justify-between">
                 <span className="text-gray-600">Activated:</span>
-                <span className="font-medium">{new Date(trade.activatedAt).toLocaleDateString()}</span>
+                <span className="font-medium">
+                  {new Date(trade.activatedAt).toLocaleDateString()}
+                </span>
               </div>
             )}
             {trade.completedAt && (
               <div className="flex justify-between">
                 <span className="text-gray-600">Completed:</span>
-                <span className="font-medium">{new Date(trade.completedAt).toLocaleDateString()}</span>
+                <span className="font-medium">
+                  {new Date(trade.completedAt).toLocaleDateString()}
+                </span>
               </div>
             )}
           </div>
@@ -307,10 +344,12 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             {getSentimentIcon(trade.sentiment)}
             <div>
               <h3 className="font-medium text-gray-900">Sentiment</h3>
-              <span className="text-sm text-gray-600 capitalize">{trade.sentiment}</span>
+              <span className="text-sm text-gray-600 capitalize">
+                {trade.sentiment}
+              </span>
             </div>
           </div>
-          
+
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">Confidence:</span>
@@ -318,7 +357,11 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Risk Level:</span>
-              <span className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(trade.riskLevel)}`}>
+              <span
+                className={`px-2 py-1 text-xs font-medium rounded-full ${getRiskColor(
+                  trade.riskLevel
+                )}`}
+              >
                 {trade.riskLevel}
               </span>
             </div>
@@ -333,20 +376,30 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
               <span className="text-sm text-gray-600">P&L Details</span>
             </div>
           </div>
-          
+
           <div className="space-y-2 text-sm">
             {trade.pnl !== undefined ? (
               <>
                 <div className="flex justify-between">
                   <span className="text-gray-600">P&L:</span>
-                  <span className={`font-medium ${trade.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <span
+                    className={`font-medium ${
+                      trade.pnl >= 0 ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
                     ₹{trade.pnl.toLocaleString()}
                   </span>
                 </div>
                 {trade.percentPnL && (
                   <div className="flex justify-between">
                     <span className="text-gray-600">% P&L:</span>
-                    <span className={`font-medium ${trade.percentPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <span
+                      className={`font-medium ${
+                        trade.percentPnL >= 0
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
                       {trade.percentPnL}%
                     </span>
                   </div>
@@ -382,7 +435,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Expiry:</span>
-              <span className="font-medium">{new Date(trade.setup.expiry).toLocaleDateString()}</span>
+              <span className="font-medium">
+                {new Date(trade.setup.expiry).toLocaleDateString()}
+              </span>
             </div>
           </div>
         </div>
@@ -396,11 +451,15 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Target:</span>
-              <span className="font-medium text-green-600">₹{trade.tradePlan.target}</span>
+              <span className="font-medium text-green-600">
+                ₹{trade.tradePlan.target}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Stop Loss:</span>
-              <span className="font-medium text-red-600">₹{trade.tradePlan.stopLoss}</span>
+              <span className="font-medium text-red-600">
+                ₹{trade.tradePlan.stopLoss}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Time Frame:</span>
@@ -432,7 +491,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
                   {trade.entryTime && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">Time:</span>
-                      <span className="font-medium">{new Date(trade.entryTime).toLocaleString()}</span>
+                      <span className="font-medium">
+                        {new Date(trade.entryTime).toLocaleString()}
+                      </span>
                     </div>
                   )}
                   {trade.quantity && (
@@ -444,7 +505,7 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
                 </div>
               </div>
             )}
-            
+
             {trade.exitPrice && (
               <div>
                 <h4 className="font-medium text-gray-700 mb-2">Exit</h4>
@@ -456,7 +517,9 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
                   {trade.exitTime && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">Time:</span>
-                      <span className="font-medium">{new Date(trade.exitTime).toLocaleString()}</span>
+                      <span className="font-medium">
+                        {new Date(trade.exitTime).toLocaleString()}
+                      </span>
                     </div>
                   )}
                   {trade.exitReason && (
@@ -479,7 +542,15 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
           <div className="flex items-center space-x-2">
             <select
               value={noteType}
-              onChange={(e) => setNoteType(e.target.value as any)}
+              onChange={(e) =>
+                setNoteType(
+                  e.target.value as unknown as
+                    | "info"
+                    | "warning"
+                    | "error"
+                    | "success"
+                )
+              }
               className="px-3 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
               <option value="info">Info</option>
@@ -502,16 +573,24 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
             </button>
           </div>
         </div>
-        
+
         <div className="space-y-3">
           {trade.notes.map((note, index) => (
-            <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-              <div className={`w-2 h-2 rounded-full mt-2 ${
-                note.type === 'info' ? 'bg-blue-500' :
-                note.type === 'warning' ? 'bg-yellow-500' :
-                note.type === 'error' ? 'bg-red-500' :
-                'bg-green-500'
-              }`}></div>
+            <div
+              key={index}
+              className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg"
+            >
+              <div
+                className={`w-2 h-2 rounded-full mt-2 ${
+                  note.type === "info"
+                    ? "bg-blue-500"
+                    : note.type === "warning"
+                    ? "bg-yellow-500"
+                    : note.type === "error"
+                    ? "bg-red-500"
+                    : "bg-green-500"
+                }`}
+              ></div>
               <div className="flex-1">
                 <p className="text-sm text-gray-700">{note.message}</p>
                 <p className="text-xs text-gray-500 mt-1">
@@ -520,9 +599,11 @@ const AiTradeDetail: React.FC<AiTradeDetailProps> = ({ tradeId, onBack }) => {
               </div>
             </div>
           ))}
-          
+
           {trade.notes.length === 0 && (
-            <p className="text-gray-500 text-center py-4">No notes yet. Add your first note above.</p>
+            <p className="text-gray-500 text-center py-4">
+              No notes yet. Add your first note above.
+            </p>
           )}
         </div>
       </div>

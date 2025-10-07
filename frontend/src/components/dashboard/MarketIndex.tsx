@@ -15,7 +15,6 @@ import {
   Wallet,
   Fuel,
   Globe,
-  Smartphone,
 } from "lucide-react";
 import { ReactNode } from "react";
 import EQ_Stock from "@/data/EQ_Stock.json";
@@ -169,25 +168,6 @@ const defaultWatchlistStocks: Info[] = [
 // Fetch and format all index LTP data
 export async function getIndexLtpData(): Promise<FinalIndexData[]> {
   try {
-    // const requests = popIK.map(async (index) => {
-    //   const res = await axios.get(
-    //     `/api/getLTP/${encodeURIComponent(index.instrument_key)}`
-    //   );
-
-    //   console.log("rss", res);
-    //   const { last_price, cp }: LtpResponse = res.data;
-
-    //   const percent_change =
-    //     cp && last_price ? ((last_price - cp) / cp) * 100 : 0;
-
-    //   return {
-    //     name: index.name,
-    //     instrument_key: index.instrument_key,
-    //     ltp: last_price,
-    //     cp,
-    //     percent_change: parseFloat(percent_change.toFixed(2)),
-    //   };
-    // });
     const keys = popIK.map((i) => i.instrument_key).join(",");
     const res = await axios.get(`/api/getLTP/${encodeURIComponent(keys)}`);
 
@@ -271,9 +251,9 @@ export async function getFixWatchlist(userId: string): Promise<FinalData[]> {
     return Info;
   }
 
-  const WatchlistStocksInLtpStruncture = EQ_Stock.filter((stock: any) =>
+  const WatchlistStocksInLtpStruncture = EQ_Stock.filter((stock: Info) =>
     instruments.some((item) => item === stock.instrument_key)
-  ).map((stock: any) => ({
+  ).map((stock: Info) => ({
     name: stock.name,
     instrument_key: stock.instrument_key,
     trading_symbol: stock.trading_symbol,

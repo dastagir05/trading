@@ -1,3 +1,5 @@
+import { User } from "@/types/user";
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export interface AdminProfile {
@@ -24,7 +26,7 @@ export interface AdminLog {
   adminName: string;
   action: string;
   description: string;
-  details: any;
+  details: string;
   targetType?: string;
   targetId?: string;
   targetName?: string;
@@ -35,10 +37,10 @@ export interface AdminLog {
     country?: string;
     region?: string;
   };
-  status: 'success' | 'failed' | 'warning' | 'error';
+  status: "success" | "failed" | "warning" | "error";
   errorMessage?: string;
   responseTime?: number;
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  riskLevel: "low" | "medium" | "high" | "critical";
   isSuspicious: boolean;
   deviceInfo?: {
     platform?: string;
@@ -84,9 +86,9 @@ class AdminApiService {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${API_BASE_URL}${endpoint}`;
-    
+
     const defaultHeaders = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     const response = await fetch(url, {
@@ -117,8 +119,8 @@ class AdminApiService {
       success: boolean;
       message: string;
       admin: AdminProfile;
-    }>('/api/admin-auth/login', {
-      method: 'POST',
+    }>("/api/admin-auth/login", {
+      method: "POST",
       body: JSON.stringify(loginData),
     });
   }
@@ -127,8 +129,8 @@ class AdminApiService {
     return this.makeRequest<{
       success: boolean;
       message: string;
-    }>('/api/admin/logout', {
-      method: 'POST',
+    }>("/api/admin/logout", {
+      method: "POST",
       body: JSON.stringify({ adminId }),
     });
   }
@@ -155,7 +157,7 @@ class AdminApiService {
     } = {}
   ) {
     const queryParams = new URLSearchParams();
-    
+
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined) {
         queryParams.append(key, value.toString());
@@ -163,7 +165,9 @@ class AdminApiService {
     });
 
     const queryString = queryParams.toString();
-    const endpoint = `/api/admin/logs/${adminId}${queryString ? `?${queryString}` : ''}`;
+    const endpoint = `/api/admin/logs/${adminId}${
+      queryString ? `?${queryString}` : ""
+    }`;
 
     return this.makeRequest<{
       success: boolean;
@@ -189,19 +193,21 @@ class AdminApiService {
     return this.makeRequest<{
       success: boolean;
       data: AdminStats;
-    }>('/api/admin/stats');
+    }>("/api/admin/stats");
   }
 
   // User Management
-  async getUsers(params: {
-    page?: number;
-    limit?: number;
-    search?: string;
-    status?: string;
-    role?: string;
-  } = {}) {
+  async getUsers(
+    params: {
+      page?: number;
+      limit?: number;
+      search?: string;
+      status?: string;
+      role?: string;
+    } = {}
+  ) {
     const queryParams = new URLSearchParams();
-    
+
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined) {
         queryParams.append(key, value.toString());
@@ -209,11 +215,11 @@ class AdminApiService {
     });
 
     const queryString = queryParams.toString();
-    const endpoint = `/api/admin/users${queryString ? `?${queryString}` : ''}`;
+    const endpoint = `/api/admin/users${queryString ? `?${queryString}` : ""}`;
 
     return this.makeRequest<{
       success: boolean;
-      users: any[];
+      users: User[];
       pagination: {
         current: number;
         pages: number;
@@ -224,42 +230,44 @@ class AdminApiService {
 
   // Helper method to check admin permissions
   hasPermission(permissions: string[], requiredPermission: string): boolean {
-    return permissions.includes(requiredPermission) || permissions.includes('super_admin');
+    return (
+      permissions.includes(requiredPermission) ||
+      permissions.includes("super_admin")
+    );
   }
 
   // Helper method to format risk level for display
   getRiskLevelColor(riskLevel: string): string {
     switch (riskLevel) {
-      case 'low':
-        return 'text-green-600 bg-green-100';
-      case 'medium':
-        return 'text-yellow-600 bg-yellow-100';
-      case 'high':
-        return 'text-orange-600 bg-orange-100';
-      case 'critical':
-        return 'text-red-600 bg-red-100';
+      case "low":
+        return "text-green-600 bg-green-100";
+      case "medium":
+        return "text-yellow-600 bg-yellow-100";
+      case "high":
+        return "text-orange-600 bg-orange-100";
+      case "critical":
+        return "text-red-600 bg-red-100";
       default:
-        return 'text-gray-600 bg-gray-100';
+        return "text-gray-600 bg-gray-100";
     }
   }
 
   // Helper method to format status for display
   getStatusColor(status: string): string {
     switch (status) {
-      case 'success':
-        return 'text-green-600 bg-green-100';
-      case 'failed':
-        return 'text-red-600 bg-red-100';
-      case 'warning':
-        return 'text-yellow-600 bg-yellow-100';
-      case 'error':
-        return 'text-red-600 bg-red-100';
+      case "success":
+        return "text-green-600 bg-green-100";
+      case "failed":
+        return "text-red-600 bg-red-100";
+      case "warning":
+        return "text-yellow-600 bg-yellow-100";
+      case "error":
+        return "text-red-600 bg-red-100";
       default:
-        return 'text-gray-600 bg-gray-100';
+        return "text-gray-600 bg-gray-100";
     }
   }
 }
 
 export const adminApiService = new AdminApiService();
 export default adminApiService;
-

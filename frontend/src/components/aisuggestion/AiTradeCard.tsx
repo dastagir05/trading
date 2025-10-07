@@ -59,10 +59,6 @@ const AITradeCard = () => {
     setSuggestedTrades(suggested);
   }, [trades]);
 
-  const tradePriceMap = new Map(
-    suggestedTrades.map((t) => [t.aiTradeId, t.currentPrice])
-  );
-
   const gotoChart = (params: ChartParams) => {
     const query = new URLSearchParams(params).toString();
     router.push(`/chart?${query}`);

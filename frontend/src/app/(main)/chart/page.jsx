@@ -1,12 +1,24 @@
 "use client";
-// import LightweightChart from "@/components/LightweightChart";
-import PhenomenalChart from "../../../components/chart/ClaudeBad";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Chart from "../../../components/chart/Chart";
 
 export default function ChartPage() {
-  return (
+  const { status } = useSession();
+  const router = useRouter();
 
-    <main>
-      <PhenomenalChart />
-    </main>
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/");
+    }
+  }, [status]);
+
+  return (
+    <>
+      <main>
+        <Chart />
+      </main>
+    </>
   );
 }

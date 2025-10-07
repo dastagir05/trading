@@ -26,11 +26,7 @@ export interface TradeSuggestion {
 }
 
 const TradingCards: React.FC = () => {
-  const [suggestions, setSuggestions] = useState<TradeSuggestion[]>();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(
-    null
-  );
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   const refreshSuggestions = async () => {

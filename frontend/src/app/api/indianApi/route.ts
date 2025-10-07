@@ -12,8 +12,12 @@ export async function GET() {
   try {
     const { data } = await axios.request(options);
     return NextResponse.json(data);
-  } catch (error: any) {
-    console.error("API error:", error.message);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("API error:", error.message);
+    } else {
+      console.error("Unknown API error:", error);
+    }
     return new Response("Error sending message", { status: 500 });
   }
 }

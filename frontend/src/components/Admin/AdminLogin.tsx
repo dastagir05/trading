@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import adminApiService from "@/services/adminApi";
 
 const AdminLogin: React.FC = () => {
   const { data: session, status } = useSession();
@@ -14,7 +13,10 @@ const AdminLogin: React.FC = () => {
   useEffect(() => {
     if (status === "loading") return; // Still loading
 
-    if (session?.user?.email === "pinjaridastageer@gmail.com" && session?.user?.isAdmin) {
+    if (
+      session?.user?.email === "pinjaridastageer@gmail.com" &&
+      session?.user?.isAdmin
+    ) {
       // User is authenticated and has admin email, redirect to admin dashboard
       router.push("/admin");
     }
@@ -23,7 +25,7 @@ const AdminLogin: React.FC = () => {
   const handleGoogleLogin = async () => {
     setIsLoggingIn(true);
     setError(null);
-    
+
     try {
       await signIn("google", { callbackUrl: "/admin" });
     } catch (err) {
@@ -39,18 +41,25 @@ const AdminLogin: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">{isLoggingIn ? "Logging in..." : "Loading..."}</p>
+          <p className="mt-4 text-gray-600">
+            {isLoggingIn ? "Logging in..." : "Loading..."}
+          </p>
         </div>
       </div>
     );
   }
 
-  if (session?.user?.email === "pinjaridastageer@gmail.com" && session?.user?.isAdmin) {
+  if (
+    session?.user?.email === "pinjaridastageer@gmail.com" &&
+    session?.user?.isAdmin
+  ) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Redirecting to admin dashboard...</p>
+          <p className="mt-4 text-gray-600">
+            Redirecting to admin dashboard...
+          </p>
         </div>
       </div>
     );
@@ -67,14 +76,22 @@ const AdminLogin: React.FC = () => {
             Access restricted to authorized administrators only
           </p>
         </div>
-        
+
         <div className="mt-8 space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-md p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5 text-red-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <div className="ml-3">
@@ -92,8 +109,16 @@ const AdminLogin: React.FC = () => {
           <div className="bg-red-50 border border-red-200 rounded-md p-4">
             <div className="flex">
               <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5 text-red-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="ml-3">
@@ -101,7 +126,11 @@ const AdminLogin: React.FC = () => {
                   Access Restricted
                 </h3>
                 <div className="mt-2 text-sm text-red-700">
-                  <p>Only authorized administrators can access this area. If you believe this is an error, please contact the system administrator.</p>
+                  <p>
+                    Only authorized administrators can access this area. If you
+                    believe this is an error, please contact the system
+                    administrator.
+                  </p>
                 </div>
               </div>
             </div>
@@ -126,8 +155,16 @@ const AdminLogin: React.FC = () => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5 text-yellow-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <div className="ml-3">
@@ -135,7 +172,11 @@ const AdminLogin: React.FC = () => {
                     Unauthorized Access
                   </h3>
                   <div className="mt-2 text-sm text-yellow-700">
-                    <p>You are logged in as <strong>{session.user?.email}</strong>, but this email is not authorized for admin access.</p>
+                    <p>
+                      You are logged in as{" "}
+                      <strong>{session.user?.email}</strong>, but this email is
+                      not authorized for admin access.
+                    </p>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
                       className="mt-2 text-sm text-blue-600 hover:text-blue-500 underline"

@@ -27,10 +27,11 @@ export async function GET(
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching LTP:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch LTP data" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      console.error("Error fetching LTP:", error.message);
+    } else {
+      console.error("Unknown API error:", error);
+    }
+    return new Response("Failed to fetch LTP data", { status: 500 });
   }
 }

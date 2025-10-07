@@ -8,15 +8,10 @@ import {
   Zap,
   Upload,
   ArrowRight,
-  Menu,
-  X,
-  Star,
   CheckCircle,
   Target,
   Award,
   Sparkles,
-  BarChart3,
-  Bot,
   Camera,
 } from "lucide-react";
 import Navbar from "./Navbar";
@@ -24,7 +19,6 @@ import Login from "./Login";
 
 const Landing = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [aiSuggestionImage, setAiSuggestionImage] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
   const [activeFeature, setActiveFeature] = useState(0);
@@ -39,10 +33,7 @@ const Landing = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    type: "suggestion" | "report"
-  ) => {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
@@ -252,12 +243,7 @@ const Landing = () => {
                       ref={feature.uploadRef}
                       type="file"
                       accept="image/*"
-                      onChange={(e) =>
-                        handleImageUpload(
-                          e,
-                          feature.uploadType as "suggestion" | "report"
-                        )
-                      }
+                      onChange={(e) => handleImageUpload(e)}
                       className="hidden"
                     />
                   </div>
@@ -430,8 +416,8 @@ const Landing = () => {
                   <span className="text-xl font-bold">Nivesh Now</span>
                 </div>
                 <p className="text-slate-400">
-                  India's most advanced AI-powered trading platform for smart
-                  investors.
+                  India&apos;s most advanced AI-powered trading platform for
+                  smart investors.
                 </p>
               </div>
 

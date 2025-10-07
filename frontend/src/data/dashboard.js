@@ -1,26 +1,12 @@
 import {
-  TrendingUp,
-  BarChart3,
   Activity,
-  RefreshCw,
-  Zap,
-  Shield,
-  IndianRupee,
-  Building2,
   Factory,
-  Landmark,
-  Cpu,
   Car,
-  Fuel,
   Pill,
   Smartphone,
   Home,
   ShoppingCart,
-  ChevronRight,
-  ExternalLink,
-  Newspaper,
 } from "lucide-react";
-
 
 // Stocks in News Data
 const stocksInNews = [
@@ -144,10 +130,4 @@ const marketNews = [
   },
 ];
 
-
-export {
-
-  stocksInNews,
-  watchlistStocks,
-  marketNews,
-};
+export { stocksInNews, watchlistStocks, marketNews };
