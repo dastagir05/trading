@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import Chart from "../../../components/chart/Chart";
 
 export default function ChartPage() {
@@ -17,7 +17,9 @@ export default function ChartPage() {
   return (
     <>
       <main>
-        <Chart />
+        <Suspense fallback={<div>Loading Chart</div>}>
+          <Chart />
+        </Suspense>
       </main>
     </>
   );

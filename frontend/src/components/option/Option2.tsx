@@ -80,7 +80,7 @@ const popularIndices = [
   },
 ];
 
-const OptionsPage = () => {
+const OptionsPageContent = () => {
   const [data, setData] = useState<OptionItem[]>([]);
   const [availableExpiries, setAvailableExpiries] = useState<string[]>([]);
   const [selectedExpiry, setSelectedExpiry] = useState<string>("");
@@ -993,4 +993,4 @@ const OptionsPage = () => {
   );
 };
 
-export default OptionsPage;
+export default OptionsPageContent;

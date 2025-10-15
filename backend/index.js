@@ -37,7 +37,17 @@ connectDB();
 // Start the socket server
 initializeSocketServer(server);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // your local frontend (dev)
+      "http://127.0.0.1:3000/", // your local frontend (dev)
+      "https://nivesh-now.vercel.app", // your deployed frontend
+    ],
+    methods: ["GET", "POST"],
+    credentials: true, // if you use cookies/auth
+  })
+);
 app.use(express.json());
 
 app.use("/api", userRoutes);

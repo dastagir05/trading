@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace("/mytrades");
+      router.replace("/aisuggestion");
     } else if (status === "unauthenticated") {
       router.replace("/");
     }

@@ -2,9 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export async function PATCH(request: NextRequest, context) {
+export async function PATCH(
+  request: NextRequest,
+  context: {
+    params: Promise<{ id: string }>;
+  }
+) {
   try {
-    const { id } = (context as { params: { id: string } }).params;
+    const { id } = await context.params;
     const body = await request.json();
 
     const response = await fetch(`${BACKEND_URL}/api/ai-trades/${id}/status`, {

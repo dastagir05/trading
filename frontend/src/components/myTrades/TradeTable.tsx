@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect, JSX } from "react";
 import { Trade } from "@/types/trade";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import {
   Clock,
@@ -26,6 +25,7 @@ import {
   TrendingDown,
 } from "lucide-react";
 import TradeCard from "./TradeCard";
+import { useUser } from "../UserContext";
 
 interface LtpItem {
   cp: number;
@@ -112,21 +112,21 @@ const TradeTable = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTrade, setSelectedTrade] = useState<Trade>();
   const [ltpData, setLtpData] = useState<LtpItem[] | LtpItem>([]);
-  const { data: session } = useSession();
+  const user = useUser();
 
   useEffect(() => {
-    if (!session?.user?._id) return;
+    if (!user) return;
 
     const fetchTrades = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trade/gettrades?userId=${session.user._id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/trade/gettrades?userId=${user.user?._id}`
       );
       const data = await res.data;
       setTrades(data);
     };
 
     fetchTrades();
-  }, [session, selectedTrade, openDialog]);
+  }, [selectedTrade, openDialog]);
 
   useEffect(() => {
     let filtered = trades;
@@ -547,7 +547,13 @@ const TradeTable = () => {
                         className={`px-6 py-4 whitespace-nowrap text-sm ${
                           trade.pnl && trade.pnl > 0
                             ? "text-green-500"
-                            : "text-red-500"
+                            : trade.pnl && trade.pnl < 0
+                            ? "text-red-500"
+                            : getPnL(trade.instrumentKey, trade.entryPrice) > 0
+                            ? "text-green-500"
+                            : getPnL(trade.instrumentKey, trade.entryPrice) < 0
+                            ? "text-red-500"
+                            : "text-gray-500"
                         }`}
                       >
                         ₹

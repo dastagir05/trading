@@ -1,54 +1,25 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   Brain,
   FileText,
   TrendingUp,
   Shield,
   Zap,
-  Upload,
   ArrowRight,
   CheckCircle,
   Target,
   Award,
   Sparkles,
-  Camera,
 } from "lucide-react";
 import Navbar from "./Navbar";
 import Login from "./Login";
 
 const Landing = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const [activeFeature, setActiveFeature] = useState(0);
   const suggestionFileRef = useRef(null);
   const reportFileRef = useRef(null);
-
-  useEffect(() => {
-    setIsVisible(true);
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % 2);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        const result = e.target?.result;
-        if (typeof result === "string") {
-          // if (type === 'suggestion' && result !== null) {
-          //   setAiSuggestionImage(result);
-          // } else {
-          //   setAiReportImage(result);
-          // }
-        }
-      };
-    }
-  };
 
   const aiFeatures = [
     {
@@ -57,18 +28,28 @@ const Landing = () => {
       description:
         "Intelligent trade recommendations powered by machine learning",
       color: "from-blue-500 to-cyan-500",
-      image: "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+      image: "/AiSuggestion2.jpg",
       uploadRef: suggestionFileRef,
       uploadType: "suggestion",
+      points: [
+        "Personalized trade ideas",
+        "Real-time market scanning",
+        "Adaptive learning algorithms",
+      ],
     },
     {
       icon: FileText,
       title: "AI Reports",
       description: "Comprehensive market analysis with predictive insights",
       color: "from-purple-500 to-pink-500",
-      image: "/Monitor.jpeg",
+      image: "/AiMonitor.png",
       uploadRef: reportFileRef,
       uploadType: "report",
+      points: [
+        "Detailed market breakdowns",
+        "Predictive analytics",
+        "Actionable insights",
+      ],
     },
   ];
 
@@ -113,11 +94,7 @@ const Landing = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <div
-                className={`transform transition-all duration-1000 ${
-                  isVisible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-10 opacity-0"
-                }`}
+                className={`transform transition-all duration-1000 ${"translate-y-0 opacity-100"}`}
               >
                 <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
                   <Sparkles className="w-4 h-4" />
@@ -145,9 +122,9 @@ const Landing = () => {
                     Start Trading with AI
                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
-                  <button className="border-2 border-slate-300 text-slate-700 px-10 py-4 rounded-full text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
+                  {/* <button className="border-2 border-slate-300 text-slate-700 px-10 py-4 rounded-full text-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300">
                     View Live Demo
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -157,6 +134,7 @@ const Landing = () => {
         {/* AI Features Showcase */}
         <section id="ai-showcase" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
+            {/* Section Header */}
             <div className="text-center mb-20">
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                 Meet Your AI Trading
@@ -165,29 +143,27 @@ const Landing = () => {
                 </span>
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Upload screenshots of our AI features in action and see how
-                intelligent trading transforms your investment strategy.
+                See how our intelligent AI features help you make smarter
+                investment decisions — faster and more confidently.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            {/* Showcase Cards */}
+            <div className="grid lg:grid-cols-2 gap-8 ">
               {aiFeatures.map((feature, index) => (
                 <div
                   key={index}
-                  className={`group relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-8 border border-slate-200 hover:border-blue-300 transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-2 ${
-                    activeFeature === index
-                      ? "ring-2 ring-blue-500 shadow-xl shadow-blue-500/20"
-                      : ""
-                  }`}
+                  className="group relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-2 pl-4 border border-slate-200 hover:border-blue-300 transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-2"
                 >
-                  <div className="flex items-center mb-6">
+                  {/* Icon + Title */}
+                  <div className="flex items-center mb-3">
                     <div
-                      className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mr-4 group-hover:rotate-6 transition-transform duration-300`}
+                      className={`w-10 h-10 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mr-4 group-hover:rotate-6 transition-transform duration-300`}
                     >
                       <feature.icon className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                         {feature.title}
                       </h3>
                       <p className="text-slate-600 mt-1">
@@ -196,94 +172,16 @@ const Landing = () => {
                     </div>
                   </div>
 
-                  {/* Image Upload Area */}
+                  {/* Screenshot Showcase */}
                   <div className="relative">
-                    {feature.image ? (
-                      <div className="relative group/image">
-                        <img
-                          src={feature.image}
-                          alt={feature.title}
-                          className="w-full h-64 object-cover rounded-xl shadow-lg"
-                        />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
-                          <button
-                            onClick={() =>
-                              (
-                                feature.uploadRef
-                                  .current as HTMLInputElement | null
-                              )?.click()
-                            }
-                            className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-white/30 transition-colors"
-                          >
-                            <Camera className="w-4 h-4" />
-                            <span>Change Image</span>
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="w-full h-64 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/50 transition-all duration-300 group/upload"
-                        onClick={() =>
-                          (
-                            feature.uploadRef.current as HTMLInputElement | null
-                          )?.click()
-                        }
-                      >
-                        <Upload className="w-12 h-12 text-slate-400 group-hover/upload:text-blue-500 transition-colors mb-4" />
-                        <p className="text-slate-600 font-medium mb-2">
-                          Upload {feature.title} Screenshot
-                        </p>
-                        <p className="text-sm text-slate-500">
-                          Click to upload an image showcasing this feature
-                        </p>
-                      </div>
-                    )}
-
-                    <input
-                      ref={feature.uploadRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageUpload(e)}
-                      className="hidden"
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="w-full h-100 object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   </div>
 
-                  {/* Feature Benefits */}
-                  <div className="mt-6 space-y-3">
-                    {index === 0 ? (
-                      <>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Real-time market sentiment analysis
-                        </div>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Personalized risk-adjusted recommendations
-                        </div>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Machine learning-powered insights
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Comprehensive market analysis
-                        </div>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Detailed performance metrics
-                        </div>
-                        <div className="flex items-center text-sm text-slate-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Future trend predictions
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Glow Effect */}
+                  {/* Glow on Hover */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500 pointer-events-none`}
                   />

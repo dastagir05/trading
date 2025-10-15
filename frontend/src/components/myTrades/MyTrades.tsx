@@ -8,17 +8,17 @@ import {
   TrendingUp,
   TrendingDown,
 } from "lucide-react";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { User } from "../../types/user";
 import TradeTable from "./TradeTable";
+import { useUser } from "../UserContext";
 
 const MyTradesPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<User>();
+  // const [user, setUser] = useState<User>();
+  const { user } = useUser();
 
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   const router = useRouter();
   useEffect(() => {
@@ -27,19 +27,20 @@ const MyTradesPage: React.FC = () => {
     }
   }, [status]);
 
-  useEffect(() => {
-    if (!session?.user?._id) return;
+  // useEffect(() => {
+  //   console.log("session user", session?.user);
+  //   if (!session?.user?._id) return;
 
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getprofile?userId=${session.user._id}`
-      );
-      console.log("set user", res);
-      setUser(res.data);
-    };
+  //   const fetchUser = async () => {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getprofile?userId=${session.user._id}`
+  //     );
+  //     console.log("set user", res);
+  //     setUser(res.data);
+  //   };
 
-    fetchUser();
-  }, []);
+  //   fetchUser();
+  // }, []);
 
   const stats = useMemo(() => {
     if (!user) return [];
@@ -54,8 +55,8 @@ const MyTradesPage: React.FC = () => {
         showAlways: true,
       },
       {
-        label: "In Process",
-        value: user.openPositions,
+        label: "Avarage P&L",
+        value: user.avgPnL,
         icon: <CheckCircle className="w-5 h-5" />,
         bg: "from-green-500 to-green-600",
         iconBg: "bg-green-100",

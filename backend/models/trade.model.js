@@ -26,21 +26,6 @@ const TradesSchema = new Schema(
     },
     validityTime: {
       type: Date,
-      required: true,
-      default: function () {
-        const now = new Date();
-
-        // Set 3:20 PM for today
-        const validity = new Date();
-        validity.setHours(15, 20, 0, 0); // 15:20:00.000
-
-        // If current time is past 3:20 PM, set to tomorrow 3:20 PM
-        if (now > validity) {
-          validity.setDate(validity.getDate() + 1);
-        }
-
-        return validity;
-      },
     },
     side: {
       type: String,

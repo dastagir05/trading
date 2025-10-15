@@ -2,7 +2,7 @@
 import OptionsPage from "@/components/option/Option2";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
 export default function Option() {
   const { status } = useSession();
@@ -16,7 +16,9 @@ export default function Option() {
 
   return (
     <>
-      <OptionsPage />
+      <Suspense fallback={<div>Loading Option Data...</div>}>
+        <OptionsPage />
+      </Suspense>
     </>
   );
 }

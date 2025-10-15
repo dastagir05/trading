@@ -240,9 +240,9 @@ const AiTradeList: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <button className="px-3 py-2 md:px-4 md:py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+            {/* <button className="px-3 py-2 md:px-4 md:py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
               Export Data
-            </button>
+            </button> */}
           </div>
         </div>
 

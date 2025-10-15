@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Brain, TrendingUp, Clock, BarChart3, Activity } from "lucide-react";
+import { Brain, Clock, BarChart3, Activity } from "lucide-react";
 import AiTradeList from "./AiTradeList";
 import AiTradeStats from "./AiTradeStats";
 import AiTradeMonitor from "./AiTradeMonitor";
-import AiTradeReports from "./AiTradeReports";
 
 interface AiTradeStats {
   totalTrades: number;
@@ -47,7 +46,6 @@ const AiTradeDashboard: React.FC = () => {
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "trades", label: "All Trades", icon: Activity },
     { id: "monitor", label: "Live Monitor", icon: Clock },
-    { id: "reports", label: "Reports", icon: TrendingUp },
   ];
 
   if (isLoading) {
@@ -123,18 +121,12 @@ const AiTradeDashboard: React.FC = () => {
             <AiTradeStats stats={stats} />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <AiTradeMonitor />
-              <div className="hidden lg:block">
-                <AiTradeReports />
-              </div>
             </div>
           </div>
         )}
 
         {activeTab === "trades" && <AiTradeList />}
         {activeTab === "monitor" && <AiTradeMonitor />}
-        <div className="hidden lg:block">
-          {activeTab === "reports" && <AiTradeReports />}
-        </div>
       </div>
     </div>
   );

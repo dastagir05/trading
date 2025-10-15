@@ -17,6 +17,7 @@ import {
 export interface TradeSugg {
   aiTradeId: string;
   title: string;
+  isStrategy: boolean;
   sentiment: "bullish" | "bearish" | "neutral";
   setup: {
     instrument_key: string;
@@ -315,21 +316,23 @@ const AITradeCard = () => {
                   </div>
 
                   {/* Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2 ">
                     <div className="flex-1">
-                      <PurchaseButton
-                        Symbol={strategy.setup.strike}
-                        InstrumentKey={strategy.setup.instrument_key}
-                        Expiry={
-                          strategy.setup.expiry
-                            ? new Date(
-                                strategy.setup.expiry.toString().split("T")[0]
-                              )
-                            : undefined
-                        }
-                        lotSize={strategy.quantity || undefined}
-                        FromSuggestion={true}
-                      />
+                      {!strategy.isStrategy && (
+                        <PurchaseButton
+                          Symbol={strategy.setup.strike}
+                          InstrumentKey={strategy.setup.instrument_key}
+                          Expiry={
+                            strategy.setup.expiry
+                              ? new Date(
+                                  strategy.setup.expiry.toString().split("T")[0]
+                                )
+                              : undefined
+                          }
+                          lotSize={strategy.quantity || undefined}
+                          FromSuggestion={true}
+                        />
+                      )}
                     </div>
                     <button
                       onClick={(e) => {

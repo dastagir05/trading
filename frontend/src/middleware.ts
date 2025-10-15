@@ -7,6 +7,8 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token, req }) => {
+        const pathname = req.nextUrl.pathname;
+
         // Check if the user is trying to access admin routes
         if (req.nextUrl.pathname.startsWith("/admin")) {
           // Allow access to admin login page
@@ -18,13 +20,32 @@ export default withAuth(
           return token?.email === "pinjaridastageer@gmail.com";
         }
 
+        if (
+          pathname.startsWith("/dashboard") ||
+          pathname.startsWith("/mytrades") ||
+          pathname.startsWith("/chart") ||
+          pathname.startsWith("/aisuggestion") ||
+          pathname.startsWith("/profile")
+        ) {
+          return !!token; // user must be logged in
+        }
         // For non-admin routes, allow access
         return true;
       },
+    },
+    pages: {
+      signIn: "/",
     },
   }
 );
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/dashboard/:path*",
+    "/mytrades/:path*",
+    "/chart/:path*",
+    "/aisuggestion/:path*",
+    "/profile/:path*",
+  ],
 };

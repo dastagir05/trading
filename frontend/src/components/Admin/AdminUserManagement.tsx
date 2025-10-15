@@ -19,7 +19,7 @@ interface User {
   name: string;
   email: string;
   phone: string;
-  role: "admin" | "user" | "premium";
+  role: "admin" | "co-admin";
   status: "active" | "inactive" | "suspended";
   joinDate: string;
   lastLogin: string;

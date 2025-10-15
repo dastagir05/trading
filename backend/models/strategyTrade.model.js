@@ -27,6 +27,12 @@ const StrategyTradeSchema = new Schema(
           type: String,
           required: true,
         },
+        tradeType: {
+          type: String,
+          enum: ["BUY", "SELL", "UNKNOWN"],
+          default: "UNKNOWN",
+        },
+
         setup: {
           currentPrice: Number,
           instrument_key: String,
@@ -183,78 +189,78 @@ StrategyTradeSchema.index({ suggestedAt: -1 });
 StrategyTradeSchema.index({ "trades.status": 1 });
 
 // Pre-save middleware to calculate strategy-level metrics
-StrategyTradeSchema.pre("save", function (next) {
-  // Calculate strategy totals from individual trades
-  this.totalTrades = this.trades.length;
-  this.activeTrades = this.trades.filter(
-    (trade) => trade.status === "active"
-  ).length;
-  this.completedTrades = this.trades.filter((trade) =>
-    ["target_hit", "stoploss_hit", "expired", "cancelled"].includes(
-      trade.status
-    )
-  ).length;
+// StrategyTradeSchema.pre("save", function (next) {
+//   // Calculate strategy totals from individual trades
+//   this.totalTrades = this.trades.length;
+//   this.activeTrades = this.trades.filter(
+//     (trade) => trade.status === "active"
+//   ).length;
+//   this.completedTrades = this.trades.filter((trade) =>
+//     ["target_hit", "stoploss_hit", "expired", "cancelled"].includes(
+//       trade.status
+//     )
+//   ).length;
 
-  // Calculate individual trade PnL
-  this.trades.forEach((trade) => {
-    if (
-      trade.exitPrice &&
-      trade.entryPrice &&
-      trade.quantity &&
-      trade.status !== "pending"
-    ) {
-      const grossPnL = (trade.exitPrice - trade.entryPrice) * trade.quantity;
-      const charges = trade.charges?.total || 0;
-      trade.pnl = parseFloat((grossPnL - charges).toFixed(2));
-      trade.netPnL = trade.pnl;
+//   // Calculate individual trade PnL
+//   this.trades.forEach((trade) => {
+//     if (
+//       trade.exitPrice &&
+//       trade.entryPrice &&
+//       trade.quantity &&
+//       trade.status !== "pending"
+//     ) {
+//       const grossPnL = (trade.exitPrice - trade.entryPrice) * trade.quantity;
+//       const charges = trade.charges?.total || 0;
+//       trade.pnl = parseFloat((grossPnL - charges).toFixed(2));
+//       trade.netPnL = trade.pnl;
 
-      if (trade.entryPrice > 0) {
-        trade.percentPnL = parseFloat(
-          ((trade.pnl / (trade.entryPrice * trade.quantity)) * 100).toFixed(2)
-        );
-      }
+//       if (trade.entryPrice > 0) {
+//         trade.percentPnL = parseFloat(
+//           ((trade.pnl / (trade.entryPrice * trade.quantity)) * 100).toFixed(2)
+//         );
+//       }
 
-      // Set trade expiry date
-      if (trade.tradePlan?.timeFrame && !trade.expiryDate) {
-        const now = new Date();
-        if (trade.tradePlan.timeFrame === "Intraday") {
-          trade.expiryDate = new Date();
-          trade.expiryDate.setHours(15, 30, 0, 0);
-        } else if (trade.tradePlan.timeFrame.includes("days")) {
-          const days = parseInt(
-            trade.tradePlan.timeFrame.match(/\d+/)?.[0] || "1"
-          );
-          trade.expiryDate = new Date(
-            now.getTime() + days * 24 * 60 * 60 * 1000
-          );
-        }
-      }
-    }
-  });
+//       // Set trade expiry date
+//       if (trade.tradePlan?.timeFrame && !trade.expiryDate) {
+//         const now = new Date();
+//         if (trade.tradePlan.timeFrame === "Intraday") {
+//           trade.expiryDate = new Date();
+//           trade.expiryDate.setHours(15, 30, 0, 0);
+//         } else if (trade.tradePlan.timeFrame.includes("days")) {
+//           const days = parseInt(
+//             trade.tradePlan.timeFrame.match(/\d+/)?.[0] || "1"
+//           );
+//           trade.expiryDate = new Date(
+//             now.getTime() + days * 24 * 60 * 60 * 1000
+//           );
+//         }
+//       }
+//     }
+//   });
 
-  // Calculate strategy-level totals
-  this.totalPnL = this.trades.reduce((sum, trade) => sum + (trade.pnl || 0), 0);
-  this.totalNetPnL = this.totalPnL;
+//   // Calculate strategy-level totals
+//   this.totalPnL = this.trades.reduce((sum, trade) => sum + (trade.pnl || 0), 0);
+//   this.totalNetPnL = this.totalPnL;
 
-  this.totalCharges.total = this.trades.reduce(
-    (sum, trade) => sum + (trade.charges?.total || 0),
-    0
-  );
+//   this.totalCharges.total = this.trades.reduce(
+//     (sum, trade) => sum + (trade.charges?.total || 0),
+//     0
+//   );
 
-  // Update strategy status based on trade statuses
-  if (this.completedTrades === this.totalTrades && this.totalTrades > 0) {
-    this.status = "completed";
-    if (!this.completedAt) this.completedAt = new Date();
-  } else if (this.activeTrades > 0) {
-    this.status =
-      this.activeTrades === this.totalTrades
-        ? "fully_active"
-        : "partial_active";
-    if (!this.activatedAt) this.activatedAt = new Date();
-  }
+//   // Update strategy status based on trade statuses
+//   if (this.completedTrades === this.totalTrades && this.totalTrades > 0) {
+//     this.status = "completed";
+//     if (!this.completedAt) this.completedAt = new Date();
+//   } else if (this.activeTrades > 0) {
+//     this.status =
+//       this.activeTrades === this.totalTrades
+//         ? "fully_active"
+//         : "partial_active";
+//     if (!this.activatedAt) this.activatedAt = new Date();
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // Method to add notes
 StrategyTradeSchema.methods.addNote = function (message, type = "info") {

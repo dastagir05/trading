@@ -18,6 +18,20 @@ const AiTradeCard = ({ trade, openDialog, closeDialog }: AiTradeCardProps) => {
       document.body.style.overflow = "";
     };
   }, [openDialog]);
+  const formatDateTime = (dateStr?: string | Date) => {
+    if (!dateStr) return "-";
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return "-";
+    return d.toLocaleString("en-GB", {
+      timeZone: "Asia/Kolkata",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  };
 
   if (!openDialog) return null;
 
@@ -76,7 +90,7 @@ const AiTradeCard = ({ trade, openDialog, closeDialog }: AiTradeCardProps) => {
                   ? "bg-yellow-100 text-yellow-800"
                   : trade.status === "active"
                   ? "bg-blue-100 text-blue-800"
-                  : "bg-green-100 text-green-800"
+                  : "bg-black text-white"
               }`}
             >
               {trade.status.toUpperCase()}
@@ -105,9 +119,7 @@ const AiTradeCard = ({ trade, openDialog, closeDialog }: AiTradeCardProps) => {
             ],
             [
               "Expiry Date",
-              trade.setup.expiry
-                ? new Date(trade.setup.expiry).toLocaleString()
-                : "-",
+              trade.setup.expiry ? formatDateTime(trade.setup.expiry) : "-",
             ],
           ].map(([label, value], idx) => (
             <div className="flex justify-between" key={idx}>
@@ -122,16 +134,12 @@ const AiTradeCard = ({ trade, openDialog, closeDialog }: AiTradeCardProps) => {
                 ["Entry Price", trade.entryPrice ?? "-"],
                 [
                   "Entry Time",
-                  trade.entryTime
-                    ? new Date(trade.entryTime).toLocaleString()
-                    : "-",
+                  trade.entryTime ? formatDateTime(trade.entryTime) : "-",
                 ],
                 ["Exit Price", trade.exitPrice ?? "-"],
                 [
                   "Exit Time",
-                  trade.exitTime
-                    ? new Date(trade.exitTime).toLocaleString()
-                    : "-",
+                  trade.exitTime ? formatDateTime(trade.exitTime) : "-",
                 ],
                 ["PnL", trade.pnl ? `₹${trade.pnl}` : "-"],
                 ["Net PnL", trade.pnl ? `₹${trade.pnl}` : "-"],

@@ -12,7 +12,7 @@ import {
   UTCTimestamp,
   WhitespaceData,
 } from "lightweight-charts";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import SearchStockDialog from "./SearchStockDialog";
 import axios from "axios";
 import PurchaseButton from "./PurchaseButton";
@@ -459,7 +459,7 @@ const Chart = () => {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  {/* <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" /> */}
                 </div>
 
                 <div className="relative">
@@ -476,7 +476,7 @@ const Chart = () => {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  {/* <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" /> */}
                 </div>
               </div>
 

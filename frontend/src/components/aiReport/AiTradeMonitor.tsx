@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Activity, TrendingUp, TrendingDown, Play, Pause } from "lucide-react";
+import { Activity, TrendingUp, TrendingDown } from "lucide-react";
 import { useSocket } from "../SocketContext";
 
 interface Setup {
@@ -43,34 +43,16 @@ export interface ActiveTrade {
 
 const AiTradeMonitor: React.FC = () => {
   const [activeTrades, setActiveTrades] = useState<ActiveTrade[]>([]);
-  const [isMonitoring, setIsMonitoring] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
   const { trades } = useSocket();
 
-  // useEffect(() => {
-  //   const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL);
-
-  //   socket.emit("subscribeAiTrades");
-
-  //   socket.on("aiTradesUpdate", (trades: ActiveTrade[]) => {
-  //     setActiveTrades(trades);
-  //     console.log(trades)
-  //     setIsLoading(false);
-  //     setLastUpdate(new Date());
-  //   });
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
   useEffect(() => {
     const suggested = trades.filter((t) => t.status === "active");
     setActiveTrades(suggested);
     setIsLoading(false);
     console.log(trades);
   }, [trades]);
-  const toggleMonitoring = () => setIsMonitoring(!isMonitoring);
 
   const getRiskColor = (risk?: string) => {
     switch (risk?.toLowerCase()) {
@@ -133,21 +115,6 @@ const AiTradeMonitor: React.FC = () => {
             </p>
           </div>
         </div>
-        <button
-          onClick={toggleMonitoring}
-          className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-            isMonitoring
-              ? "bg-green-100 text-green-700 hover:bg-green-200"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
-        >
-          {isMonitoring ? (
-            <Pause className="w-4 h-4" />
-          ) : (
-            <Play className="w-4 h-4" />
-          )}
-          <span>{isMonitoring ? "Pause" : "Resume"}</span>
-        </button>
       </div>
 
       {/* Dashboard Stats */}

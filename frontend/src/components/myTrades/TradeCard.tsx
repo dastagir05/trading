@@ -12,7 +12,19 @@ const TradeCard = ({ trade, openDialog, closeDialog }: TradeCardProps) => {
   const [openModifyTSDialog, setOpenModifyTsDialog] = useState(false);
   const [target, setTarget] = useState<number>(trade.target ?? 0);
   const [stoploss, setStoploss] = useState<number>(trade.stoploss ?? 0);
-
+  const formatDateTime = (dateStr?: string | Date) => {
+    if (!dateStr) return "-";
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return "-"; // handle invalid dates safely
+    return d.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  };
   useEffect(() => {
     if (openDialog) {
       document.body.style.overflow = "hidden";
@@ -128,14 +140,12 @@ const TradeCard = ({ trade, openDialog, closeDialog }: TradeCardProps) => {
             ["Cap Category", trade.capCategory ?? "-"],
             [
               "Validity Time",
-              trade.validityTime
-                ? new Date(trade.validityTime).toLocaleString()
-                : "-",
+              trade.validityTime ? formatDateTime(trade.validityTime) : "-",
             ],
             ["Target", `₹${trade.target ?? "-"}`],
             ["Stoploss", `₹${trade.stoploss ?? "-"}`],
-            ["Created", new Date(trade.createdAt).toLocaleString()],
-            ["Last Updated", new Date(trade.updatedAt).toLocaleString()],
+            ["Created", formatDateTime(trade.createdAt)],
+            ["Last Updated", formatDateTime(trade.updatedAt)],
           ].map(([label, value], idx) => (
             <div className="flex justify-between" key={idx}>
               <span className="text-gray-500">{label}:</span>

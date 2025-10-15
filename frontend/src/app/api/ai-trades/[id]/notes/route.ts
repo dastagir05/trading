@@ -2,9 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export async function POST(request: NextRequest, context) {
+export async function POST(
+  request: NextRequest,
+  context: {
+    params: Promise<{ id: string }>;
+  }
+) {
   // Type it *inside* the function
-  const { id } = (context as { params: { id: string } }).params;
+  const { id } = await context.params;
 
   const body = await request.json();
   try {

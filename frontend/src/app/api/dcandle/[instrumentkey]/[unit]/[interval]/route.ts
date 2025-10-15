@@ -1,7 +1,8 @@
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import axios from "axios";
 
-export const dynamic = "force-dynamic"; // Force dynamic rendering for this route
+export const dynamic = "force-dynamic";
+
 type Candle = [
   timestamp: string,
   open: number,
@@ -10,92 +11,61 @@ type Candle = [
   close: number,
   volume: number
 ];
+
 export async function GET(
-  request: NextRequest,
+  req: NextRequest,
   context: {
-    params: { instrumentkey: string; unit: string; interval: string };
-  }
+    params: Promise<{ instrumentkey: string; unit: string; interval: string }>;
+  } // ✅ FIX
 ) {
+  const { instrumentkey, unit, interval } = await context.params; // ✅ FIX
+
   try {
-    const instrumentkey = decodeURIComponent(context.params.instrumentkey);
-    const unit = context.params.unit;
-    const interval = context.params.interval;
-    console.log("ikks", instrumentkey, request.url);
-    if (!instrumentkey) {
+    const decodedInstrumentKey = decodeURIComponent(instrumentkey);
+
+    if (!decodedInstrumentKey || !unit || !interval) {
       return NextResponse.json(
-        { error: "Missing instrument key(s)" },
-        { status: 400 }
-      );
-    }
-    if (!unit || !interval) {
-      return NextResponse.json(
-        { error: "Missing unit or interval" },
+        { error: "Missing instrument key(s), unit, or interval" },
         { status: 400 }
       );
     }
 
     const toDate = new Date().toISOString().split("T")[0];
-    const today = new Date(); // 2025-09-28T14:00:00.000Z
-    const past = new Date(today); // clone becz past and today will both point to the same object — so today also changes.This creates a new Date object with the same value as today, so you can modify it safely.
+    const today = new Date();
+    const past = new Date(today);
 
-    if (unit === "minutes" && interval <= "15")
-      past.setDate(today.getDate() - 10); // 4*6*15 = 240
-    else if (unit === "minutes" && interval > "15")
-      past.setDate(today.getDate() - 20); // 2*6*30 = 204
-    else if (unit === "hours") past.setDate(today.getDate() - 60); // 45
-    else if (unit === "days") past.setDate(today.getDate() - 200); // 200
-    else if (unit === "weeks") past.setDate(today.getDate() - 7 * 32); // 224
-    else if (unit === "months") past.setMonth(today.getMonth() - 12 * 12); // 144
+    const intervalNum = Number(interval);
 
-    // for acc token call tokenG get token and send in header
+    if (unit === "minutes" && intervalNum <= 15)
+      past.setDate(today.getDate() - 10);
+    else if (unit === "minutes" && intervalNum > 15)
+      past.setDate(today.getDate() - 20);
+    else if (unit === "hours") past.setDate(today.getDate() - 60);
+    else if (unit === "days") past.setDate(today.getDate() - 200);
+    else if (unit === "weeks") past.setDate(today.getDate() - 7 * 32);
+    else if (unit === "months") past.setMonth(today.getMonth() - 12 * 12);
+
     const fromDate = past.toISOString().split("T")[0];
 
-    const yesterday = `https://api.upstox.com/v3/historical-candle/${instrumentkey}/${unit}/${interval}/${toDate}/${fromDate}`;
-    const url = `https://api.upstox.com/v3/historical-candle/intraday/${instrumentkey}/${unit}/${interval}`;
-    console.log("URL:", url);
+    const yesterday = `https://api.upstox.com/v3/historical-candle/${decodedInstrumentKey}/${unit}/${interval}/${toDate}/${fromDate}`;
+    const url = `https://api.upstox.com/v3/historical-candle/intraday/${decodedInstrumentKey}/${unit}/${interval}`;
 
-    const yesterdayres = await axios.get(yesterday, {
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    const response = await axios.get(url, {
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const [yesterdayres, response] = await Promise.all([
+      axios.get(yesterday, { headers: { Accept: "application/json" } }),
+      axios.get(url, { headers: { Accept: "application/json" } }),
+    ]);
 
-    const candles1: Candle[][] = (await yesterdayres.data?.data?.candles) ?? [];
-    const candles: Candle[][] = (await response.data?.data?.candles) ?? [];
+    const candles1: Candle[] = yesterdayres.data?.data?.candles ?? [];
+    const candles: Candle[] = response.data?.data?.candles ?? [];
 
-    console.log(`✅ Showing last ${candles.length} candles:\n`);
-    const length = candles.length;
-    const yesterdaylen = candles1.length;
-
-    const mergedCandles = candles1
-      .slice(-yesterdaylen)
-      .reverse()
-      .concat(candles.slice(-length).reverse());
-
-    candles
-      .slice(-13)
-      .reverse()
-      .forEach((candle, index) => {
-        const [time, open, high, low, close, volume] = candle;
-        console.log(
-          `${
-            index + 1
-          }. [${time}] O: ${open} H: ${high} L: ${low} C: ${close} V: ${volume}`
-        );
-      });
+    const mergedCandles = [...candles1.reverse(), ...candles.reverse()];
 
     return NextResponse.json(mergedCandles);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("❌ Error fetching historical candles:", error.message);
-    } else {
-      console.error("Unknown API error:", error);
-    }
-    return new Response("Failed to fetch candle data", { status: 500 });
+    console.error("❌ Error fetching candles:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch candle data" },
+      { status: 500 }
+    );
   }
 }

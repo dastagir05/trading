@@ -5,32 +5,37 @@ const { Server } = require("socket.io");
 const marketFeed = require("./wsMS");
 const cron = require("node-cron");
 // const getMarketStatus = require("../services/marketStatus");
-function autoTradeExecute() {
-  // cron.schedule("*/1 9-15 * * 1-5", async () => {
-  //   const now = new Date();
-  //   const hour = now.getHours();
-  //   const minute = now.getMinutes();
+async function autoTradeExecute() {
+  cron.schedule("*/1 9-15 * * 1-5", async () => {
+    const now = new Date();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
 
-  //   // Further restrict 9:00-9:14 and 15:31-15:59
-  //   if ((hour === 9 && minute < 15) || (hour === 15 && minute > 30)) {
-  //     return;
-  //   }
-  //   const isOpen = await getMarketStatus(); // Assume it returns true/false
-  //   if (!isOpen) {
-  //     console.log(
-  //       "📴 Market is closed (via API/service). Skipping trade check."
-  //     );
-  //     return;
-  //   }
-  //   console.log("🔁 Running market-time trade check...");
-  //   try {
-  //     await pendingEntries();
-  //     await inprocessEntries();
-  //   } catch (err) {
-  //     console.error("❌ Error in scheduled trade check:", err.message);
-  //   }
-  // });
-
+    // Further restrict 9:00-9:14 and 15:31-15:59
+    if ((hour === 9 && minute < 15) || (hour === 15 && minute > 30)) {
+      return;
+    }
+    const isOpen = await getMarketStatus(); // Assume it returns true/false
+    if (!isOpen) {
+      console.log(
+        "📴 Market is closed (via API/service). Skipping trade check."
+      );
+      return;
+    }
+    console.log("🔁 Running market-time trade check...");
+    try {
+      await pendingEntries();
+      await inprocessEntries();
+    } catch (err) {
+      console.error("❌ Error in scheduled trade check:", err.message);
+    }
+  });
+  try {
+    await pendingEntries();
+    await inprocessEntries();
+  } catch (err) {
+    console.error("❌ Error in scheduled trade check:", err.message);
+  }
   cron.schedule("20 15 * * 1-5", async () => {
     console.log("⏰ Running 3:20 PM Expiry Job...");
     await expiredTrades();
@@ -43,7 +48,7 @@ const { getArrayLTP } = require("../services/getLtp"); // your function
 function initializeSocketServer(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: ["http://localhost:3000", "https://nivesh-now.vercel.app"],
       methods: ["GET", "POST"],
     },
   });
@@ -77,8 +82,16 @@ function initializeSocketServer(server) {
       });
       const instrumentKeys = trades.map((t) => t.setup.instrument_key);
       const prices = await getArrayLTP(instrumentKeys);
+      console.log("Prices returned:", prices);
+      console.log("Type of prices:", typeof prices);
 
-      const priceMap = new Map(prices?.map((p) => [p.instrument_key, p]));
+      // Normalize prices to always be an array
+      let pricesArray = [];
+      if (prices) {
+        pricesArray = Array.isArray(prices) ? prices : [prices];
+      }
+
+      const priceMap = new Map(pricesArray.map((p) => [p.instrument_key, p]));
 
       const enriched = trades.map((t) => {
         const price = priceMap.get(t.setup.instrument_key);

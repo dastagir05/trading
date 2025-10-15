@@ -1,10 +1,7 @@
 const cron = require("node-cron");
 const AiTrade = require("../models/aiTrade.model");
 const StrategyTrade = require("../models/strategyTrade.model");
-const fs = require("fs").promises;
-const path = require("path");
 const { getArrayLTP } = require("./getLtp");
-const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
 
 class StrategyTradeProcessor {
   constructor() {
@@ -483,40 +480,22 @@ class StrategyTradeProcessor {
         return;
       }
 
-      let tradeType;
-      if (trade.tradePlan.entry > trade.tradePlan.target) {
-        tradeType = "BUY";
+      if (trade.tradePlan.entry < trade.tradePlan.target) {
+        trade.tradeType = "BUY";
       } else {
-        tradeType = "SELL";
+        trade.tradeType = "SELL";
       }
       // UPDATED logic for BUY vs SELL strategies
       let targetHit = false;
       let stopLossHit = false;
 
-      // if (tradeType === "SELL") {
-      //   targetHit = currentPrice <= targetPrice; // Can buy back cheaper = profit
-      //   stopLossHit = currentPrice >= stopLossPrice; // Must buy back expensive = loss
-      //   trade.tradeType = "SELL"
-      //   console.log(
-      //     `🔍 SELL Trade Check - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
-      //   );
-      // } else {
-      //     targetHit = currentPrice >= targetPrice;
-      //     stopLossHit = currentPrice <= stopLossPrice;
-      //     trade.tradeType = "BUY"
-      //   console.log(
-      //     `🔍 BUY Trade Check (${trade.sentiment}) - Current: ₹${currentPrice}, Target: ₹${targetPrice}, SL: ₹${stopLossPrice}`
-      //   );
-      // }
       if (entryPrice > targetPrice && currentPrice <= targetPrice) {
-        entryPrice, (currentPrice = currentPrice), entryPrice;
         targetHit = true;
       }
       if (entryPrice < targetPrice && currentPrice >= targetPrice) {
         targetHit = true;
       }
       if (entryPrice < stopLossPrice && currentPrice >= stopLossPrice) {
-        entryPrice, (currentPrice = currentPrice), entryPrice;
         stopLossHit = true;
       }
       if (entryPrice > stopLossPrice && currentPrice <= stopLossPrice) {
@@ -536,13 +515,18 @@ class StrategyTradeProcessor {
   // Handle target hit
   async handleTargetHit(strategy, trade, currentPrice) {
     const pnl = this.calculatePnL(currentPrice, trade);
+    if (pnl < 0) {
+      pnl * -1;
+    }
+    let totalpnl = pnl * trade.quantity;
+    console.log("❌❌✌✌ devlopment strategy target hit ", pnl, totalpnl);
 
     await strategy.updateTrade(trade.tradeId, {
       status: "target_hit",
       exitPrice: currentPrice,
       exitTime: new Date(),
       exitReason: "Target price achieved",
-      pnl: pnl * trade.quantity,
+      pnl: totalpnl.toFixed(2),
     });
 
     this.calculateTradeCharges(currentPrice, trade);
@@ -568,13 +552,14 @@ class StrategyTradeProcessor {
     if (pnl > 0) {
       pnl = -pnl;
     }
-
+    let totalpnl = pnl * trade.quantity;
+    console.log("❌❌✌✌ devlopment strategy stoploss hit ", pnl, totalpnl);
     await strategy.updateTrade(trade.tradeId, {
       status: "stoploss_hit",
       exitPrice: currentPrice,
       exitTime: new Date(),
       exitReason: "Stop loss triggered",
-      pnl: pnl * trade.quantity,
+      pnl: totalpnl,
     });
 
     this.calculateTradeCharges(currentPrice, trade);
@@ -679,7 +664,7 @@ class StrategyTradeProcessor {
         const netPnL = totalPnL - totalCharges;
 
         strategy.totalPnL = totalPnL;
-        strategy.netPnL = netPnL;
+        strategy.totalNetPnL = netPnL;
         strategy.totalCharges.total = totalCharges;
         await strategy.save();
 
@@ -719,17 +704,11 @@ class StrategyTradeProcessor {
 
   // UPDATED: Calculate P&L based on trade type (BUY/SELL)
   calculatePnL(exitPrice, trade) {
-    if (trade.tradePlan.entry < trade.tradePlan) {
+    if (trade.tradePlan.entry < trade.tradePlan.target) {
       return exitPrice - trade.entryPrice;
     } else {
       return trade.entryPrice - exitPrice;
     }
-
-    // if (tradeType === "SELL") {
-    //   return entryPrice - exitPrice;
-    // } else {
-    //     return exitPrice - entryPrice; // Buy low, sell high
-    // }
   }
 
   // NEW: Calculate strategy total P&L properly handling mixed BUY/SELL trades
@@ -761,7 +740,7 @@ class StrategyTradeProcessor {
     const sebi = trade.entryPrice * exitPrice * trade.quantity * 0.000001;
     const gst = brokerage * 0.18;
     const totalCharges = parseFloat((brokerage + stt + sebi + gst).toFixed(2));
-
+    console.log("💻 tradepnl in calculate charges", trade.pnl);
     const grossPnl = trade.pnl || 0;
     const netPnl = grossPnl - totalCharges;
     const percentPnL =

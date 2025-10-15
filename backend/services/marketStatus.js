@@ -4,6 +4,13 @@ const { getUpstoxToken } = require("../utils/getToken");
 
 let isHoliday = null;
 let holidayCheckedForDate = null;
+let lastCheckTimestamp = null;
+let retryCount = 0;
+
+// ✅ Exponential backoff delays
+const RETRY_DELAYS = [1000, 5000, 15000, 60000]; // 1s, 5s, 15s, 1min
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const checkHoliday = async () => {
   const today = new Date().toLocaleDateString("en-CA", {
@@ -11,7 +18,15 @@ const checkHoliday = async () => {
   }); // YYYY-MM-DD
 
   // Avoid re-checking for the same date
-  if (holidayCheckedForDate === today) return isHoliday;
+  const now = Date.now();
+  if (
+    holidayCheckedForDate === today &&
+    lastCheckTimestamp &&
+    now - lastCheckTimestamp < 5 * 60 * 1000
+  ) {
+    console.log("⏭️ Skipping holiday check (cached)");
+    return isHoliday;
+  }
 
   try {
     const accessToken = await getUpstoxToken();
@@ -33,11 +48,28 @@ const checkHoliday = async () => {
     // NSE not available → market holiday
     isHoliday = !nseMarket;
     holidayCheckedForDate = today;
+    lastCheckTimestamp = Date.now();
+    retryCount = 0; // Reset on success
 
     return isHoliday;
   } catch (err) {
-    console.error("Holiday check error:", err.message);
-    return null;
+    if (err.response?.status === 429) {
+      const delay = RETRY_DELAYS[Math.min(retryCount, RETRY_DELAYS.length - 1)];
+      retryCount++;
+
+      console.warn(
+        `⚠️ Rate limited (429). Retrying in ${
+          delay / 1000
+        }s... (Attempt ${retryCount})`
+      );
+
+      await sleep(delay);
+
+      // Retry once after backoff
+      if (retryCount <= 3) {
+        return checkHoliday();
+      }
+    }
   }
 };
 

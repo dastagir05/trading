@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { CheckCircle } from "lucide-react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { useUser } from "../UserContext";
 
 type Status = "pending" | "inprocess";
 type CapCategory = "large" | "mid" | "small" | "index" | undefined;
@@ -22,10 +23,8 @@ type Form = {
   target: number | undefined;
   description: string | undefined;
   validity: string;
-  validityTime: Date;
+  validityTime: Date | undefined;
 };
-const todayAt320PM = new Date();
-todayAt320PM.setHours(15, 20, 0, 0); // 15:20:00.000 (3:20 PM)
 
 type Props = {
   Symbol: string;
@@ -63,11 +62,30 @@ const PurchaseButton = ({
     stoploss: undefined,
     target: undefined,
     description: undefined,
-    validityTime: todayAt320PM,
+    validityTime: undefined,
     validity: "",
   });
   const [invalidStoplossErr, setInvalidStoplossErr] = useState("");
   const [invalidTargetErr, setInvalidTargetErr] = useState("");
+  const user = useUser();
+
+  const [marginUsed, setMarginUsed] = useState(1);
+  const [validTrade, setValidTrade] = useState(true);
+  useEffect(() => {
+    const calMarginOfTrade =
+      (lotSize ?? 1) *
+      (!form.quantity || isNaN(Number(form.quantity))
+        ? 1
+        : Number(form.quantity)) *
+      (!form.entryPrice || isNaN(Number(form.entryPrice))
+        ? SelectSide === "buy"
+          ? buy
+          : sell
+        : Number(form.entryPrice));
+    setMarginUsed(calMarginOfTrade);
+    const validTradeBool = calMarginOfTrade > (user.user?.totalMoney ?? 0);
+    setValidTrade(validTradeBool);
+  }, [form, lotSize]);
   //socket data for buy sell btn
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}`);
@@ -113,14 +131,14 @@ const PurchaseButton = ({
       capCategory: undefined,
       lotSize: undefined,
       entryPrice: SelectSide === "buy" ? buy : sell,
-      validityTime: todayAt320PM,
+      validityTime: undefined,
       symbol: Symbol,
       side: SelectSide,
       instrumentKey: InstrumentKey,
       quantity: 1,
       status: "inprocess",
     });
-  }, [showDialog]);
+  }, [showDialog, isLoading]);
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     console.log("bs", buy, sell);
@@ -151,6 +169,18 @@ const PurchaseButton = ({
 
     let isValid = true;
     if (form) {
+      const safeQuantity =
+        !form.quantity || isNaN(Number(form.quantity))
+          ? 1
+          : Number(form.quantity);
+      const safePrice =
+        !form.entryPrice || isNaN(Number(form.entryPrice))
+          ? SelectSide === "buy"
+            ? buy
+            : sell
+          : Number(form.entryPrice);
+      payload.quantity = safeQuantity;
+      payload.entryPrice = safePrice;
       if (form.entryPrice === undefined) {
         payload.entryPrice = SelectSide === "buy" ? buy : sell;
       }
@@ -183,9 +213,9 @@ const PurchaseButton = ({
           payload.target = tgt;
         }
       }
-
-      if (form.lotSize !== undefined && payload.quantity) {
-        payload.quantity *= form.lotSize;
+      const size = form.lotSize ?? lotSize;
+      if (size && payload.quantity) {
+        payload.quantity *= size;
       }
       console.log("payloas", payload);
 
@@ -331,17 +361,28 @@ const PurchaseButton = ({
                     type="number"
                     value={form.quantity}
                     onChange={(e) =>
-                      setForm({ ...form, quantity: parseInt(e.target.value) })
+                      setForm({
+                        ...form,
+                        quantity: parseFloat(e.target.value),
+                      })
                     }
                     className="border p-2 w-full rounded"
                     required
                   />
-                  <div>{lotSize}</div>
+
+                  <div className={`${lotSize ? "block" : "hidden"}`}>
+                    LotSize : {lotSize}
+                  </div>
                 </div>
 
                 <div>
                   <label className="block font-medium ">
-                    Entry Price (Default) {form.entryPrice}
+                    Entry Price :
+                    {!form.entryPrice || isNaN(Number(form.entryPrice))
+                      ? SelectSide === "buy"
+                        ? buy
+                        : sell
+                      : Number(form.entryPrice)}
                   </label>
                   <input
                     type="number"
@@ -359,7 +400,17 @@ const PurchaseButton = ({
                   />
                 </div>
               </div>
-
+              {/* Margin*/}
+              <div>
+                <div>Margin Used: {marginUsed.toFixed(2)}</div>
+                <span
+                  className={`${
+                    validTrade ? "block" : "hidden"
+                  } text-red-500 text-sm`}
+                >
+                  margin can&apos;t be greater then user&apos;s totalMoney
+                </span>
+              </div>
               {/* Validity Duration Selector */}
               <div className="mt-4">
                 <label className="block font-medium">Trade Validity</label>
@@ -408,7 +459,7 @@ const PurchaseButton = ({
                   className="border p-2 w-full rounded"
                 >
                   <option value="">Select Validity</option>
-                  <option value="intraday">Intraday (till today 3:30PM)</option>
+                  <option value="intraday">Intraday </option>
                   <option value="tomorrow">Till Tomorrow</option>
                   <option value="1week">1 Week</option>
                   <option value="1month">1 Month</option>
@@ -486,9 +537,9 @@ const PurchaseButton = ({
                 </button>
                 <button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={validTrade}
                   className={`${
-                    isLoading ? "bg-red-500" : "bg-green-600"
+                    validTrade ? "hidden" : "bg-green-600"
                   } text-white px-4 py-2 rounded `}
                 >
                   Place Order

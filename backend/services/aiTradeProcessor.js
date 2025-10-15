@@ -4,7 +4,6 @@ const fs = require("fs").promises;
 const path = require("path");
 // const setOptData = require("../aiTradeSugg/setOptionData/setOptData");
 const { getArrayLTP } = require("./getLtp");
-const { tradeSuggJSON } = require("../aiTradeSugg/generateFreshTrades");
 const {
   generateFreshTradeSuggestions,
 } = require("../aiTradeSugg/generateFreshTrades");
